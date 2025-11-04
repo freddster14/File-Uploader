@@ -3,8 +3,9 @@ const express = require('express');
 const path = require('node:path');
 const passport = require('passport');
 const session = require('express-session');
-const { PrismaSesstionStore } = require('@quixo3/prisma-session-store');
-const { PrismaClient } = require('@prisma/client');
+const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
+const { PrismaClient } = require('./generated/prisma');
+const mainRouter = require('./route/mainRouter')
 
 const PORT = 3000;
 const app = express();
@@ -23,7 +24,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60,
     httpOnly: true,
   },
-  store: new PrismaSesstionStore(
+  store: new PrismaSessionStore(
     new PrismaClient(),
     {
       checkPeriod: 1000 * 60 * 2,
@@ -34,6 +35,6 @@ app.use(session({
 }));
 
 app.use(passport.session());
-app.use('/', (req, res) => res.render('index'));
+app.use('/', mainRouter);
 
 app.listen(PORT);

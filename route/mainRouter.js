@@ -1,8 +1,11 @@
 const { Router } = require('express');
-const mainController = require('../controller/')
+const mainController = require('../controller/mainController')
 
 const main = Router();
 
 main.get('/', mainController.home);
+main.get('/log-in', mainController.logIn);
+main.get('/sign-up', mainController.signUp);
 
-exports.module = { main };
+
+module.exports = main;

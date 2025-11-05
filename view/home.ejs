@@ -6,7 +6,14 @@
   <title>Home</title>
 </head>
 <body>
-  <a href="/log-in">Log In</a>
+  <% if (locals.currentUser) { %>
+    <h1><%= currentUser.name %></h1>
+  <% } %>
   <a href="/sign-up">Sign Up</a>
+  <% if (locals.currentUser) { %>
+    <a href="/log-out">Log Out</a>
+  <% } else { %>
+    <a href="/login">Log In</a>
+  <% } %>
 </body>
 </html>

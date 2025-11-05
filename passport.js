@@ -6,11 +6,11 @@ const prisma = require('./prisma/client');
 passport.use(
   new LocalStrategy(
     { usernameField: 'email' },
-    async (username, password, done) => {
+    async (email, password, done) => {
     try {
       const user = await prisma.user.findUnique({
         where: {
-          username,
+          email,
         },
       });
       if (!user) return done(null, false, { msg: 'Username and password do not match' });

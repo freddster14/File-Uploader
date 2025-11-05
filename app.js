@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('./passport');
 const express = require('express');
 const path = require('node:path');
 const passport = require('passport');
@@ -33,8 +34,12 @@ app.use(session({
     },
   ),
 }));
-
 app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+})
 app.use('/', mainRouter);
 
 app.listen(PORT);

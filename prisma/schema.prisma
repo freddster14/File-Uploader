@@ -26,4 +26,24 @@ model User {
   email     String   @unique
   name      String?
   password  String
+  folders   Folder[]
+}
+
+model Folder {
+  id        Int     @id @default(autoincrement())
+  name      String
+  files     File[]
+  author    User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  Int
+  createdAt DateTime  @default(now())
+
+  @@unique([authorId, name])
+}
+
+model File {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  folder    Folder    @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  folderId  Int
 }

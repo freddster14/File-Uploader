@@ -6,14 +6,12 @@
   <title>Home</title>
 </head>
 <body>
-  <% if (locals.currentUser) { %>
-    <h1><%= currentUser.name %></h1>
+  <%- include('nav') %>
+  <% if (folders.length > 0) { %>
+    <% folders.forEach(folder => { %>
+    <a href="/<%= folder.id %>"><%= folder.name %></a>
+    <% }) %>
   <% } %>
-  <a href="/sign-up">Sign Up</a>
-  <% if (locals.currentUser) { %>
-    <a href="/log-out">Log Out</a>
-  <% } else { %>
-    <a href="/login">Log In</a>
-  <% } %>
+  
 </body>
 </html>

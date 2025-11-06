@@ -2,10 +2,48 @@ require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const prisma = require('../prisma/client');
 const passport = require('passport');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' })
 
-exports.home = (req, res) => {
-  res.render('home')
+exports.home = async (req, res, next) => {
+  if (!req.user) return res.render('home', { folders: [] })
+
+  try {
+    const folders = await prisma.folder.findMany({
+      where: { 
+        authorId: req.user.id,
+      },
+      select: {
+        id: true,
+        name: true,
+        createdAt: true,
+      }
+    });
+    res.render('home', { folders })
+  } catch (error) {
+    console.error(error)
+    next()
+  }
 };
+
+exports.getFolder = async (req, res, next) => {
+  if (!req.user) return res.redirect('/')
+
+  const { id } = req.params;
+  try {
+    const folder = await prisma.folder.findUnique({
+      where: {
+        authorId: req.user.id,
+        id: parseInt(id, 10),
+      }
+    })
+    res.render('/', { folders: [folder] })
+  } catch (error) {
+    
+  }
+}
+
+
 
 exports.logIn = (req, res) => {
   res.render('log-in');
@@ -49,3 +87,24 @@ exports.logOut = (req, res, next) => {
     res.redirect('/');
   });
 }
+
+exports.createFolder = async (req, res) => {
+  const { name } = req.body;
+  try {
+    const folder = await prisma.folder.create({
+      data: {
+        name,
+        authorId: req.user.id
+      }
+    })
+    res.redirect('/')
+  } catch (error) {
+    next(error)
+  }
+ 
+}
+
+exports.upload = [upload.single('uploadedFile'), (req, res) => {
+  const file = req.file;
+  console.log(file);
+}]

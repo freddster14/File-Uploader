@@ -1,0 +1,33 @@
+<% if (locals.currentUser) { %>
+    <h1><%= currentUser.name %></h1>
+<% } %>
+<a href="/sign-up">Sign Up</a>
+<% if (locals.currentUser) { %>
+  <a href="/log-out">Log Out</a>
+  <dialog id="dialog">
+    <form action="/create-folder" method="post">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name">
+      <button type="submit">Create</button>
+    </form>
+  </dialog>
+    <button onclick="dialog.showModal()">Create Folder</button>
+
+  <dialog>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <label for="fileUpload">Select File</label>
+      <input type="file" id="fileUpload" name="uploadedFile">
+      <button type="submit">Upload File</button>
+    </form>
+  </dialog>
+ 
+<% } else { %>
+  <a href="/login">Log In</a>
+<% } %>
+<script>
+  document.getElementById('dialog').addEventListener('click', (e) => {
+    if (e.target === dialog) {
+      dialog.close();
+    }
+  })
+</script>

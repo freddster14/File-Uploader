@@ -37,6 +37,10 @@ model Folder {
   authorId  Int
   createdAt DateTime  @default(now())
 
+  parent      Folder? @relation("Subfolders", fields: [parentId], references: [id], onDelete: Cascade)
+  parentId    Int?
+  subfolders  Folder[]  @relation("Subfolders")
+
   @@unique([authorId, name])
 }
 

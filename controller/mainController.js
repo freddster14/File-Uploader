@@ -6,7 +6,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' })
 
 exports.home = async (req, res, next) => {
-  if (!req.user) return res.render('home', { folders: [] })
+  if (!req.user) return res.render('home', { folder: {},  content: [] })
 
   try {
     const folders = await prisma.folder.findMany({
@@ -19,7 +19,7 @@ exports.home = async (req, res, next) => {
         createdAt: true,
       }
     });
-    res.render('home', { folders })
+    res.render('home', { folder: {}, content: folders })
   } catch (error) {
     console.error(error)
     next()
@@ -33,13 +33,17 @@ exports.getFolder = async (req, res, next) => {
   try {
     const folder = await prisma.folder.findUnique({
       where: {
-        authorId: req.user.id,
         id: parseInt(id, 10),
+      },
+      include: {
+        subfolders:true,
+        files: true,
       }
     })
-    res.render('/', { folders: [folder] })
+    if (req.user.id !== folder.authorId) return res.status(403).send('Not authorized')
+    res.render('home', { folder, content: [...folder.subfolders, ...folder.files] })
   } catch (error) {
-    
+    next(error)
   }
 }
 
@@ -88,13 +92,13 @@ exports.logOut = (req, res, next) => {
   });
 }
 
-exports.createFolder = async (req, res) => {
+exports.createFolder = async (req, res, next) => {
   const { name } = req.body;
   try {
-    const folder = await prisma.folder.create({
+    await prisma.folder.create({
       data: {
         name,
-        authorId: req.user.id
+        authorId: req.user.id,
       }
     })
     res.redirect('/')
@@ -102,6 +106,26 @@ exports.createFolder = async (req, res) => {
     next(error)
   }
  
+}
+
+exports.createSubfolder = async (req, res, next) => {
+  const { name } = req.body;
+  const parentId = parseInt(req.params.id, 10);
+
+  try {
+    await prisma.folder.create({
+      data: {
+        name,
+        authorId: req.user.id,
+        parentId,
+      },
+    });
+    res.redirect(`/folder/${parentId}`);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+  
 }
 
 exports.upload = [upload.single('uploadedFile'), (req, res) => {

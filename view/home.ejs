@@ -7,9 +7,10 @@
 </head>
 <body>
   <%- include('nav') %>
-  <% if (folders.length > 0) { %>
-    <% folders.forEach(folder => { %>
-    <a href="/<%= folder.id %>"><%= folder.name %></a>
+  <h1><%= folder.name || 'Home' %></h1>
+  <% if (content.length > 0) { %>
+    <% content.forEach(e => { %>
+    <a href="/folder/<%= e.id %>"><%= e.name %></a>
     <% }) %>
   <% } %>
   

@@ -24,6 +24,13 @@
 <% } else { %>
   <a href="/login">Log In</a>
 <% } %>
+<div>
+  <a href="/">Home</a>
+  <%  for(let i=breadcrumbs.length - 1; i > -1; i--) { %>
+    <img src="/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow" style="width: 25px; height: 25px;">
+    <a href="<%=  breadcrumbs[i].link %>"><%= breadcrumbs[i].name %></a>
+  <% } %>
+</div>
 <script>
   document.getElementById('dialog').addEventListener('click', (e) => {
     if (e.target === dialog) {

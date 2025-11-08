@@ -8,6 +8,7 @@ const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('./generated/prisma');
 const mainRouter = require('./route/mainRouter')
 
+
 const PORT = 3000;
 const app = express();
 const assestsPath = path.join(__dirname, 'public');
@@ -36,7 +37,7 @@ app.use(session({
 }));
 app.use(passport.session());
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 })

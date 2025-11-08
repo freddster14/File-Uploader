@@ -3,15 +3,17 @@ const bcrypt = require('bcryptjs');
 const prisma = require('../prisma/client');
 const passport = require('passport');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ dest: 'uploads/' });
+const breadcrumbing = require('../public/breadCrumbs');
 
 exports.home = async (req, res, next) => {
-  if (!req.user) return res.render('home', { folder: {},  content: [] })
+  if (!req.user) return res.render('home', { folder: {},  content: [], breadcrumbs: [] })
 
   try {
     const folders = await prisma.folder.findMany({
       where: { 
         authorId: req.user.id,
+        parentId: null,
       },
       select: {
         id: true,
@@ -19,7 +21,7 @@ exports.home = async (req, res, next) => {
         createdAt: true,
       }
     });
-    res.render('home', { folder: {}, content: folders })
+    res.render('home', { folder: {}, content: folders, breadcrumbs: [] })
   } catch (error) {
     console.error(error)
     next()
@@ -28,7 +30,6 @@ exports.home = async (req, res, next) => {
 
 exports.getFolder = async (req, res, next) => {
   if (!req.user) return res.redirect('/')
-
   const { id } = req.params;
   try {
     const folder = await prisma.folder.findUnique({
@@ -40,8 +41,9 @@ exports.getFolder = async (req, res, next) => {
         files: true,
       }
     })
-    if (req.user.id !== folder.authorId) return res.status(403).send('Not authorized')
-    res.render('home', { folder, content: [...folder.subfolders, ...folder.files] })
+    if (req.user.id !== folder.authorId) return res.status(403).send('Not authorized');
+    const breadcrumbs = await breadcrumbing(id);
+    res.render('home', { folder, content: [...folder.subfolders, ...folder.files], breadcrumbs })
   } catch (error) {
     next(error)
   }

@@ -37,6 +37,7 @@ app.use(session({
 }));
 app.use(passport.session());
 
+// user access in ejs
 app.use(async (req, res, next) => {
   res.locals.currentUser = req.user;
   next();

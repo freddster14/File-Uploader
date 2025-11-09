@@ -4,7 +4,7 @@ const prisma = require('../prisma/client');
 const passport = require('passport');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const breadcrumbing = require('../public/breadCrumbs');
+const breadcrumbing = require('../public/js/breadCrumbs');
 
 exports.home = async (req, res, next) => {
   if (!req.user) return res.render('home', { folder: {},  content: [], breadcrumbs: [] })

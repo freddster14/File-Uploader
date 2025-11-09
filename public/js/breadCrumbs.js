@@ -1,10 +1,11 @@
-const prisma = require('../prisma/client');
+const prisma = require('../../prisma/client');
 
 async function breadcrumbing(id) {
   let current = await prisma.folder.findUnique({
     where: { id: parseInt(id, 10) },
   });
   const res = [{ name: current.name, link: `/folder/${current.id}` }]
+  // go up the tree
   while(current.parentId !== null) {
     current = await prisma.folder.findUnique({
       where: {
@@ -13,7 +14,6 @@ async function breadcrumbing(id) {
     })
     res.push({ name: current.name, link: `/folder/${current.id}` });
   }
-  console.log(res)
   return res;
 }
 

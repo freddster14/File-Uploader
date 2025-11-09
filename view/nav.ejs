@@ -11,8 +11,7 @@
       <button type="submit">Create</button>
     </form>
   </dialog>
-    <button onclick="dialog.showModal()">Create Folder</button>
-
+  <button onclick="dialog.showModal()">Create Folder</button>
   <dialog>
     <form action="/upload" method="post" enctype="multipart/form-data">
       <label for="fileUpload">Select File</label>
@@ -31,10 +30,3 @@
     <a href="<%=  breadcrumbs[i].link %>"><%= breadcrumbs[i].name %></a>
   <% } %>
 </div>
-<script>
-  document.getElementById('dialog').addEventListener('click', (e) => {
-    if (e.target === dialog) {
-      dialog.close();
-    }
-  })
-</script>

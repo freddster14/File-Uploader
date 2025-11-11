@@ -14,3 +14,11 @@ document.addEventListener('click', (e) => {
     if (modal.open && e.target.id !== modal.id && !modal.contains(e.target)) modal.close()
   })
 })
+
+function previewImg(e) {
+  const file = e.files[0];
+  if (!file) return;
+
+  const preview = document.getElementById("preview");
+  preview.src = URL.createObjectURL(file);
+}

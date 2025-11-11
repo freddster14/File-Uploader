@@ -16,7 +16,7 @@
           <p>Size: <%= e.formattedSize %></p>
           <p>Uploaded: <%= e.createdAt.toLocaleDateString() %> • <%= e.createdAt.toLocaleTimeString() %></p>
         </dialog>
-        <img style="width: 75px;" src="<%= e.url %>" alt="<%= e.name %>">
+        <img style="height: 75px;" src="<%= e.url %>" alt="<%= e.name %>">
         <a id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></a>
       <% } else { %>
         <a href="/folder/<%= e.id %>"><%= e.name %></a>

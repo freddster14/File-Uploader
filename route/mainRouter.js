@@ -1,5 +1,9 @@
 const { Router } = require('express');
-const mainController = require('../controller/mainController')
+const mainController = require('../controller/mainController');
+const folderController = require('../controller/folderController');
+const fileController = require('../controller/fileController');
+
+
 
 const main = Router();
 
@@ -7,13 +11,13 @@ const main = Router();
 main.get('/login', mainController.logIn);
 main.get('/sign-up', mainController.signUp);
 main.get('/log-out', mainController.logOut);
-main.get('/folder/:id', mainController.getFolder);
+main.get('/folder/:id', folderController.getFolder);
 main.get('/', mainController.home);
 
 main.post('/sign-up', mainController.createUser);
 main.post('/login', mainController.loginUser);
-main.post('/create-folder/:id', mainController.createSubfolder);
-main.post('/create-folder', mainController.createFolder);
-main.post('/upload', mainController.upload);
+main.post('/create-folder/:id', folderController.createSubfolder);
+main.post('/create-folder', folderController.createFolder);
+main.post('/upload', fileController.upload);
 
 module.exports = main;

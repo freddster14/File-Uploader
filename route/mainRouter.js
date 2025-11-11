@@ -19,5 +19,6 @@ main.post('/login', mainController.loginUser);
 main.post('/create-folder/:id', folderController.createSubfolder);
 main.post('/create-folder', folderController.createFolder);
 main.post('/upload', fileController.upload);
+main.post('/delete/:id', folderController.delete)
 
 module.exports = main;

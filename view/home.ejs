@@ -11,8 +11,8 @@
     <% content.forEach(e => { %>
     <a href="/folder/<%= e.id %>"><%= e.name %></a>
     <dialog id="folder<%= e.id %>">
-      <form action="/delete/<%= e.id %>"><button type="submit">Delete</button></form>
-      <form action="/edit/<%= e.id %>"><button type="submit">Edit</button></form>
+      <form action="/delete/<%= e.id %>" method="post"><button type="submit">Delete</button></form>
+      <form action="/edit/<%= e.id %>" method="post"><button type="submit">Edit</button></form>
     </dialog>
     <img id="folder<%= e.id %>" src="/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;"></img>
     <% }) %>

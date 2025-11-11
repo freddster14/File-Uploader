@@ -2,7 +2,6 @@ const prisma = require('../prisma/client');
 const breadcrumbing = require('../public/js/breadCrumbs');
 
 exports.getFolder = async (req, res, next) => {
-  if (!req.user) return res.redirect('/')
   const { id } = req.params;
   try {
     const folder = await prisma.folder.findUnique({
@@ -60,7 +59,6 @@ exports.createSubfolder = async (req, res, next) => {
 exports.edit = async (req, res, next) => {
   const { id } = req.params;
   const { name } = req.body;
-  console.log(id)
   try {
     const folder = await prisma.folder.update({
       where: { id: parseInt(id, 10)},

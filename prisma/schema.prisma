@@ -45,9 +45,13 @@ model Folder {
 }
 
 model File {
-  id        Int       @id @default(autoincrement())
-  name      String
-  createdAt DateTime  @default(now())
-  folder    Folder    @relation(fields: [folderId], references: [id], onDelete: Cascade)
-  folderId  Int
+  id            Int       @id @default(autoincrement())
+  name          String
+  size          Int
+  url           String
+  mimeType      String
+  cloudinaryId  String
+  createdAt     DateTime  @default(now())
+  folder        Folder    @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  folderId      Int
 }

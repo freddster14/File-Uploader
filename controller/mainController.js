@@ -4,8 +4,9 @@ const prisma = require('../prisma/client');
 const passport = require('passport');
 
 exports.home = async (req, res, next) => {
-  if (!req.user) return res.render('home', { folder: {},  content: [], breadcrumbs: [] })
-
+ 
+  const file = req.file;
+  console.log(file);
   try {
     const folders = await prisma.folder.findMany({
       where: { 

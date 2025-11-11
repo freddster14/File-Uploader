@@ -2,21 +2,27 @@ const { Router } = require('express');
 const mainController = require('../controller/mainController');
 const folderController = require('../controller/folderController');
 const fileController = require('../controller/fileController');
+const requireAuth = require('../middleware/auth');
+const upload = require('../middleware/upload')
 
 const main = Router();
 
+main.get('/', requireAuth, mainController.home);
 main.get('/login', mainController.logIn);
 main.get('/sign-up', mainController.signUp);
 main.get('/log-out', mainController.logOut);
-main.get('/folder/:id', folderController.getFolder);
-main.get('/', mainController.home);
-
 main.post('/sign-up', mainController.createUser);
 main.post('/login', mainController.loginUser);
-main.post('/create-folder/:id', folderController.createSubfolder);
-main.post('/create-folder', folderController.createFolder);
-main.post('/upload', fileController.upload);
-main.post('/edit/:id', folderController.edit);
-main.post('/delete/:id', folderController.delete)
+
+
+main.get('/folder/:id', requireAuth, folderController.getFolder);
+main.post('/create-folder/:id', requireAuth, folderController.createSubfolder);
+main.post('/create-folder', requireAuth, folderController.createFolder);
+main.post('/edit/:id', requireAuth, folderController.edit);
+main.post('/delete/:id', requireAuth, folderController.delete)
+
+
+main.post('/upload/:id', requireAuth, upload.single('uploadFile'), fileController.upload);
+
 
 module.exports = main;

@@ -1,5 +1,5 @@
 require('dotenv').config();
-require('./passport');
+require('./config/passport');
 const express = require('express');
 const path = require('node:path');
 const passport = require('passport');

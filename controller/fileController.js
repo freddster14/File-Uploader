@@ -8,7 +8,7 @@ exports.upload = async (req, res, next) => {
   if (!req.file) return res.status(400).send('No file uploaded');
 
   try {
-    const folder = prisma.folder.findUnique({ where: { id: parseInt(id, 10) }});
+    const folder = await prisma.folder.findUnique({ where: { id: parseInt(id, 10) }});
     if (!folder || folder.authorId !== req.user.id) return res.status(403).send('Not authorized');
     
     // upload to cloudinary
@@ -33,15 +33,18 @@ exports.upload = async (req, res, next) => {
         name: req.file.originalname,
         size: req.file.size,
         url: result.secure_url,
-        mimeType: req.file.mimeType,
+        mimeType: req.file.mimetype,
         cloudinaryId: result.public_id,
         folderId: folder.id,
       }
     });
-    res.redirect(`folder/${folder.id}`)
+    res.redirect(`/folder/${folder.id}`)
   } catch (error) {
     console.error(error)
     next(error)
   };
- 
+}
+
+exports.delete = async (req, res, next) => {
+  
 }

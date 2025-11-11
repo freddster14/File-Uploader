@@ -9,19 +9,28 @@
   <%- include('nav') %>
   <% if (content.length > 0) { %>
     <% content.forEach(e => { %>
-    <a href="/folder/<%= e.id %>"><%= e.name %></a>
-    <dialog id="folder<%= e.id %>">
-      <form action="/delete/<%= e.id %>" method="post"><button type="submit">Delete</button></form>
-      <dialog id="edit<%= e.id %>">
-        <form action="/edit/<%= e.id %>" method="post">
-          <label for="name">Name</label>
-          <input id="name" type="text" name="name" value="<%= e.name %>">
-          <button type="submit">Update</button>
-        </form>
+      <% if (e.mimeType) { %>
+        <dialog id="<%= e.cloudinaryId>">
+          <p><%= e.name %></p>
+          <p>Size: <%= e.size%></p>
+        </dialog>
+        <img style="width: 75px;" src="<%= e.url %>" alt="<%= e.name %>">
+        <a onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></a>
+      <% } else { %>
+        <a href="/folder/<%= e.id %>"><%= e.name %></a>
+      <% } %>
+      <dialog id="folder<%= e.id %>">
+        <form action="/delete/<%= e.id %>" method="post"><button type="submit">Delete</button></form>
+        <dialog id="edit<%= e.id %>">
+          <form action="/edit/<%= e.id %>" method="post">
+            <label for="name">Name</label>
+            <input id="name" type="text" name="name" value="<%= e.name %>">
+            <button type="submit">Update</button>
+          </form>
+        </dialog>
+        <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
       </dialog>
-      <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
-    </dialog>
-    <img id="folder<%= e.id %>" src="/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;"></img>
+      <img  id="folder<%= e.id %>" src="/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
     <% }) %>
   <% } else if(locals.currentUser) { %>
     <div>

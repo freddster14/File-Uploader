@@ -1,4 +1,4 @@
-const prisma = require('../../prisma/client');
+const prisma = require('../prisma/client');
 
 async function breadcrumbing(id) {
   let current = await prisma.folder.findUnique({

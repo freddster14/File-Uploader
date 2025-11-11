@@ -1,5 +1,7 @@
 const cloudinary = require('../config/cloudinary');
 const prisma = require('../prisma/client');
+const fileSizeFormat = require('../utils/fileSizeFormat')
+
 
 exports.upload = async (req, res, next) => {
   const { id } = req.params;
@@ -32,6 +34,7 @@ exports.upload = async (req, res, next) => {
       data: {
         name: req.file.originalname,
         size: req.file.size,
+        formattedSize: fileSizeFormat(req.file.size),
         url: result.secure_url,
         mimeType: req.file.mimetype,
         cloudinaryId: result.public_id,
@@ -46,5 +49,5 @@ exports.upload = async (req, res, next) => {
 }
 
 exports.delete = async (req, res, next) => {
-  
+
 }

@@ -10,12 +10,14 @@
   <% if (content.length > 0) { %>
     <% content.forEach(e => { %>
       <% if (e.mimeType) { %>
-        <dialog id="<%= e.cloudinaryId>">
+        <dialog id="<%= e.cloudinaryId %>">
+          <img style="width: 175px;" src="<%= e.url %>" alt="<%= e.name %>">
           <p><%= e.name %></p>
-          <p>Size: <%= e.size%></p>
+          <p>Size: <%= e.formattedSize %></p>
+          <p>Uploaded: <%= e.createdAt.toLocaleDateString() %> • <%= e.createdAt.toLocaleTimeString() %></p>
         </dialog>
         <img style="width: 75px;" src="<%= e.url %>" alt="<%= e.name %>">
-        <a onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></a>
+        <a id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></a>
       <% } else { %>
         <a href="/folder/<%= e.id %>"><%= e.name %></a>
       <% } %>

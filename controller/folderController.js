@@ -57,6 +57,26 @@ exports.createSubfolder = async (req, res, next) => {
   }
 };
 
+exports.edit = async (req, res, next) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  console.log(id)
+  try {
+    const folder = await prisma.folder.update({
+      where: { id: parseInt(id, 10)},
+      data: {
+        name: name
+      }
+    });
+    if (folder.parentId) return res.redirect(`/folder/${folder.parentId}`);
+
+    res.redirect('/')
+  } catch (error) {
+    console.error(error);
+    next(error);
+  };
+}
+
 exports.delete = async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -67,5 +87,5 @@ exports.delete = async (req, res, next) => {
   } catch (error) {
     console.error(error)
     next(error)
-  }
+  };
 }

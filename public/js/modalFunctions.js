@@ -11,6 +11,8 @@ function toggleModal(id) {
 document.addEventListener('click', (e) => {
   const modals = document.querySelectorAll('dialog');
   modals.forEach(modal => {
-    if (modal.open && e.target.id !== modal.id && modal.contains(e.target)) modal.close()
+    console.log(e.target, modal)
+
+    if (modal.open && e.target.id !== modal.id && !modal.contains(e.target)) modal.close()
   })
 })

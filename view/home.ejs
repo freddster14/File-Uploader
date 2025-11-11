@@ -7,7 +7,6 @@
 </head>
 <body>
   <%- include('nav') %>
-  <h1><%= folder.name || 'Home' %></h1>
   <% if (content.length > 0) { %>
     <% content.forEach(e => { %>
     <a href="/folder/<%= e.id %>"><%= e.name %></a>
@@ -16,8 +15,13 @@
       <form action="/edit/<%= e.id %>"><button type="submit">Edit</button></form>
     </dialog>
     <img id="folder<%= e.id %>" src="/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;"></img>
-
     <% }) %>
+  <% } else { %>
+    <div>
+      <h1>No folder or files</h1>
+      <p>Use the "New" button</p>
+    </div>
+    
   <% } %>
 <script src="/js/modalFunctions.js"></script>
 </body>

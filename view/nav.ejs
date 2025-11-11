@@ -4,22 +4,22 @@
 <a href="/sign-up">Sign Up</a>
 <% if (locals.currentUser) { %>
   <a href="/log-out">Log Out</a>
-  <dialog id="dialog">
+  <dialog id="folder">
     <form action="/create-folder/<%= folder ? folder.id : '' %>" method="post">
       <label for="name">Name</label>
       <input type="text" id="name" name="name">
       <button type="submit">Create</button>
     </form>
   </dialog>
-  <button onclick="dialog.showModal()">Create Folder</button>
-  <dialog>
+  <button id="folder" onclick="toggleModal('folder')">Create Folder</button>
+  <dialog id="file">
     <form action="/upload" method="post" enctype="multipart/form-data">
       <label for="fileUpload">Select File</label>
       <input type="file" id="fileUpload" name="uploadedFile">
       <button type="submit">Upload File</button>
     </form>
   </dialog>
- 
+  <button id="file" onclick="toggleModal('file')">Add File</button>
 <% } else { %>
   <a href="/login">Log In</a>
 <% } %>

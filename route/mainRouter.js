@@ -8,9 +8,9 @@ const upload = require('../middleware/upload')
 const main = Router();
 
 main.get('/', requireAuth, mainController.home);
-main.get('/login', mainController.logIn);
+main.get('/login', mainController.login);
 main.get('/sign-up', mainController.signUp);
-main.get('/log-out', mainController.logOut);
+main.get('/log-out', mainController.logout);
 main.post('/sign-up', mainController.createUser);
 main.post('/login', mainController.loginUser);
 

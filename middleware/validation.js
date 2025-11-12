@@ -25,11 +25,8 @@ const validateSignUp = [
 
 const validateLogin = [
   body('email')
-    .custom( async (value) => {
-      const user = await prisma.user.findUnique({ where: { email: value}})
-      if (!user) throw new Error('Email and password do not match');
-      else return true;
-    }),
+    .notEmpty()
+    .withMessage('Enter email'),
   body('password')
     .notEmpty()
     .withMessage('Enter password'),

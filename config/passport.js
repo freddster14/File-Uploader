@@ -13,9 +13,9 @@ passport.use(
           email,
         },
       });
-      if (!user) return done(null, false, { msg: 'Username and password do not match' });
+      if (!user) return done(null, false, { msg: 'Email and password do not match' });
       const match = await bcrypt.compare(password, user.password);
-      if (!match) return done(null, false, { msg: 'Username and password do not match' });
+      if (!match) return done(null, false, { msg: 'Email and password do not match' });
       return done(null, user);
     } catch (error) {
       return done(error)

@@ -1,0 +1,38 @@
+const prisma = require('../prisma/client')
+const { body } = require('express-validator');
+
+
+const validateSignUp = [
+  body('email')
+    .notEmpty()
+    .withMessage('Must enter email')
+    .custom(async (value) => {
+      const user = await prisma.user.findUnique({where: { email: value }})
+      if (user) throw new Error('That email is already taken. Please choose another or log in if this is your account');
+      else return true;
+      }),
+  body('password')
+    .isLength({ min: 6 })
+    .withMessage('Password must be atleast 6 characters'),
+  body('confirm-password')
+    .custom((value, { req }) => {
+      console.log(value, req.body.password)
+      if(value !== req.body.password) {
+        throw new Error('Passwords do not match')
+      } else { return true };
+    }),
+];
+
+const validateLogin = [
+  body('email')
+    .custom( async (value) => {
+      const user = await prisma.user.findUnique({ where: { email: value}})
+      if (!user) throw new Error('Email and password do not match');
+      else return true;
+    }),
+  body('password')
+    .notEmpty()
+    .withMessage('Enter password'),
+];
+
+module.exports = { validateSignUp, validateLogin };

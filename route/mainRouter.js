@@ -22,7 +22,7 @@ main.post('/edit/:id', requireAuth, folderController.edit);
 main.post('/delete/:id', requireAuth, folderController.delete)
 
 
-main.post('/upload/:id', requireAuth, upload.single('uploadFile'), fileController.upload);
+main.post('/upload/:id', requireAuth, fileController.upload);
 
 
 module.exports = main;

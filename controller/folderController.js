@@ -13,7 +13,6 @@ exports.getFolder = async (req, res, next) => {
         files: true,
       }
     });
-    console.log(folder)
     if (req.user.id !== folder.authorId) return res.status(403).send('Not authorized');
     const breadcrumbs = await breadcrumbing(id);
     res.render('home', { folder, content: [...folder.subfolders, ...folder.files], breadcrumbs })

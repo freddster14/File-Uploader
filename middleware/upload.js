@@ -19,7 +19,7 @@ const upload = multer({
     if(allowedMimes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error(`File type ${file.mimetype} is not supported`), false)
+      cb(new Error('Only images, PDFs, and text files are allowed'), false)
     }
   }
 });

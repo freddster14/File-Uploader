@@ -7,6 +7,11 @@
 </head>
 <body>
   <%- include('nav') %>
+  <% if(locals.errors) { %>
+    <% errors.forEach((err, i) => { %>
+      <dialog id="error<%=i%>" open><%= err.msg %></dialog>
+    <% }) %>
+  <% } %>
   <% if (content.length > 0) { %>
     <% content.forEach(e => { %>
       <% if (e.mimeType) { %>

@@ -24,12 +24,12 @@
         <img style="height: 75px;" src="<%= e.url %>" alt="<%= e.name %>">
         <a id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></a>
         <dialog id="file<%= e.id %>">
-          <form action="/delete/file/<%= e.id %>" method="post"><button type="submit">Delete</button></form>
+          <form action="/delete/file/<%= e.id %>" method="post"><button type="submit" onclick="this.style.display = 'none'">Delete</button></form>
           <dialog id="edit<%= e.id %>">
             <form action="/edit/file/<%= e.id %>" method="post">
               <label for="name">Name</label>
               <input id="name" type="text" name="name" value="<%= e.name %>">
-              <button type="submit">Update</button>
+              <button type="submit" onclick="this.style.display = 'none'">Update</button>
             </form>
           </dialog>
           <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
@@ -38,12 +38,12 @@
       <% } else { %>
         <a href="/folder/<%= e.id %>"><%= e.name %></a>
         <dialog id="folder<%= e.id %>">
-          <form action="/delete/folder/<%= e.id %>" method="post"><button type="submit">Delete</button></form>
+          <form action="/delete/folder/<%= e.id %>" method="post"><button type="submit" onclick="this.style.display = 'none'">Delete</button></form>
           <dialog id="edit<%= e.id %>">
             <form action="/edit/folder/<%= e.id %>" method="post">
               <label for="name">Name</label>
               <input id="name" type="text" name="name" value="<%= e.name %>">
-              <button type="submit">Update</button>
+              <button type="submit" onclick="this.style.display = 'none'">Update</button>
             </form>
           </dialog>
           <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>

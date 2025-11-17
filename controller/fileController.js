@@ -73,6 +73,24 @@ exports.upload = [
   }
 }]
 
+exports.edit = async (req,res,next) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  try {
+    const file = await prisma.file.update({
+      where: {
+        id: parseInt(id, 10)
+      },
+      data: {
+        name: name,
+      },
+    })
+    res.redirect(`/folder/${file.folderId}`)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 exports.delete = async (req, res, next) => {
   const { id } = req.params;
   try {

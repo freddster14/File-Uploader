@@ -16,6 +16,7 @@
     <form action="/upload/<%= folder.id %>" method="post" enctype="multipart/form-data">
       <label for="fileUpload">Select File</label>
       <p>img, pdf, or txt file</p>
+      <p>up to 5MB</p>
       <img style="width: 75px;" id="preview" src="" alt="">
       <input type="file" id="uploadFile" onchange="previewImg(this)" name="uploadFile">
       <button type="submit">Upload File</button>

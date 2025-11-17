@@ -19,10 +19,10 @@ main.get('/folder/:id', requireAuth, folderController.getFolder);
 main.post('/create-folder/:id', requireAuth, folderController.createSubfolder);
 main.post('/create-folder', requireAuth, folderController.createFolder);
 main.post('/edit/:id', requireAuth, folderController.edit);
-main.post('/delete/:id', requireAuth, folderController.delete)
+main.post('/delete/folder/:id', requireAuth, folderController.delete)
 
 
 main.post('/upload/:id', requireAuth, fileController.upload);
-
+main.post('/delete/file/:id', requireAuth, fileController.delete)
 
 module.exports = main;

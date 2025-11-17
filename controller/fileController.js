@@ -7,42 +7,24 @@ const breadcrumbing = require('../utils/breadCrumbs');
 
 exports.upload = [
   (req, res, next) => {
-    upload.single('uploadFile')(req,res, async function (err) {
-      if (err) {
-        const { id } = req.params
-        const breadcrumbs = await breadcrumbing(id);
-        const folder = await prisma.folder.findUnique({
-          where: { id: parseInt(id, 10) },
-          include: {
-            subfolders: true,
-            files: true,
-          }
-        });
-        
-        if (!folder || folder.authorId !== req.user.id) return res.status(403).send('Not authorized');
-        console.log(err.message)
-        return res.status(400).render('home', {
-          folder,
-          content: [...folder.subfolders, ...folder.files],
-          breadcrumbs,
-          errors: [{ msg: err.message }]
-        })
-      }
-    })
+    upload.single('uploadFile')(req, res, (err) => {
+      if (err) req.uploadError = err;
+      next()
+    });
   },
   async (req, res, next) => {
-  const { id } = req.params;
-  
-  //check if a file is upladed
-  if (!req.file) return res.status(400).send('No file uploaded');
-  console.log(req.file)
+  const { id } = req.params;  
   try {
+    if (req.uploadError) throw req.uploadError;
     const folder = await prisma.folder.findUnique({ where: { id: parseInt(id, 10) }});
+    //check if a file is uploaded
+    if (!req.file) return res.status(400).send('No file uploaded');
+    //auth
     if (!folder || folder.authorId !== req.user.id) return res.status(403).send('Not authorized');
     
     // upload to cloudinary
     const result = await new Promise((resolve, reject) => {
-      const uploadSteam = cloudinary.uploader.upload_stream(
+      const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: `user_${req.user.id}/folder_${folder.id}`,
           resource_type: 'auto',
@@ -54,9 +36,9 @@ exports.upload = [
         }
       );
       // send file buffer to Cloudinary
-      uploadSteam.end(req.file.buffer);
+      uploadStream.end(req.file.buffer);
     });
-    // save file to database
+    // save to database
     const file = await prisma.file.create({
       data: {
         name: req.file.originalname,
@@ -70,11 +52,41 @@ exports.upload = [
     });
     res.redirect(`/folder/${folder.id}`)
   } catch (error) {
-    console.error(error)
-    next(error)
-  };
+    console.error(error);
+    const breadcrumbs = await breadcrumbing(id);
+    const folder = await prisma.folder.findUnique({
+      where: { id: parseInt(id, 10) },
+      include: {
+        subfolders: true,
+        files: true,
+      }
+    });
+    if(folder) {
+      return res.status(500).render('home', {
+        folder,
+        content: [...folder.subfolders, ...folder.files],
+        breadcrumbs,
+        errors: [{ msg: error.message }]
+      })
+    }
+    next(error);
+  }
 }]
 
 exports.delete = async (req, res, next) => {
-
+  const { id } = req.params;
+  try {
+    const file = await prisma.file.delete({
+      where: { id: parseInt(id, 10) },
+      include: {
+        folder: true
+      }
+    });
+    console.log(file)
+    if (file.folder.authorId !== req.user.id) {return res.status(403).send('Not authorized');}
+    await cloudinary.uploader.destroy(file.cloudinaryId);
+    res.redirect(`/folder/${file.folderId}`)
+  } catch (error) {
+    next(error)
+  }
 }

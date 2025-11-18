@@ -3,8 +3,7 @@ const prisma = require('../prisma/client');
 const fileSizeFormat = require('../utils/fileSizeFormat');
 const upload = require('../middleware/upload');
 const breadcrumbing = require('../utils/breadCrumbs');
-const { closeDelimiter } = require('ejs');
-
+const { validateEdit } = require('../middleware/validation');
 
 exports.upload = [
   (req, res, next) => {
@@ -86,7 +85,7 @@ exports.upload = [
   }
 }]
 
-exports.edit = async (req,res,next) => {
+exports.edit = validateEdit, async (req,res,next) => {
   const { id } = req.params;
   const { name } = req.body;
   try {

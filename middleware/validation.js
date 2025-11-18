@@ -31,4 +31,13 @@ const validateLogin = [
     .withMessage('Enter password'),
 ];
 
-module.exports = { validateSignUp, validateLogin };
+const validateEdit = [
+  body('name')
+    .notEmpty()
+    .withMessage('Name can not be emtpy')
+    .bail()
+    .matches(/^[a-zA-Z\s-]+$/)
+    .withMessage('First name must contain only letters, spaces, or hyphens'),
+]
+
+module.exports = { validateSignUp, validateLogin, validateEdit };

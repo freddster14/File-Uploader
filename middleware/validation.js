@@ -16,7 +16,6 @@ const validateSignUp = [
     .withMessage('Password must be atleast 6 characters'),
   body('confirm-password')
     .custom((value, { req }) => {
-      console.log(value, req.body.password)
       if(value !== req.body.password) {
         throw new Error('Passwords do not match')
       } else { return true };

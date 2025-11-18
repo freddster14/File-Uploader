@@ -3,6 +3,7 @@ const prisma = require('../prisma/client');
 const fileSizeFormat = require('../utils/fileSizeFormat');
 const upload = require('../middleware/upload');
 const breadcrumbing = require('../utils/breadCrumbs');
+const { closeDelimiter } = require('ejs');
 
 
 exports.upload = [
@@ -13,7 +14,6 @@ exports.upload = [
     });
   },
   async (req, res, next) => {
-  
   let id  = req.params.id;
   // set id to user when home
   try {
@@ -21,7 +21,6 @@ exports.upload = [
     let folder;
     // get either root or subfolders
     if (id === '-1') {
-      id === req.user.id
       folder = await prisma.folder.findFirst({
         where: {
           authorId: id,
@@ -35,14 +34,14 @@ exports.upload = [
   
     //auth
     if (!folder || folder.authorId !== req.user.id) return res.status(403).send('Not authorized');
-    
     // upload to cloudinary
+    const fileName = req.file.originalname.replace(/\.[^/.]+$/, '');
     const result = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: `user_${req.user.id}/folder_${folder.id}`,
           resource_type: 'auto',
-          public_id: `${Date.now()}_${req.file.originalname}`
+          public_id: `${Date.now()}_${fileName}`
         },
         (error, result) => {
           if (error) reject(error);
@@ -55,7 +54,7 @@ exports.upload = [
     // save to database
     const file = await prisma.file.create({
       data: {
-        name: req.file.originalname,
+        name: fileName,
         size: req.file.size,
         formattedSize: fileSizeFormat(req.file.size),
         url: result.secure_url,
@@ -98,10 +97,29 @@ exports.edit = async (req,res,next) => {
       data: {
         name: name,
       },
-    })
+    });
     res.redirect(`/folder/${file.folderId}`)
   } catch (error) {
     console.error(error)
+  }
+}
+
+exports.download = async (req,res,next) => {
+  const { id } = req.params;
+  try {
+    const file = await prisma.file.findUnique({
+      where: { id: parseInt(id, 10) },
+    });
+    if (!file) return res.status(404).send('File not found')
+    // url to let browser download img    
+    const downloadUrl = file.url.replace(
+      '/upload/',
+      `/upload/fl_attachment:${encodeURIComponent(file.name)}`
+    )
+    res.redirect(downloadUrl);
+  } catch (error) {
+    console.error(error);
+    next();
   }
 }
 
@@ -114,7 +132,6 @@ exports.delete = async (req, res, next) => {
         folder: true
       }
     });
-    console.log(file)
     if (file.folder.authorId !== req.user.id) {return res.status(403).send('Not authorized');}
     await cloudinary.uploader.destroy(file.cloudinaryId);
     res.redirect(`/folder/${file.folderId}`)

@@ -1,7 +1,6 @@
 const prisma = require('../prisma/client');
 
 async function breadcrumbing(id) {
-  console.log(id)
   let current = await prisma.folder.findUnique({
     where: { id: parseInt(id, 10) },
   });

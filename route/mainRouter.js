@@ -20,7 +20,7 @@ main.post('/create-folder/:id', requireAuth, folderController.createSubfolder);
 main.post('/edit/folder/:id', requireAuth, folderController.edit);
 main.post('/delete/folder/:id', requireAuth, folderController.delete)
 
-
+main.get('/download/:id', fileController.download)
 main.post('/upload/:id', requireAuth, fileController.upload);
 main.post('/edit/file/:id', requireAuth, fileController.edit)
 main.post('/delete/file/:id', requireAuth, fileController.delete)

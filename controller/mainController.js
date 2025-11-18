@@ -17,7 +17,6 @@ exports.home = async (req, res, next) => {
         files: true,
       },
     });
-    console.log(root);
     res.render('home', { folder: root, content: [...root.subfolders, ...root.files], breadcrumbs: [] })
   } catch (error) {
     console.error(error)

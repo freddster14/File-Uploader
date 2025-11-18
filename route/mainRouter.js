@@ -17,8 +17,7 @@ main.post('/login', mainController.loginUser);
 
 main.get('/folder/:id', requireAuth, folderController.getFolder);
 main.post('/create-folder/:id', requireAuth, folderController.createSubfolder);
-main.post('/create-folder', requireAuth, folderController.createFolder);
-main.post('/edit/:id', requireAuth, folderController.edit);
+main.post('/edit/folder/:id', requireAuth, folderController.edit);
 main.post('/delete/folder/:id', requireAuth, folderController.delete)
 
 

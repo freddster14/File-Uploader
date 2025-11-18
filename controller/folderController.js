@@ -22,22 +22,6 @@ exports.getFolder = async (req, res, next) => {
   }
 };
 
-exports.createFolder = async (req, res, next) => {
-  const { name } = req.body;
-  try {
-    await prisma.folder.create({
-      data: {
-        name,
-        authorId: req.user.id,
-      }
-    })
-    res.redirect('/')
-  } catch (error) {
-    next(error)
-  }
-
-};
-
 exports.createSubfolder = async (req, res, next) => {
   const { name } = req.body;
   const parentId = parseInt(req.params.id, 10);

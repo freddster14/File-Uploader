@@ -6,21 +6,19 @@ const { validationResult } = require('express-validator');
 const { validateSignUp, validateLogin } = require('../middleware/validation');
 
 exports.home = async (req, res, next) => {
-  const file = req.file;
-  console.log(file);
   try {
-    const folders = await prisma.folder.findMany({
+    const root = await prisma.folder.findFirst({
       where: { 
         authorId: req.user.id,
         parentId: null,
       },
-      select: {
-        id: true,
-        name: true,
-        createdAt: true,
-      }
+      include: {
+        subfolders: true,
+        files: true,
+      },
     });
-    res.render('home', { folder: {}, content: folders, breadcrumbs: [] })
+    console.log(root);
+    res.render('home', { folder: root, content: [...root.subfolders, ...root.files], breadcrumbs: [] })
   } catch (error) {
     console.error(error)
     next()
@@ -47,6 +45,12 @@ exports.createUser = [ validateSignUp, async (req, res, next) => {
         password: hashedPassword,
       }
     });
+    await prisma.folder.create({
+      data: {
+        name: 'Home',
+        authorId: user.id,
+      }
+    })
     req.logIn(user, (err) => {
       if (err) return next(err);
       return res.redirect('/')

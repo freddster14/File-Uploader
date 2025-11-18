@@ -13,12 +13,26 @@ exports.upload = [
     });
   },
   async (req, res, next) => {
-  const { id } = req.params;  
+  
+  let id  = req.params.id;
+  // set id to user when home
   try {
     if (req.uploadError) throw req.uploadError;
-    const folder = await prisma.folder.findUnique({ where: { id: parseInt(id, 10) }});
-    //check if a file is uploaded
-    if (!req.file) return res.status(400).send('No file uploaded');
+    let folder;
+    // get either root or subfolders
+    if (id === '-1') {
+      id === req.user.id
+      folder = await prisma.folder.findFirst({
+        where: {
+          authorId: id,
+          parent: null,
+        }
+      })
+    } else {
+      folder = await prisma.folder.findUnique({ where: { id: parseInt(id, 10) } });
+    }
+
+  
     //auth
     if (!folder || folder.authorId !== req.user.id) return res.status(403).send('Not authorized');
     

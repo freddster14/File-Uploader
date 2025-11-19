@@ -6,6 +6,7 @@ const { validationResult } = require('express-validator');
 const { validateSignUp, validateLogin } = require('../middleware/validation');
 
 exports.home = async (req, res, next) => {
+  if (!req.user) return res.render('home', { folder: {}, content: [], breadcrumbs: [] })
   try {
     const root = await prisma.folder.findFirst({
       where: { 

@@ -26,7 +26,7 @@ exports.getFolder = async (req, res, next) => {
 exports.createSubfolder = async (req, res, next) => {
   const { name } = req.body;
   const parentId = parseInt(req.params.id, 10);
-  
+
   try {
     await prisma.folder.create({
       data: {
@@ -96,7 +96,7 @@ exports.shareLink = async (req, res, next) => {
     const shareLink = await prisma.shareLink.findUnique({
       where: { token },
     });
-    if (!shareLink) return res.status(400).send('Link unavailable');
+    if (!shareLink || shareLink < new Date()) return res.status(400).send('Link unavailable');
     const rootFolder = await prisma.folder.findUnique({
       where: { id: shareLink.folderId },
       include: {

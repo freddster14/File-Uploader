@@ -57,3 +57,13 @@ model File {
   folder        Folder    @relation(fields: [folderId], references: [id], onDelete: Cascade)
   folderId      Int
 }
+
+model ShareLink {
+  id          Int       @id @default(autoincrement())
+  token       String    @unique
+  folderId    Int
+  expiresAt   DateTime
+  createdAt   DateTime  @default(now())
+  revoked     Boolean   @default(false)
+  @@index([token])
+}

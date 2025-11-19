@@ -1,13 +1,17 @@
 const prisma = require('../prisma/client');
 
-async function breadcrumbing(id) {
+async function breadcrumbing(id, share) {
   let current = await prisma.folder.findUnique({
     where: { id: parseInt(id, 10) },
   });
   const res = []
   // go up the tree
-  while(current.parentId !== null) {
-    res.push({ name: current.name, link: `/folder/${current.id}` });
+  while(current.parentId !== null || current.id !== share.limitId) {
+    if(share) {
+      res.push({ name: current.name, link: `/share/${share.token}/?folderId=${current.id}` });
+    } else {
+      res.push({ name: current.name, link: `/folder/${current.id}` });
+    }
     current = await prisma.folder.findUnique({
       where: {
         id: current.parentId,

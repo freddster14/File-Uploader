@@ -15,6 +15,7 @@ const assestsPath = path.join(__dirname, 'public');
 
 app.set('views', path.join(__dirname, 'view'));
 app.set('view engine', 'ejs');
+app.set('trust proxy', 1);
 
 app.use(express.static(assestsPath));
 app.use(express.urlencoded({ extended: false }));

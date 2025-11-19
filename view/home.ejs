@@ -43,7 +43,9 @@
       <% } else { %>
         <a href="/folder/<%= e.id %>"><%= e.name %></a>
         <dialog id="folder<%= e.id %>">
-          <form action="/delete/folder/<%= e.id %>" method="post"><button type="submit" onclick="this.style.display = 'none'">Delete</button></form>
+          <form action="/delete/folder/<%= e.id %>" method="post">
+            <button type="submit" onclick="this.style.display = 'none'">Delete</button>
+          </form>
           <dialog id="edit<%= e.id %>">
             <form action="/edit/folder/<%= e.id %>" method="post">
               <label for="name">Name</label>
@@ -52,6 +54,9 @@
             </form>
           </dialog>
           <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
+          <form action="/share/<%= e.id %>" method="post">
+            <button type="submit">Share</button>
+          </form>
         </dialog>
         <img  id="folder<%= e.id %>" src="/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
       <% } %>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Read-Only</title>
+</head>
+<body>
+  <%- include('nav') %>
+  <div>
+    <%  for(let i=breadcrumbs.length - 1; i > -1; i--) { %>
+      <% if (i !== breadcrumbs.length - 1) { %>
+      <img src="/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow" style="width: 25px; height: 25px;">
+      <% } console.log(i) %>
+      <a href="<%=  breadcrumbs[i].link %>"><%= breadcrumbs[i].name %></a>
+    <% } %>
+  </div>
+  <% if(locals.errors) { %>
+    <% errors.forEach((err, i) => { %>
+      <dialog id="error<%=i%>" open><%= err.msg %></dialog>
+    <% }) %>
+  <% } %>
+  <% if (content.length > 0) { %>
+    <% content.forEach(e => { %>
+      <% if (e.mimeType) { %>
+        <dialog id="<%= e.cloudinaryId %>">
+          <img style="width: 175px;" src="<%= e.url %>" alt="<%= e.name %>">
+          <p><%= e.name %></p>
+          <p>Size: <%= e.formattedSize %></p>
+          <p>Uploaded: <%= e.createdAt.toLocaleDateString() %> • <%= e.createdAt.toLocaleTimeString() %></p>
+        </dialog>
+        <img style="height: 75px;" src="<%= e.url %>" alt="<%= e.name %>">
+        <a id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></a>
+        <dialog id="file<%= e.id %>">
+          <form action="/download/<%= e.id%>">
+            <button onclick="this.style.display = 'none'" type="submit">Download</button>
+          </form>
+        </dialog>
+      <img  id="file<%= e.id %>" src="/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
+      <% } else { %>
+        <a href="/share/<%= token %>/?folderId=<%= e.id %>"><%= e.name %></a>
+      <% } %>
+    <% }) %>
+  <% } %>
+<script src="/js/modalFunctions.js"></script>
+</body>
+</html>

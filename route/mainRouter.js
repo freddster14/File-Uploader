@@ -14,7 +14,8 @@ main.post('/sign-up', mainController.createUser);
 main.post('/login', mainController.loginUser);
 
 main.get('/folder/:id', requireAuth, folderController.getFolder);
-main.get('/share/:id', folderController.shareLink);
+main.get('/share/:token', folderController.shareLink);
+main.post('/share/:id', requireAuth, folderController.generateLink);
 main.post('/create-folder/:id', requireAuth, folderController.createSubfolder);
 main.post('/edit/folder/:id', requireAuth, folderController.edit);
 main.post('/delete/folder/:id', requireAuth, folderController.delete)

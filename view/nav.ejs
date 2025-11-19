@@ -4,14 +4,14 @@
 <a href="/sign-up">Sign Up</a>
 <% if (locals.currentUser) { %>
   <a href="/log-out">Log Out</a>
-  <dialog id="folder">
+  <% if (folder.authorId === currentUser.id) { %>
+     <dialog id="folder">
     <form action="/create-folder/<%= folder.id %>" method="post">
       <label for="name">Name</label>
       <input type="text" id="name" name="name">
       <button type="submit" onclick="this.style.display = 'none'">Create</button>
     </form>
   </dialog>
-  <button id="folder" onclick="toggleModal('folder')">Create Folder</button>
   <dialog id="file">
     <form action="/upload/<%= folder.id || -1 %>" method="post" enctype="multipart/form-data">
       <label for="fileUpload">Select File</label>
@@ -22,15 +22,22 @@
       <button type="submit" onclick="this.style.display = 'none'">Upload File</button>
     </form>
   </dialog>
-  <button id="file" onclick="toggleModal('file')">Add File</button>
-  <div>
-    <a href="/">Home</a>
-    <%  for(let i=breadcrumbs.length - 1; i > -1; i--) { %>
-      <img src="/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow" style="width: 25px; height: 25px;">
-      <a href="<%=  breadcrumbs[i].link %>"><%= breadcrumbs[i].name %></a>
-    <% } %>
-  </div>
+    <dialog id="new">
+      <button id="folder" onclick="toggleModal('folder'); toggleModal('new')">Create Folder</button>
+      <button id="file" onclick="toggleModal('file'); toggleModal('new')">Add File</button>
+    </dialog>
+    <button id="new" onclick="toggleModal('new')">New +</button>
+  <% } %>
+ 
 <% } else { %>
   <a href="/login">Log In</a>
 <% } %>
-
+<div>
+  <a href="/">Home</a>
+  <% for(let i=breadcrumbs.length - 1; i> -1; i--) { %>
+    <img src="/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow" style="width: 25px; height: 25px;">
+    <a href="<%=  breadcrumbs[i].link %>">
+      <%= breadcrumbs[i].name %>
+    </a>
+    <% } %>
+</div>

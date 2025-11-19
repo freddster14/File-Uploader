@@ -26,7 +26,7 @@ exports.getFolder = async (req, res, next) => {
 exports.createSubfolder = async (req, res, next) => {
   const { name } = req.body;
   const parentId = parseInt(req.params.id, 10);
-
+  
   try {
     await prisma.folder.create({
       data: {
@@ -107,6 +107,7 @@ exports.shareLink = async (req, res, next) => {
     // get subfolders
     let current = rootFolder;
     let allowed = false;
+    let id = folderId;
     if(folderId) {
       const folder = await prisma.folder.findUnique({
         where: { id: parseInt(folderId, 10) },
@@ -124,12 +125,15 @@ exports.shareLink = async (req, res, next) => {
         }
         current = await prisma.folder.findUnique({ where: { id: current.parentId }})
       }
+      if (!allowed) return res.status(403).send('Not authorized');
+    } else {
+      id = rootFolder.id
     }
-    if(!allowed) return res.status(403).send('Not authorized');
-    const breadcrumbs = await breadcrumbing(folderId, { token, limitId: rootFolder.parentId });
+    console.log(folderId)
+    const breadcrumbs = await breadcrumbing(id , { token, limitId: rootFolder.parentId });
     console.log(breadcrumbs)
     res.render('shareFolder', {
-      current,
+      folder: current,
       content: [...current.subfolders, ...current.files],
       breadcrumbs,
       token,

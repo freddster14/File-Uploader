@@ -63,13 +63,18 @@ exports.createUser = [ validateSignUp, async (req, res, next) => {
 }]
 
 exports.loginUser = [ validateLogin, async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).render('login', { formData: { email: req.body.email }, errors: errors.array() })
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    const errors = formatErrors(result.array());
+    return res.status(400).render('login', { formData: { email: req.body.email }, errors })
   }
-  passport.authenticate('local', async (error, user) => {
+  passport.authenticate('local', async (error, user, info) => {
     if (error) return next(error);
-    if (!user) return res.status(400).render('login', { formData: { email: req.body.email }, errors: [{ msg: 'Username and Password do not match' }] });
+    if (!user) {
+      return res.status(400).render('login', {
+      formData: { email: req.body.email },
+      errors: { general: info.msg || 'Email and Password do not match' }
+    });}
     return req.logIn(user, (err) => {
       if (err) return next(err);
       return res.redirect('/')

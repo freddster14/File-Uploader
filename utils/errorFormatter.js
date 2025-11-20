@@ -3,7 +3,6 @@ function formatErrors (errors) {
   for(let e of errors) {
     formatted[e.path] = e.msg;
   }
-  console.log(formatted)
   return formatted
 }
 

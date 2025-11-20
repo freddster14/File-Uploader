@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/sign-up.css">
   <title>Sign-Up</title>
 </head>
 <body>
@@ -14,17 +15,32 @@
     </ul>
    
   <% } %>
-  <form action="/sign-up" method="post">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" autocomplete="name" value="<%= formData.name || '' %>">
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" autocomplete="email" value="<%= formData.email || '' %>" required>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" autocomplete="new-password" required>
-    <p style="margin: 0; font-size: 0.9rem;">Must be at least 6 characters</p>
-    <label for="confirm-password">Confirm Password</label>
-    <input type="password" id="confirm-password" name="confirm-password" required>
-    <button type="submit">Sign Up</button>
-  </form>
+  <main>
+    <header>
+      <h1>
+        <img src="/img/icons8-google-drive.svg">
+        Nuvio
+      </h1>
+    </header>
+    <div class="content">
+      <div class="content-header">
+        <h2>Create account to get started.</h1>
+        <p>Already have an account? <a href="/login">Login here.</a></p>
+      </div>
+      <form action="/sign-up" method="post">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" autocomplete="name" value="<%= formData.name || '' %>">
+        <label for="email">Email<span style="color: red;">*</span></label>
+        <input type="email" id="email" name="email" autocomplete="email" value="<%= formData.email || '' %>" required>
+        <label for="password">Password<span style="color: red;">*</span></label>
+        <input type="password" id="password" name="password" autocomplete="new-password" required>
+        <p style="margin: 0; font-size: 0.8rem; margin-top: -.5rem; margin-bottom: .5rem;">Must be at least 6 characters</p>
+        <label for="confirm-password">Confirm Password<span style="color: red;">*</span></label>
+        <input type="password" id="confirm-password" name="confirm-password" required>
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+    
+  </main>
 </body>
 </html>

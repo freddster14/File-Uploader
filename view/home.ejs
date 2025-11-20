@@ -40,7 +40,7 @@
           </dialog>
           <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
         </dialog>
-      <img  id="file<%= e.id %>" src="/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
+      <img id="file<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
       <% } else { %>
         <a href="/folder/<%= e.id %>"><%= e.name %></a>
         <dialog id="folder<%= e.id %>">
@@ -59,7 +59,7 @@
             <button type="submit">Share</button>
           </form>
         </dialog>
-        <img  id="folder<%= e.id %>" src="/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
+        <img  id="folder<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
       <% } %>
      
     <% }) %>

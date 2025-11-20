@@ -18,7 +18,7 @@ main {
   top: 40%;
   transform: translate(-50%, -50%);
   background-color: #ffffff;
-  box-shadow: 0px 0px 10px 5px #F3F4F6;
+  box-shadow: 0px 0px 10px 3px #e2e8f0;
 }
 
 header { width: 100%; }
@@ -32,7 +32,33 @@ h1 {
   text-align: start;
 }
 
-img { width: 35px; }
+img { 
+  width: 35px;
+  animation: spin 10s linear 5s infinite  normal;
+}
+
+@keyframes spin {
+  0% {
+    scale: 1;
+    rotate: none;
+  }
+  2.5%{
+    scale: 0.8;
+    rotate: -30deg;
+  }
+  7.5%{
+    rotate: 390deg
+  }
+  10%{
+    scale: 1;
+    rotate: 360deg;
+  }
+
+  100% {
+    scale: 1;
+    rotate: 360deg;
+  }
+}
 
 .content {
   width: 100%;

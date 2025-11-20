@@ -127,19 +127,15 @@ a:hover, a:focus {
 }
 
 /**  errors ui **/
-ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-li {
+form p {
   display: flex;
   align-items: center;
+  gap: .5rem;
   color: #b3261e;
+  margin: 0;
+  margin-top: -.5rem;
 }
 
-li img {
-  width: 25px;
+p img {
+  width: 16px;
 }

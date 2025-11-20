@@ -4,9 +4,10 @@ const prisma = require('../prisma/client');
 const passport = require('passport');
 const { validationResult } = require('express-validator');
 const { validateSignUp, validateLogin } = require('../middleware/validation');
+const formatErrors = require('../utils/errorFormatter');
 
 exports.home = async (req, res, next) => {
-  if (!req.user) return res.render('sign-up', { formData: {} })
+  if (!req.user) return res.render('sign-up', { formData: {}, errors: {} })
   try {
     const root = await prisma.folder.findFirst({
       where: { 
@@ -25,17 +26,17 @@ exports.home = async (req, res, next) => {
   }
 };
 
-exports.login = (req, res) => { res.render('login', { formData: {} }); }
+exports.login = (req, res) => { res.render('login', { formData: {}, errors: {} }); }
 
-exports.signUp = (req, res) => { res.render('sign-up', { formData: {} }); }
+exports.signUp = (req, res) => { res.render('sign-up', { formData: {}, errors: {} }); }
 
 exports.createUser = [ validateSignUp, async (req, res, next) => {
   const { name, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-
-    return res.status(400).render('sign-up', { formData: { name, email }, errors: errors.array() })
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    const errors = formatErrors(result.array())
+    return res.status(400).render('sign-up', { formData: { name, email }, errors })
   }
   try {
     const user = await prisma.user.create({

@@ -3,18 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/sign-up.css">
+  <link rel="stylesheet" href="/css/form.css">
   <title>Sign-Up</title>
 </head>
 <body>
-  <% if(locals.errors) { %>
-    <ul>
-    <% errors.forEach(err => { %>
-      <li><%= err.msg %></li>
-    <% }) %>
-    </ul>
-   
-  <% } %>
   <main>
     <header>
       <h1>
@@ -25,7 +17,7 @@
     <div class="content">
       <div class="content-header">
         <h2>Create account to get started</h1>
-        <p>Already have an account? <a href="/login">Login here.</a></p>
+        <p>Already have an account? <a href="/login">Login here</a></p>
       </div>
       <form action="/sign-up" method="post">
         <label for="name">Name</label>
@@ -34,9 +26,14 @@
         <input type="email" id="email" name="email" autocomplete="email" value="<%= formData.email || '' %>" required>
         <label for="password">Password<span style="color: red;">*</span></label>
         <input type="password" id="password" name="password" autocomplete="new-password" required>
-        <p style="margin: 0; font-size: 0.8rem; margin-top: -.5rem; margin-bottom: .5rem;">Must be at least 6 characters</p>
-        <label for="confirm-password">Confirm Password<span style="color: red;">*</span></label>
-        <input type="password" id="confirm-password" name="confirm-password" required>
+        <p>
+          <%- errors.password ? `<img src='/img/alert-circle-svgrepo-com.svg'>${errors.password}` : '' %>
+        </p>
+        <label for="confirm">Confirm<span style="color: red;">*</span></label>
+        <input type="password" id="confirm" name="confirm" required>
+        <p>
+          <%- errors.confirm ? `<img src='/img/alert-circle-svgrepo-com.svg'>${errors.confirm}` : '' %>
+        </p>
         <button type="submit">Sign Up</button>
       </form>
     </div>

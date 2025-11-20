@@ -9,7 +9,6 @@ main {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  font-size: 1rem;
   margin: 0 auto;
   padding: 2.2rem 2rem;
   border-radius: 1rem;
@@ -36,7 +35,7 @@ h1 {
   text-align: start;
 }
 
-img { 
+header img { 
   width: 40px;
   animation: spin 10s linear 5s infinite  normal;
 }
@@ -89,6 +88,17 @@ form p { color: #6B7280; }
 
 input {
   margin-bottom: 0.7rem;
+  padding: .5rem;
+  padding-left: .3rem;
+  font-size: .9rem;
+  outline: none;
+  border-radius: .3rem;
+  border: 1px solid #1F2937;
+}
+
+input:focus, input:hover {
+  border: 1px solid #2563EB;
+  outline: 1.5px solid #2563EB;
 }
 
 button {
@@ -114,4 +124,22 @@ a {
 
 a:hover, a:focus {
   text-decoration: underline;
+}
+
+/**  errors ui **/
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  color: #b3261e;
+}
+
+li img {
+  width: 25px;
 }

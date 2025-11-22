@@ -32,50 +32,63 @@
         <% if (content.length > 0) { %>
           <% content.forEach(e => { %>
             <% if (e.mimeType) { %>
-              <dialog id="<%= e.cloudinaryId %>">
-                <img style="width: 175px;" src="<%= e.url %>" alt="<%= e.name %>">
-                <p><%= e.name %></p>
-                <p>Size: <%= e.formattedSize %></p>
-                <p>Uploaded: <%= e.createdAt.toLocaleDateString() %> • <%= e.createdAt.toLocaleTimeString() %></p>
-              </dialog>
-              <img style="height: 75px;" src="<%= e.url %>" alt="<%= e.name %>">
-              <a id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></a>
-              <dialog id="file<%= e.id %>">
-                <form action="/download/<%= e.id%>">
-                  <button onclick="this.style.display = 'none'" type="submit">Download</button>
-                </form>
-                <form action="/delete/file/<%= e.id %>" method="post">
-                  <button type="submit" onclick="this.style.display = 'none'">Delete</button>
-                </form>
-                <dialog id="edit<%= e.id %>">
-                  <form action="/edit/file/<%= e.id %>" method="post">
-                    <label for="name">Name</label>
-                    <input id="name" type="text" name="name" value="<%= e.name %>">
-                    <button type="submit" onclick="this.style.display = 'none'">Update</button>
-                  </form>
+              <div class="card">
+                <dialog id="<%= e.cloudinaryId %>">
+                  <img style="width: 175px;" src="<%= e.url %>" alt="<%= e.name %>">
+                  <p><%= e.name %></p>
+                  <p>Size: <%= e.formattedSize %></p>
+                  <p>Uploaded: <%= e.createdAt.toLocaleDateString() %> • <%= e.createdAt.toLocaleTimeString() %></p>
                 </dialog>
-                <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
-              </dialog>
-            <img id="file<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
+                <dialog id="file<%= e.id %>">
+                  <form action="/download/<%= e.id%>">
+                    <button onclick="this.style.display = 'none'" type="submit">Download</button>
+                  </form>
+                  <form action="/delete/file/<%= e.id %>" method="post">
+                    <button type="submit" onclick="this.style.display = 'none'">Delete</button>
+                  </form>
+                  <dialog id="edit<%= e.id %>">
+                    <form action="/edit/file/<%= e.id %>" method="post">
+                      <label for="name">Name</label>
+                      <input id="name" type="text" name="name" value="<%= e.name %>">
+                      <button type="submit" onclick="this.style.display = 'none'">Update</button>
+                    </form>
+                  </dialog>
+                  <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
+                </dialog>
+                <div class="card-img">
+                  <img src="<%= e.url %>" alt="<%= e.name %>">
+                </div>
+                <div class="card-header">
+                  <a class="name" id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></a>
+                  <img id="file<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
+                </div>
+              </div>
             <% } else { %>
-              <a href="/folder/<%= e.id %>"><%= e.name %></a>
-              <dialog id="folder<%= e.id %>">
-                <form action="/delete/folder/<%= e.id %>" method="post">
-                  <button type="submit" onclick="this.style.display = 'none'">Delete</button>
-                </form>
-                <dialog id="edit<%= e.id %>">
-                  <form action="/edit/folder/<%= e.id %>" method="post">
-                    <label for="name">Name</label>
-                    <input id="name" type="text" name="name" value="<%= e.name %>">
-                    <button type="submit" onclick="this.style.display = 'none'">Update</button>
+              <class class="card">
+                <dialog id="folder<%= e.id %>">
+                  <form action="/delete/folder/<%= e.id %>" method="post">
+                    <button type="submit" onclick="this.style.display = 'none'">Delete</button>
+                  </form>
+                  <dialog id="edit<%= e.id %>">
+                    <form action="/edit/folder/<%= e.id %>" method="post">
+                      <label for="name">Name</label>
+                      <input id="name" type="text" name="name" value="<%= e.name %>">
+                      <button type="submit" onclick="this.style.display = 'none'">Update</button>
+                    </form>
+                  </dialog>
+                  <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
+                  <form action="/share/<%= e.id %>" method="post">
+                    <button type="submit">Share</button>
                   </form>
                 </dialog>
-                <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
-                <form action="/share/<%= e.id %>" method="post">
-                  <button type="submit">Share</button>
-                </form>
-              </dialog>
-              <img  id="folder<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
+                <div class="card-folder">
+                  <img src="/img/folder-svgrepo-com.svg" alt="folder">
+                </div>
+                <div class="card-header">
+                  <a class="name" href="/folder/<%= e.id %>"><%= e.name %></a>
+                  <img  id="folder<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
+                </div>
+              </class>
             <% } %>
           <% }) %>
       </div>

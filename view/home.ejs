@@ -3,75 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/home.css">
   <title>Home</title>
 </head>
 <body>
   <%- include('nav') %>
-  <% if(locals.errors) { %>
-    <% errors.forEach((err, i) => { %>
-      <dialog id="error<%=i%>" open><%= err.msg %></dialog>
-    <% }) %>
-  <% } %>
-  <% if (content.length > 0) { %>
-    <% content.forEach(e => { %>
-      <% if (e.mimeType) { %>
-        <dialog id="<%= e.cloudinaryId %>">
-          <img style="width: 175px;" src="<%= e.url %>" alt="<%= e.name %>">
-          <p><%= e.name %></p>
-          <p>Size: <%= e.formattedSize %></p>
-          <p>Uploaded: <%= e.createdAt.toLocaleDateString() %> • <%= e.createdAt.toLocaleTimeString() %></p>
-        </dialog>
-        <img style="height: 75px;" src="<%= e.url %>" alt="<%= e.name %>">
-        <a id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></a>
-        <dialog id="file<%= e.id %>">
-          <form action="/download/<%= e.id%>">
-            <button onclick="this.style.display = 'none'" type="submit">Download</button>
-          </form>
-          <form action="/delete/file/<%= e.id %>" method="post">
-            <button type="submit" onclick="this.style.display = 'none'">Delete</button>
-          </form>
-          <dialog id="edit<%= e.id %>">
-            <form action="/edit/file/<%= e.id %>" method="post">
-              <label for="name">Name</label>
-              <input id="name" type="text" name="name" value="<%= e.name %>">
-              <button type="submit" onclick="this.style.display = 'none'">Update</button>
-            </form>
-          </dialog>
-          <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
-        </dialog>
-      <img id="file<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
-      <% } else { %>
-        <a href="/folder/<%= e.id %>"><%= e.name %></a>
-        <dialog id="folder<%= e.id %>">
-          <form action="/delete/folder/<%= e.id %>" method="post">
-            <button type="submit" onclick="this.style.display = 'none'">Delete</button>
-          </form>
-          <dialog id="edit<%= e.id %>">
-            <form action="/edit/folder/<%= e.id %>" method="post">
-              <label for="name">Name</label>
-              <input id="name" type="text" name="name" value="<%= e.name %>">
-              <button type="submit" onclick="this.style.display = 'none'">Update</button>
-            </form>
-          </dialog>
-          <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
-          <form action="/share/<%= e.id %>" method="post">
-            <button type="submit">Share</button>
-          </form>
-        </dialog>
-        <img  id="folder<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
+  <main>
+    <% if(locals.errors) { %>
+      <% errors.forEach((err, i) => { %>
+        <dialog id="error<%=i%>" open><%= err.msg %></dialog>
+      <% }) %>
+    <% } %>
+    <%- include('sidebar') %>
+    <div class="body">
+      <% if (locals.breadcrumbs) { %>
+        <div>
+          <a href="/">Home</a>
+          <% for(let i=breadcrumbs.length - 1; i> -1; i--) { %>
+            <img src="/img/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow" style="width: 25px; height: 25px;">
+            <a href="<%=  breadcrumbs[i].link %>">
+              <%= breadcrumbs[i].name %>
+            </a>
+            <% } %>
+        </div>
       <% } %>
-     
-    <% }) %>
-  <% } else if(locals.currentUser) { %>
-    <div>
-      <h1>No folder or files</h1>
-      <p>Use the "New" button</p>
-    </div>
+      <div class="folders">
+        <% if (content.length > 0) { %>
+          <% content.forEach(e => { %>
+            <% if (e.mimeType) { %>
+              <dialog id="<%= e.cloudinaryId %>">
+                <img style="width: 175px;" src="<%= e.url %>" alt="<%= e.name %>">
+                <p><%= e.name %></p>
+                <p>Size: <%= e.formattedSize %></p>
+                <p>Uploaded: <%= e.createdAt.toLocaleDateString() %> • <%= e.createdAt.toLocaleTimeString() %></p>
+              </dialog>
+              <img style="height: 75px;" src="<%= e.url %>" alt="<%= e.name %>">
+              <a id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></a>
+              <dialog id="file<%= e.id %>">
+                <form action="/download/<%= e.id%>">
+                  <button onclick="this.style.display = 'none'" type="submit">Download</button>
+                </form>
+                <form action="/delete/file/<%= e.id %>" method="post">
+                  <button type="submit" onclick="this.style.display = 'none'">Delete</button>
+                </form>
+                <dialog id="edit<%= e.id %>">
+                  <form action="/edit/file/<%= e.id %>" method="post">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" name="name" value="<%= e.name %>">
+                    <button type="submit" onclick="this.style.display = 'none'">Update</button>
+                  </form>
+                </dialog>
+                <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
+              </dialog>
+            <img id="file<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
+            <% } else { %>
+              <a href="/folder/<%= e.id %>"><%= e.name %></a>
+              <dialog id="folder<%= e.id %>">
+                <form action="/delete/folder/<%= e.id %>" method="post">
+                  <button type="submit" onclick="this.style.display = 'none'">Delete</button>
+                </form>
+                <dialog id="edit<%= e.id %>">
+                  <form action="/edit/folder/<%= e.id %>" method="post">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" name="name" value="<%= e.name %>">
+                    <button type="submit" onclick="this.style.display = 'none'">Update</button>
+                  </form>
+                </dialog>
+                <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
+                <form action="/share/<%= e.id %>" method="post">
+                  <button type="submit">Share</button>
+                </form>
+              </dialog>
+              <img  id="folder<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
+            <% } %>
+          <% }) %>
+      </div>
+      <% } else if(locals.currentUser) { %>
+        <div>
+          <h1>No folder or files</h1>
+          <p>Use the "New" button</p>
+        </div>
     
-  <% } else { %>
-    <h1>Sign up or log in to get started</h1>
-  <% } %>
+      <% } else { %>
+        <h1>Sign up or log in to get started</h1>
+      <% } %>
+      </div>
+  </main>
 <script src="/js/modalFunctions.js"></script>
 </body>
 </html>

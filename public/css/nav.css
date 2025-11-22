@@ -1,12 +1,12 @@
-nav {
+.top-nav {
   display: flex;
   justify-content: space-between;
-  padding: 0 1rem;
+  padding: .7rem 1.4rem;
   position: sticky;
   align-items: center;
 }
 
-nav div {
+.top-nav div {
   display: flex;
   gap: 1.5rem;
 }
@@ -15,6 +15,7 @@ h1 {
   display: flex;
   align-items: center;
   gap: .4rem;
+  margin: 0;
 }
 
 h1 img {
@@ -38,15 +39,58 @@ h1 img:hover {
 }
 
 /** sidebar **/
+
+.sidebar {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-direction: column;
+  max-width: 200px;
+  padding: .5rem 0rem 1rem 1rem;
+}
 .new {
-  background-color: white;
-  padding: .5rem 1.2rem;
-  border-radius: 1rem;
+  display: flex;
+  font-size: 1rem;
+  align-items: center;
+  gap: .5rem;
+  color: #F3F4F6;
+  padding: 1rem 1.7rem 1rem .7rem;
   border: none;
-  transition: all .3s ease-in-out;
-  box-shadow: 0px 0px 5px 5px #E2E8F0;
+  background-color: #2563EB;
+  border-radius: .7rem;
+  transition: all .2s ease-in-out;
+  box-shadow: 0px 0px 4px 1px #c6ccd3;
 }
 
 .new:hover {
-  box-shadow: 0px 0px 10px 10px #E2E8F0;
+  box-shadow: 0px 0px 4px 3px #c6ccd3;
+}
+
+.new img {
+  width: 24px;
+}
+
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  width: 100%;
+}
+
+.sidebar-links a {
+  color: inherit;
+  display: flex;
+  padding: .7rem;
+  border-radius: .5rem;
+  gap: .75rem;
+  transition: all .1s ease-in-out;
+}
+
+.sidebar-links a:hover, .sidebar-links a:focus {
+  text-decoration: none;
+  background-color: #F3F4F6;
+}
+
+.sidebar-links img {
+  width: 20px;
 }

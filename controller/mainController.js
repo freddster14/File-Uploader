@@ -8,13 +8,13 @@ const formatErrors = require('../utils/errorFormatter');
 
 
 exports.intro = (req, res) => {
-  if (req.user) return res.rediect('/home')
+  if (req.user) return res.redirect('/home')
   res.render('intro');
 }
 
 
 exports.home = async (req, res, next) => {
-  if (!req.user) return res.rediect('/');
+  if (!req.user) return res.redirect('/');
   try {
     const root = await prisma.folder.findFirst({
       where: { 

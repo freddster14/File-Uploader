@@ -3,6 +3,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   color: #1F2937;
+  height: 100vh;
 }
 
 @keyframes spin {

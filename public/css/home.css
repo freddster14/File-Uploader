@@ -1,0 +1,25 @@
+main {
+  display: grid;
+  width: 98vw;
+  column-gap: 1rem;
+  grid-template-columns: 200px 1fr;
+  height: calc(100vh - 115px);
+}
+
+.body {
+  box-shadow: 0px 0px 5px 3px #E2E8F0;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+}
+
+.folders {
+  padding: 1rem 0;
+}
+
+.folder-card {
+
+}
+
+.img-card {
+
+}

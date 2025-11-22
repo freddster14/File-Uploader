@@ -18,10 +18,10 @@
     <%- include('sidebar') %>
     <div class="body">
       <% if (locals.breadcrumbs) { %>
-        <div>
+        <div class="breadcrumbs">
           <a href="/">Home</a>
           <% for(let i=breadcrumbs.length - 1; i> -1; i--) { %>
-            <img src="/img/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow" style="width: 25px; height: 25px;">
+            <img src="/img/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow">
             <a href="<%=  breadcrumbs[i].link %>">
               <%= breadcrumbs[i].name %>
             </a>

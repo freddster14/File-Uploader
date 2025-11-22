@@ -56,14 +56,14 @@ h1 img:hover {
   color: #F3F4F6;
   padding: 1rem 1.7rem 1rem .7rem;
   border: none;
-  background-color: #2563EB;
+  background-color: var(--main-color);
   border-radius: .7rem;
   transition: all .2s ease-in-out;
-  box-shadow: 0px 0px 4px 1px #c6ccd3;
+  box-shadow: 0px 0px 8px 5px var(--shadow-color);
 }
 
 .new:hover {
-  box-shadow: 0px 0px 4px 3px #c6ccd3;
+  box-shadow: 0px 0px 8px 7px var(--shadow-hover-color);
 }
 
 .new img {
@@ -88,7 +88,7 @@ h1 img:hover {
 
 .sidebar-links a:hover, .sidebar-links a:focus {
   text-decoration: none;
-  background-color: #F3F4F6;
+  background-color: #E2E8F0;
 }
 
 .sidebar-links img {

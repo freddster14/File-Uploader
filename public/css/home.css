@@ -7,7 +7,7 @@ main {
 }
 
 .body {
-  box-shadow: 0px 0px 5px 3px #E2E8F0;
+  box-shadow: 0px 0px 5px 3px var(--shadow-color);
   padding: 1rem 2rem;
   border-radius: 1rem;
 }
@@ -28,16 +28,17 @@ main {
   padding-bottom: 0;
   border-radius: 1rem;
   aspect-ratio: 1/1;
-  box-shadow: 0px 0px 5px 3px #E2E8F0;
+  box-shadow: 0px 0px 5px 3px var(--shadow-color);
   transition: all .1s ease-in-out;
 }
 
 .card:hover, .card:focus {
-  background-color: #F3F4F6;
+  box-shadow: 0px 0px 5px 5px var(--shadow-hover-color);
+  background-color: var(--hover-color);
 }
 
 .card-folder, .card-img {
-  background-color: #2563EB;
+  background-color: var(--main-color);
   border-radius: .6rem;
   display: flex;
   height: 85%;
@@ -56,6 +57,7 @@ main {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  cursor: pointer;
 }
 
 .card-header {

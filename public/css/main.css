@@ -1,3 +1,10 @@
+:root {
+  --main-color: #2563EB;
+  --hover-color: #E2E8F0;
+  --shadow-color: #E2E8F0;
+  --shadow-hover-color: #C6CCD3;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -31,11 +38,11 @@ body {
 }
 
 .button {
-  background-color: #2563EB;
+  background-color: var(--main-color);
   color: #F3F4F6;
   padding: 10px;
   border: none;
-  box-shadow: 0px 0px 5px 5px #e2e8f0;
+  box-shadow: 0px 0px 8px 5px var(--shadow-color);
   border-radius: 1rem;
   margin-top: 1rem;
   font-weight: bold;
@@ -46,11 +53,11 @@ body {
 }
 
 .button:hover {
-  box-shadow: 0px 0px 10px 10px #E2E8F0;
+  box-shadow: 0px 0px 8px 8px var(--shadow-hover-color);
 }
 
 a {
-  color: #2563EB;
+  color: var(--main-color);
   text-decoration: none;
 }
 
@@ -85,6 +92,28 @@ input {
 
 input:focus,
 input:hover {
-  border: 1px solid #2563EB;
-  outline: 1.5px solid #2563EB;
+  border: 1px solid var(--main-color);
+  outline: 1.5px solid var(--main-color);
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.breadcrumbs a {
+  color: inherit;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  font-size: 1.5rem;
+}
+
+.breadcrumbs a:hover, .breadcrumbs a:focus {
+  text-decoration: none;
+  background-color: var(--hover-color);
+}
+
+.breadcrumbs img {
+  height: 14px;
 }

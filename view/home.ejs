@@ -55,12 +55,12 @@
                   </dialog>
                   <button id="edit<%= e.id %>" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
                 </dialog>
-                <div class="card-img">
-                  <img src="<%= e.url %>" alt="<%= e.name %>">
+                <div tabindex="0"  class="card-img" onclick="toggleModal('<%= e.cloudinaryId %>')">
+                  <img id="<%= e.cloudinaryId %>" src="<%= e.url %>" alt="<%= e.name %>">
                 </div>
                 <div class="card-header">
-                  <a class="name" id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></a>
-                  <img id="file<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
+                  <p tabindex="0" class="name" id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></p>
+                  <img tabindex="0" id="file<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
                 </div>
               </div>
             <% } else { %>
@@ -81,12 +81,12 @@
                     <button type="submit">Share</button>
                   </form>
                 </dialog>
-                <div class="card-folder">
-                  <img src="/img/folder-svgrepo-com.svg" alt="folder">
-                </div>
+                <a class="card-folder" href="/folder/<%= e.id %>">
+                    <img src="/img/folder-svgrepo-com.svg" alt="folder">
+                </a>
                 <div class="card-header">
                   <a class="name" href="/folder/<%= e.id %>"><%= e.name %></a>
-                  <img  id="folder<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
+                  <img tabindex="0" id="folder<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
                 </div>
               </class>
             <% } %>

@@ -8,7 +8,7 @@ nav {
 
 nav div {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 h1 {
@@ -35,4 +35,18 @@ h1 img:hover {
 
 .button:hover {
   text-decoration: none;
+}
+
+/** sidebar **/
+.new {
+  background-color: white;
+  padding: .5rem 1.2rem;
+  border-radius: 1rem;
+  border: none;
+  transition: all .3s ease-in-out;
+  box-shadow: 0px 0px 5px 5px #E2E8F0;
+}
+
+.new:hover {
+  box-shadow: 0px 0px 10px 10px #E2E8F0;
 }

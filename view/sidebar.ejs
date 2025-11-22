@@ -1,0 +1,26 @@
+<nav>
+  <% if (folder.authorId===currentUser.id) { %>
+    <dialog id="folder">
+      <form action="/create-folder/<%= folder.id %>" method="post">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+        <button type="submit" onclick="this.style.display = 'none'">Create</button>
+      </form>
+    </dialog>
+    <dialog id="file">
+      <form action="/upload/<%= folder.id || -1 %>" method="post" enctype="multipart/form-data">
+        <label for="fileUpload">Select File</label>
+        <p>img, pdf, or txt file</p>
+        <p>up to 5MB</p>
+        <img style="width: 75px;" id="preview" src="" alt="">
+        <input type="file" accept="image/*, .pdf, .txt" id="uploadFile" onchange="previewImg(this)" name="uploadFile">
+        <button type="submit" onclick="this.style.display = 'none'">Upload File</button>
+      </form>
+    </dialog>
+    <dialog id="new">
+      <button id="folder" onclick="toggleModal('folder'); toggleModal('new')">Create Folder</button>
+      <button id="file" onclick="toggleModal('file'); toggleModal('new')">Add File</button>
+    </dialog>
+    <button class="new" id="new" onclick="toggleModal('new')">New +</button>
+    <% } %>
+  </nav>

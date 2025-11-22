@@ -6,8 +6,15 @@ const { validationResult } = require('express-validator');
 const { validateSignUp, validateLogin } = require('../middleware/validation');
 const formatErrors = require('../utils/errorFormatter');
 
+
+exports.intro = (req, res) => {
+  if (req.user) return res.rediect('/home')
+  res.render('intro');
+}
+
+
 exports.home = async (req, res, next) => {
-  if (!req.user) return res.render('sign-up', { formData: {}, errors: {} })
+  if (!req.user) return res.rediect('/');
   try {
     const root = await prisma.folder.findFirst({
       where: { 

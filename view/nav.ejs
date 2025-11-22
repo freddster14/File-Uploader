@@ -1,43 +1,50 @@
-<% if (locals.currentUser) { %>
-    <h1><%= currentUser.name %></h1>
-<% } %>
-<a href="/sign-up">Sign Up</a>
-<% if (locals.currentUser) { %>
-  <a href="/log-out">Log Out</a>
-  <% if (folder.authorId === currentUser.id) { %>
-     <dialog id="folder">
-    <form action="/create-folder/<%= folder.id %>" method="post">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name">
-      <button type="submit" onclick="this.style.display = 'none'">Create</button>
-    </form>
-  </dialog>
-  <dialog id="file">
-    <form action="/upload/<%= folder.id || -1 %>" method="post" enctype="multipart/form-data">
-      <label for="fileUpload">Select File</label>
-      <p>img, pdf, or txt file</p>
-      <p>up to 5MB</p>
-      <img style="width: 75px;" id="preview" src="" alt="">
-      <input type="file" accept="image/*, .pdf, .txt" id="uploadFile" onchange="previewImg(this)" name="uploadFile">
-      <button type="submit" onclick="this.style.display = 'none'">Upload File</button>
-    </form>
-  </dialog>
-    <dialog id="new">
-      <button id="folder" onclick="toggleModal('folder'); toggleModal('new')">Create Folder</button>
-      <button id="file" onclick="toggleModal('file'); toggleModal('new')">Add File</button>
-    </dialog>
-    <button id="new" onclick="toggleModal('new')">New +</button>
-  <% } %>
- 
-<% } else { %>
-  <a href="/login">Log In</a>
-<% } %>
-<div>
-  <a href="/">Home</a>
-  <% for(let i=breadcrumbs.length - 1; i> -1; i--) { %>
-    <img src="/img/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow" style="width: 25px; height: 25px;">
-    <a href="<%=  breadcrumbs[i].link %>">
-      <%= breadcrumbs[i].name %>
-    </a>
+<link rel="stylesheet" href="/css/nav.css">
+<nav>
+  <h1>
+    <img src="/img/icons8-google-drive.svg">
+    Nuvio
+  </h1>
+  <div>
+    <% if (locals.currentUser) { %>
+      <h1><%= currentUser.name %></h1>
+      <a class="button" href="/log-out">Log Out</a>
+      <% if (folder.authorId === currentUser.id) { %>
+        <dialog id="folder">
+        <form action="/create-folder/<%= folder.id %>" method="post">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name">
+          <button type="submit" onclick="this.style.display = 'none'">Create</button>
+        </form>
+      </dialog>
+      <dialog id="file">
+        <form action="/upload/<%= folder.id || -1 %>" method="post" enctype="multipart/form-data">
+          <label for="fileUpload">Select File</label>
+          <p>img, pdf, or txt file</p>
+          <p>up to 5MB</p>
+          <img style="width: 75px;" id="preview" src="" alt="">
+          <input type="file" accept="image/*, .pdf, .txt" id="uploadFile" onchange="previewImg(this)" name="uploadFile">
+          <button type="submit" onclick="this.style.display = 'none'">Upload File</button>
+        </form>
+        </dialog>
+        <dialog id="new">
+          <button id="folder" onclick="toggleModal('folder'); toggleModal('new')">Create Folder</button>
+          <button id="file" onclick="toggleModal('file'); toggleModal('new')">Add File</button>
+        </dialog>
+        <button id="new" onclick="toggleModal('new')">New +</button>
+        <% } %>
+      <% } else { %>
+        <a class="button" href="/sign-up">Sign Up</a>
+        <a class="button" href="/login">Log In</a>
     <% } %>
-</div>
+  </div>
+</nav>
+
+<% if (locals.breadcrumbs) { %>
+  <div>
+    <a href="/">Home</a>
+    <% for(let i=breadcrumbs.length - 1; i> -1; i--) { %>
+      <img src="/img/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow" style="width: 25px; height: 25px;">
+      <a href="<%=  breadcrumbs[i].link %>"><%= breadcrumbs[i].name %></a>
+    <% } %>
+  </div>
+<% } %>

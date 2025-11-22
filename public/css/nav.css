@@ -1,0 +1,38 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  position: sticky;
+  align-items: center;
+}
+
+nav div {
+  display: flex;
+  gap: 1rem;
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+h1 img {
+  width: 30px;
+  animation-name: none;
+  animation-duration: 10s;
+  animation-fill-mode: forwards;
+}
+
+h1 img:hover {
+  animation-name: spin;
+}
+
+.button {
+  margin: 0;
+  padding: .5rem 1.2rem;
+}
+
+.button:hover {
+  text-decoration: none;
+}

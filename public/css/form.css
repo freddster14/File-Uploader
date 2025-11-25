@@ -61,3 +61,28 @@ form p {
 p img {
   width: 16px;
 }
+
+/** generated link page **/
+
+.generated p {
+  margin: 0;
+}
+
+.generated div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.generated input {
+  width: 80%;
+  margin: 0;
+}
+
+.generated img {
+  width: 25px;
+}
+
+.generated a:hover {
+  text-decoration: none;
+}

@@ -4,8 +4,8 @@
       <dialog id="folder">
         <form action="/create-folder/<%= folder.id %>" method="post">
           <label for="name">Name</label>
-          <input type="text" id="name" name="name">
-          <button type="submit" onclick="this.style.display = 'none'">Create</button>
+          <input type="text" id="name" name="name" value="Untitled Folder">
+          <button class="button" type="submit" onclick="this.style.display = 'none'">Create</button>
         </form>
       </dialog>
       <dialog id="file">
@@ -15,7 +15,7 @@
           <p>up to 5MB</p>
           <img style="width: 75px;" id="preview" src="" alt="">
           <input type="file" accept="image/*, .pdf, .txt" id="uploadFile" onchange="previewImg(this)" name="uploadFile">
-          <button type="submit" onclick="this.style.display = 'none'">Upload File</button>
+          <button class="button" type="submit" onclick="this.style.display = 'none'">Upload File</button>
         </form>
       </dialog>
       <dialog id="new">
@@ -27,23 +27,23 @@
         New
       </button>
     </div>
-    <div class="sidebar-links">
-      <a href="/home">
-        <img src="/img/home-alt-svgrepo-com.svg">
-        Home
-      </a>
-      <a href="/recent">
-        <img src="/img/time-svgrepo-com.svg" alt="">
-        Recent
-      </a>
-      <a href="/shared-with-me">
-        <img src="/img/group-svgrepo-com.svg">
-        Shared with me
-      </a>
-      <a href="/shared">
-        <img src="/img/share-svgrepo-com.svg">
-        Shared
-      </a>
-    </div>
-    <% } %>
-  </nav>
+  <% } %>
+  <div class="sidebar-links">
+    <a href="/home">
+      <img src="/img/home-alt-svgrepo-com.svg">
+      Home
+    </a>
+    <a href="/recent">
+      <img src="/img/time-svgrepo-com.svg" alt="">
+      Recent
+    </a>
+    <a href="/shared-with-me">
+      <img src="/img/group-svgrepo-com.svg">
+      Shared with me
+    </a>
+    <a href="/shared">
+      <img src="/img/share-svgrepo-com.svg">
+      Shared
+    </a>
+  </div>
+</nav>

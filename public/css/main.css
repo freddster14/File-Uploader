@@ -96,6 +96,8 @@ input:hover {
   outline: 1.5px solid var(--main-color);
 }
 
+/** breadcrumbs **/
+
 .breadcrumbs {
   display: flex;
   align-items: center;
@@ -117,3 +119,5 @@ input:hover {
 .breadcrumbs img {
   height: 14px;
 }
+
+

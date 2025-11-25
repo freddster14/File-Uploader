@@ -1,0 +1,65 @@
+dialog {
+  border: none;
+  z-index: 1;
+  border-radius: .5rem;
+  box-shadow: 0px 0px 10px 7px rgba(0, 0, 0, 0.479);
+}
+
+dialog img {
+  width: 400px;
+  border-radius: .3rem;
+}
+
+.controls, dialog#new {
+  position: absolute;
+  padding: .2rem;
+  left: 100%;
+  translate: -25%;
+  bottom: 0;
+}
+
+.controls form,
+.controls button,
+dialog#new button,
+dialog form {
+  width: 100%;
+}
+
+.controls button,
+dialog#new button {
+  background-color: white;
+  border: none;
+  padding: .5rem 1rem;
+}
+
+.controls button:hover,
+.controls button:focus,
+#new>button:hover, #new>button:focus {
+  background-color: var(--hover-color);
+}
+
+dialog#new {
+  left: 0;
+  top: 20%;
+  translate: 0;
+  width: 184px;
+}
+dialog label {
+  font-size: 1.5rem;
+}
+
+dialog#folder, dialog#file {
+  margin: 0;
+  position: fixed;
+  translate: -50% -50%;
+  left: 50%;
+  top: 45%;
+}
+
+dialog#file p {
+  margin: .2rem 0;
+}
+
+dialog#file input {
+  margin-top: .5rem;
+}

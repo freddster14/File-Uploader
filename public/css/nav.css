@@ -29,6 +29,16 @@ h1 img:hover {
   animation-name: spin;
 }
 
+.top-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-nav img {
+  width: 35px;
+}
+
 .button {
   margin: 0;
   padding: .5rem 1.2rem;

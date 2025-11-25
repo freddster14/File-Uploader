@@ -6,7 +6,9 @@
   </h1>
   <div>
     <% if (locals.currentUser) { %>
-      <img src="" alt="user">
+      <a href="/profile">
+        <img src="/img/circled-user-svgrepo-com.svg" alt="user">
+      </a>
       <a class="button" href="/log-out">Log Out</a>
       <% } else { %>
         <a class="button" href="/sign-up">Sign Up</a>

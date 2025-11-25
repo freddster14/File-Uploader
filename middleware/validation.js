@@ -38,6 +38,6 @@ const validateEdit = [
     .bail()
     .matches(/^[a-zA-Z\s-]+$/)
     .withMessage('First name must contain only letters, spaces, or hyphens'),
-]
+];
 
 module.exports = { validateSignUp, validateLogin, validateEdit };

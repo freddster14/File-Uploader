@@ -40,8 +40,6 @@ model Folder {
   parent      Folder? @relation("Subfolders", fields: [parentId], references: [id], onDelete: Cascade)
   parentId    Int?
   subfolders  Folder[]  @relation("Subfolders")
-
-  @@unique([authorId, name])
 }
 
 model File {

@@ -11,6 +11,9 @@ main.get('/home', mainController.home);
 main.get('/login', mainController.login);
 main.get('/sign-up', mainController.signUp);
 main.get('/log-out', mainController.logout);
+main.get('/recent', requireAuth, mainController.recent);
+main.get('/shared', requireAuth, mainController.shared);
+main.get('/shared-with-me', requireAuth, mainController.sharedWithMe);
 main.post('/sign-up', mainController.createUser);
 main.post('/login', mainController.loginUser);
 

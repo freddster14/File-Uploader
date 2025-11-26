@@ -60,6 +60,7 @@ exports.upload = [
         mimeType: req.file.mimetype,
         cloudinaryId: result.public_id,
         folderId: folder.id,
+        authorId: req.user.id,
       }
     });
     res.redirect(`/folder/${folder.id}`)

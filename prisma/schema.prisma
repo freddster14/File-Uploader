@@ -26,6 +26,7 @@ model User {
   email     String   @unique
   name      String?
   password  String
+  files     File[]
   folders   Folder[]
 }
 
@@ -50,6 +51,8 @@ model File {
   url           String
   mimeType      String
   cloudinaryId  String
+  author        User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId      Int
   createdAt     DateTime  @default(now())
   
   folder        Folder    @relation(fields: [folderId], references: [id], onDelete: Cascade)

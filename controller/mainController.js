@@ -96,4 +96,38 @@ exports.logout = (req, res, next) => {
   });
 }
 
+exports.recent = async (req,res,next) => {
+  try {
+    const recentFolders = await prisma.folder.findMany({
+      where: { authorId: req.user.id },
+      select: {
+        id: true,
+        name: true,
+        createdAt: true,
+        parentId: true,
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+    const recentFiles = await prisma.file.findMany({
+      where: { authorId: req.user.id },
+      orderBy: { createdAt: 'desc' },
+    });
+    const recentItems = [...recentFolders, ...recentFiles]
+      .sort((a, b) => b.createdAt - a.createdAt);
+    // remove root
+    if(recentItems[recentItems.length - 1].parentId === null) recentItems.pop();
+    res.render('home', { folder: {id : req.user.id }, content: recentItems, breadcrumbs: {} })
+  } catch (error) {
+    console.error(error)
+    next(error);
+  }
+}
 
+exports.shared = async (req,res,next) => {
+  const sharedLinks = prisma.shareLink.findMany({
+  })
+}
+
+exports.sharedWithMe = async (req,res,next) => {
+
+}

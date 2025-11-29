@@ -31,16 +31,16 @@ model User {
 }
 
 model Folder {
-  id        Int     @id @default(autoincrement())
-  name      String
-  files     File[]
-  author    User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId  Int
-  createdAt DateTime  @default(now())
-
-  parent      Folder? @relation("Subfolders", fields: [parentId], references: [id], onDelete: Cascade)
+  id          Int       @id @default(autoincrement())
+  name        String
+  files       File[]
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    Int
+  createdAt   DateTime  @default(now())
+  parent      Folder?   @relation("Subfolders", fields: [parentId], references: [id], onDelete: Cascade)
   parentId    Int?
   subfolders  Folder[]  @relation("Subfolders")
+  sharedLinks ShareLink[]
 }
 
 model File {
@@ -62,9 +62,11 @@ model File {
 model ShareLink {
   id          Int       @id @default(autoincrement())
   token       String    @unique
-  folderId    Int
   expiresAt   DateTime
   createdAt   DateTime  @default(now())
   revoked     Boolean   @default(false)
+  folder      Folder    @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  folderId    Int
+
   @@index([token])
 }

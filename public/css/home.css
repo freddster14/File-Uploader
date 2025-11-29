@@ -90,4 +90,5 @@ main {
 
 .card-header img {
   cursor: pointer;
+  z-index: 1;
 }

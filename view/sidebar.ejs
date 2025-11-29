@@ -1,5 +1,5 @@
 <nav class="sidebar">
-  <% if (folder.authorId===currentUser.id) { %>
+  <% if ( locals.folder && folder.authorId===currentUser.id) { %>
     <div>
       <dialog id="folder">
         <form action="/create-folder/<%= folder.id %>" method="post">

@@ -86,7 +86,7 @@ exports.generateLink = async (req, res, next) => {
   });
   //shareable link
   const shareUrl = `${req.protocol}://${req.get('host')}/share/${token}`;
-  res.render('share', { shareLink, shareUrl, folderId: shareLink.folderId })
+  res.render('shared', { shareLink, shareUrl, folderId: shareLink.folderId })
 }
 
 exports.shareLink = async (req, res, next) => {
@@ -129,9 +129,7 @@ exports.shareLink = async (req, res, next) => {
     } else {
       id = rootFolder.id
     }
-    console.log(folderId)
     const breadcrumbs = await breadcrumbing(id , { token, limitId: rootFolder.parentId });
-    console.log(breadcrumbs)
     res.render('shareFolder', {
       folder: current,
       content: [...current.subfolders, ...current.files],

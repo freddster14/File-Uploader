@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/shared.css">
+  <title>Shared</title>
+</head>
+<body>
+  <%- include('nav')%>
+  <main class="shared">
+    <%- include('sidebar')%>
+    <div class="body">
+     <% if (locals.sharedLinks) { %>
+      <% sharedLinks.forEach(link => { %>
+      <div class="card">
+        <a href="/folder/<%= link.folder.id %>"><%= link.folder.name %></a>
+        <p>Expies in <%= link.expiresAt %></p>
+        <div>
+          <input type="text" id="shareUrl" value="<%= link.sharedUrl %>" readonly>
+          <img src="/img/link-svgrepo-com.svg" id="copyBtn">
+        </div>
+        <div class="actions">
+          <form action="/renew/<%= link.id %>">
+            <button style="background-color: var(--main-color);">Renew</button>
+          </form>
+          <form action="/revoke/<%= link.id %>">
+            <button style="background-color: #374151;">Revoke</button>
+          </form>
+          <form action="/delete-link/<%= link.id %>">
+            <button style="background-color: #b3261e;">Delete</button>
+          </form>
+        </div>
+      </div>
+      <% }) %>
+    <%}%>
+    </div>
+   
+  </main>
+</body>
+</html>

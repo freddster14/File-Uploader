@@ -38,6 +38,7 @@ dialog#new button {
   background-color: white;
   border: none;
   padding: .5rem 1rem;
+  font-family: inherit;
 }
 
 .controls button:hover,

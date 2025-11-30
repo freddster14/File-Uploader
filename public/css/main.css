@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 :root {
   --main-color: #2563EB;
   --hover-color: #E2E8F0;
@@ -13,6 +15,8 @@ body {
   height: 100vh;
   max-width: 1200px;
   margin: 0 auto;
+  font-size: 0.875rem;
+  font-family: 'Inter', sans-serif;
 }
 
 @keyframes spin {
@@ -90,6 +94,7 @@ input {
   outline: none;
   border-radius: .3rem;
   border: 1px solid #1F2937;
+  font-family: inherit;
 }
 
 input:focus,

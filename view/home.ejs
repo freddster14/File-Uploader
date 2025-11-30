@@ -29,16 +29,16 @@
             <% } %>
         </div>
       <% } %>
-      <div class="folders">
+      <div class="content">
         <% if (content.length > 0) { %>
           <% content.forEach(e => { %>
             <% if (e.mimeType) { %>
               <dialog class="img-info" id="<%= e.cloudinaryId %>">
-                  <img src="<%= e.url %>" alt="<%= e.name %>">
-                  <p><%= e.name %></p>
-                  <p>Size: <%= e.formattedSize %></p>
-                  <p>Uploaded: <%= e.createdAt.toLocaleDateString() %> • <%= e.createdAt.toLocaleTimeString() %></p>
-                </dialog>
+                <img src="<%= e.url %>" alt="<%= e.name %>">
+                <p><%= e.name %></p>
+                <p>Size: <%= e.formattedSize %></p>
+                <p>Uploaded: <%= e.createdAt.toLocaleDateString() %> • <%= e.createdAt.toLocaleTimeString() %></p>
+              </dialog>
               <div class="card" id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')" style="cursor: pointer;">
                 <dialog class="controls" id="file<%= e.id %>">
                   <form action="/download/<%= e.id%>">

@@ -6,7 +6,9 @@ async function breadcrumbing(id, share = {}) {
   });
   const res = []
   // go up the tree
-  while (current.parentId !== null || (share.limitId && current.id !== share.limitId)) {
+  while (current.parentId !== null) {
+    console.log(current)
+    if (share.limitId && current.id === share.limitId) return res;
     if(share.limitId) {
       res.push({ name: current.name, link: `/share/${share.token}/?folderId=${current.id}` });
     } else {

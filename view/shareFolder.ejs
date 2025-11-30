@@ -19,19 +19,20 @@
       <% }) %>
         <% } %>
     <%- include('sidebar') %>
-    <% if (content.length > 0) { %>
-      <div class="body">
-        <% if (locals.breadcrumbs) { %>
-          <div class="breadcrumbs">
-            <a href="/">Home</a>
-            <% for(let i=breadcrumbs.length - 1; i> -1; i--) { %>
+    <div class="body">
+      <% if (locals.breadcrumbs) { %>
+        <div class="breadcrumbs">
+          <% for(let i=breadcrumbs.length - 1; i> -1; i--) { %>
+            <a href="<%=  breadcrumbs[i].link %>">
+              <%= breadcrumbs[i].name %>
+            </a>
+            <% if (i !== 0) { %>
               <img src="/img/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow">
-              <a href="<%=  breadcrumbs[i].link %>">
-                <%= breadcrumbs[i].name %>
-              </a>
-              <% } %>
-          </div>
-          <% } %>
+            <% } %>
+            <% } %>
+        </div>
+      <% } %>
+      <% if (content.length > 0) { %>
         <div class="content">
           <% content.forEach(e => { %>
             <% if (e.mimeType) { %>
@@ -57,19 +58,25 @@
                 </div>
               </div>
             <% } else { %>
-              <a class="card-folder" href="/folder/<%= e.id %>">
-                <img src="/img/folder-svgrepo-com.svg" alt="folder">
-              </a>
-              <div class="card-header">
-                <a class="name" href="/folder/<%= e.id %>">
-                  <%= e.name %>
+              <div class="card">
+                <a class="card-folder" href="/share/<%=token%>/?folderId=<%= e.id %>">
+                  <img src="/img/folder-svgrepo-com.svg" alt="folder">
                 </a>
+                <div class="card-header">
+                  <a class="name" href="/folder/<%= e.id %>">
+                    <%= e.name %>
+                  </a>
+                </div>
               </div>
             <% } %>
           <% }) %>
         </div>
-      </div>
-    <% } %>
+      <% } else { %>
+        <div class="empty-state">
+          <h2>No folder or files</h2>
+        </div>
+      <% } %>
+    </div>
   </main>
 <script src="/js/modalFunctions.js"></script>
 </body>

@@ -1,3 +1,11 @@
+.dots {
+  border-radius: 100%;
+}
+
+.dots:hover, .dots:focus {
+  background-color: var(--hover-color);
+}
+
 dialog {
   border: none;
   z-index: 1;
@@ -62,4 +70,9 @@ dialog#file p {
 
 dialog#file input {
   margin-top: .5rem;
+}
+
+.card .seperate {
+  border: 1px solid var(--hover-color);
+  margin: 0;
 }

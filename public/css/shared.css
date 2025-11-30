@@ -8,7 +8,7 @@ main {
 
 .body {
   box-shadow: 0px 0px 5px 3px var(--shadow-color);
-  padding: 1rem 2rem;
+  padding: 2rem;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
@@ -24,6 +24,18 @@ main {
   gap: .5rem;
 }
 
+.active {
+  border-left: 3px solid var(--main-color);
+}
+
+.expired {
+  border-left: 3px solid #b3261e;
+}
+
+.header {
+  position: relative;
+}
+
 .card a {
   font-size: 1.5rem;
   color: inherit;
@@ -37,11 +49,16 @@ main {
   margin: 0;
 }
 
+.expired p {
+  color: #b3261e;
+}
+
 .card div {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: .5rem;
+  gap: 1rem;
+  margin: .3rem 0;
 }
 
 .card input {
@@ -52,14 +69,16 @@ main {
   width: 20px;
 }
 
-.actions button {
-  padding: .5rem;
-  border-radius: .5rem;
-  border: none;
-  color: #f3f4f6;
-  box-shadow: 0px 0px 5px 3px var(--shadow-color);
+form {
+  width: auto;
 }
 
-.actions button:hover {
-  box-shadow: 0px 0px 5px 5px var(--shadow-hover-color);
+.card .button {
+  border-radius: .7rem;
+}
+
+.controls {
+  left: 95%;
+  top: 55%;
+  translate: -50% -50%;
 }

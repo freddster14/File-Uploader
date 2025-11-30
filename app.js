@@ -4,10 +4,13 @@ const express = require('express');
 const path = require('node:path');
 const passport = require('passport');
 const session = require('express-session');
+const dayjs = require('dayjs');
+const relativeTime = require('dayjs/plugin/relativeTime');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('./generated/prisma');
-const mainRouter = require('./route/mainRouter')
+const mainRouter = require('./route/mainRouter');
 
+dayjs.extend(relativeTime);
 
 const PORT = 3000;
 const app = express();
@@ -40,6 +43,7 @@ app.use(passport.session());
 
 // user access in ejs
 app.use(async (req, res, next) => {
+  res.locals.dayjs = dayjs;
   res.locals.currentUser = req.user;
   next();
 })

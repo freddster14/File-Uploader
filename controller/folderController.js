@@ -142,3 +142,30 @@ exports.shareLink = async (req, res, next) => {
   }
 }
 
+exports.shared = async (req, res, next) => {
+  const sharedLinks = await prisma.shareLink.findMany({
+    where: {
+      folder: { authorId: req.user.id }
+    },
+    include: {
+      folder: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+  sharedLinks.forEach(link => {
+    link.sharedUrl = `${req.protocol}://${req.get('host')}/share/${link.token}`
+  })
+  console.log(sharedLinks)
+  res.render('sharedView', { sharedLinks })
+}
+
+exports.sharedWithMe = async (req, res, next) => {
+
+}

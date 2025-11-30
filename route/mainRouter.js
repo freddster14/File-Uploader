@@ -12,13 +12,13 @@ main.get('/login', mainController.login);
 main.get('/sign-up', mainController.signUp);
 main.get('/log-out', mainController.logout);
 main.get('/recent', requireAuth, mainController.recent);
-main.get('/shared', requireAuth, mainController.shared);
-main.get('/shared-with-me', requireAuth, mainController.sharedWithMe);
 main.post('/sign-up', mainController.createUser);
 main.post('/login', mainController.loginUser);
 
 main.get('/folder/:id', requireAuth, folderController.getFolder);
 main.get('/share/:token', folderController.shareLink);
+main.get('/shared', requireAuth, folderController.shared);
+main.get('/shared-with-me', requireAuth, folderController.sharedWithMe);
 main.post('/share/:id', requireAuth, folderController.generateLink);
 main.post('/create-folder/:id', requireAuth, folderController.createSubfolder);
 main.post('/edit/folder/:id', requireAuth, folderController.edit);

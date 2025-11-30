@@ -98,6 +98,15 @@ input:hover {
   outline: 1.5px solid var(--main-color);
 }
 
+
+.empty-state {
+  font-size: 1.1rem;
+  position: absolute;
+  left: calc(50% + 95px );
+  top: 40%;
+  translate: -50% -50%;
+}
+
 /** breadcrumbs **/
 
 .breadcrumbs {

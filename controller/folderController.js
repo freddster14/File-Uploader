@@ -163,7 +163,6 @@ exports.shared = async (req, res, next) => {
   sharedLinks.forEach(link => {
     link.sharedUrl = `${req.protocol}://${req.get('host')}/share/${link.token}`
   })
-  console.log(sharedLinks)
   res.render('sharedView', { sharedLinks })
 }
 

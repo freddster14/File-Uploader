@@ -5,6 +5,7 @@ const passport = require('passport');
 const { validationResult } = require('express-validator');
 const { validateSignUp, validateLogin } = require('../middleware/validation');
 const formatErrors = require('../utils/errorFormatter');
+const breadcrumbing = require('../utils/breadCrumbs');
 
 
 exports.intro = (req, res) => {
@@ -26,11 +27,12 @@ exports.home = async (req, res, next) => {
         files: true,
       },
     });
+    const breadcrumbs = await breadcrumbing(root.id);
     res.render('home', {
       title: 'Home',
       folder: root,
       content: [...root.subfolders, ...root.files],
-      breadcrumbs: []
+      breadcrumbs: breadcrumbs,
     })
   } catch (error) {
     console.error(error)

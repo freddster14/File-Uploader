@@ -20,13 +20,14 @@
     <div class="body">
       <% if (locals.breadcrumbs) { %>
         <div class="breadcrumbs">
-          <a href="/">Home</a>
           <% for(let i=breadcrumbs.length - 1; i> -1; i--) { %>
-            <img src="/img/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow">
             <a href="<%=  breadcrumbs[i].link %>">
               <%= breadcrumbs[i].name %>
             </a>
+            <% if(i !== 0) { %>
+              <img src="/img/right-arrow-backup-2-svgrepo-com.svg" alt="right arrow">
             <% } %>
+          <% } %>
         </div>
       <% } else { %>
         <h1><%= title %></h1>

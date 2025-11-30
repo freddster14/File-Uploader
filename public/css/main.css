@@ -117,7 +117,7 @@ input:hover {
 .breadcrumbs {
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: .3rem;
 }
 
 .breadcrumbs a {

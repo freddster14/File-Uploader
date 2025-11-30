@@ -26,7 +26,12 @@ exports.home = async (req, res, next) => {
         files: true,
       },
     });
-    res.render('home', { folder: root, content: [...root.subfolders, ...root.files], breadcrumbs: [] })
+    res.render('home', {
+      title: 'Home',
+      folder: root,
+      content: [...root.subfolders, ...root.files],
+      breadcrumbs: []
+    })
   } catch (error) {
     console.error(error)
     next(error)
@@ -116,7 +121,7 @@ exports.recent = async (req,res,next) => {
       .sort((a, b) => b.createdAt - a.createdAt);
     // remove root
     if(recentItems[recentItems.length - 1].parentId === null) recentItems.pop();
-    res.render('home', { folder: {id : req.user.id }, content: recentItems, breadcrumbs: {} })
+    res.render('home', { title:'Recent', folder: {id : req.user.id }, content: recentItems })
   } catch (error) {
     console.error(error)
     next(error);

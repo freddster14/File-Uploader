@@ -29,7 +29,6 @@ exports.upload = [
     } else {
       folder = await prisma.folder.findUnique({ where: { id: parseInt(id, 10) } });
     }
-
   
     //auth
     if (!folder || folder.authorId !== req.user.id) return res.status(403).send('Not authorized');

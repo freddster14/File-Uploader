@@ -1,3 +1,4 @@
+const { title } = require('process');
 const prisma = require('../prisma/client');
 const breadcrumbing = require('../utils/breadCrumbs');
 const crypto = require('crypto')
@@ -17,7 +18,7 @@ exports.getFolder = async (req, res, next) => {
     // auth
     if (req.user.id !== folder.authorId) return res.status(403).send('Not authorized');
     const breadcrumbs = await breadcrumbing(id);
-    res.render('home', { folder, content: [...folder.subfolders, ...folder.files], breadcrumbs })
+    res.render('home', { title: folder.name, folder, content: [...folder.subfolders, ...folder.files], breadcrumbs })
   } catch (error) {
     next(error)
   }

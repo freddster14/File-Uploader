@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/dialog.css">
   <link rel="stylesheet" href="/css/home.css">
-  <title>Home</title>
+  <title><%= title %></title>
 </head>
 <body>
   <%- include('nav') %>
@@ -28,6 +28,8 @@
             </a>
             <% } %>
         </div>
+      <% } else { %>
+        <h1><%= title %></h1>
       <% } %>
       <div class="content">
         <% if (content.length > 0) { %>

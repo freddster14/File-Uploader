@@ -12,7 +12,6 @@ function toggleModal(id, event) {
 
 // close modal when clicking outside
 document.addEventListener('click', (e) => {
-  console.log(currentlyOpening)
   const openDialogs = document.querySelectorAll('dialog[open]');
 
   openDialogs.forEach(dialog => {

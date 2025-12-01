@@ -20,19 +20,19 @@
           <a href="/folder/<%= link.folder.id %>"><%= link.folder.name %></a>
           <dialog class="controls" id="link<%= link.id %>">
             <form action="/renew/<%= link.id %>">
-              <button>Renew</button>
+              <button class="control-btn">Renew</button>
             </form>
             <% if (!link.revoked) { %>
               <form action="/revoke/<%= link.id %>">
-                <button>Revoke</button>
+                <button class="control-btn">Revoke</button>
               </form>
             <%} else { %>
               <form action="/activate/<%= link.id %>">
-                <button>Activate</button>
+                <button class="control-btn">Activate</button>
               </form>
             <% } %>
             <form action="/delete-link/<%= link.id %>">
-              <button>Delete</button>
+              <button class="control-btn">Delete</button>
             </form>
           </dialog>
           <img class="dots" tabindex="0" onclick="toggleModal('link<%= link.id %>')"  src="/img/three-dots-svgrepo-com.svg" alt="action button">

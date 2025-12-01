@@ -1,10 +1,3 @@
-.dots {
-  border-radius: 100%;
-}
-
-.dots:hover, .dots:focus {
-  background-color: var(--hover-color);
-}
 
 dialog {
   border: none;
@@ -21,8 +14,7 @@ dialog img {
 .controls, dialog#new {
   position: absolute;
   padding: .2rem;
-  left: 100%;
-  translate: -25%;
+  left: calc(100% - 75px);
   bottom: 0;
 }
 
@@ -33,7 +25,7 @@ dialog form {
   width: 100%;
 }
 
-.controls button,
+.control-btn,
 dialog#new button {
   background-color: white;
   border: none;
@@ -47,6 +39,15 @@ dialog#new button {
   background-color: var(--hover-color);
 }
 
+.dialog-form {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  translate: -50% -50%;
+}
+
+
+/** new dialog **/
 dialog#new {
   left: 0;
   top: 20%;
@@ -73,7 +74,3 @@ dialog#file input {
   margin-top: .5rem;
 }
 
-.card .seperate {
-  border: 1px solid var(--hover-color);
-  margin: 0;
-}

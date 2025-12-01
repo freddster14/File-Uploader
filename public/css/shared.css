@@ -45,13 +45,9 @@ main {
   text-decoration: none;
 }
 
-.card p {
-  margin: 0;
-}
+.card p { margin: 0; }
 
-.expired p {
-  color: #b3261e;
-}
+.expired p { color: #b3261e; }
 
 .card div {
   display: flex;
@@ -65,17 +61,17 @@ main {
   width: 90%;
   margin: 0;
 }
-.card img {
-  width: 20px;
+.card img, .dots { width: 25px; }
+
+.dots { border-radius: 100%;}
+
+.dots:hover, .dots:focus {
+  background-color: var(--hover-color);
 }
 
-form {
-  width: auto;
-}
+form { width: auto; }
 
-.card .button {
-  border-radius: .7rem;
-}
+.card .button { border-radius: .7rem; }
 
 .controls {
   left: 95%;

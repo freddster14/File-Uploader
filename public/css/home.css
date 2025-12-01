@@ -87,11 +87,14 @@ main {
 
 .name:hover, .name:focus { text-decoration: none; }
 
-.card-header img {
+
+.dots {
+  border-radius: 100%;
   cursor: pointer;
   border-radius: 100%;
 }
 
-.card-header img:focus, .card-header img:hover {
+.dots:hover,
+.dots:focus {
   background-color: var(--shadow-hover-color);
 }

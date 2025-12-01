@@ -22,7 +22,6 @@
             <form action="/renew/<%= link.id %>">
               <button>Renew</button>
             </form>
-            <div class="seperate"></div>
             <% if (!link.revoked) { %>
               <form action="/revoke/<%= link.id %>">
                 <button>Revoke</button>
@@ -32,12 +31,11 @@
                 <button>Activate</button>
               </form>
             <% } %>
-            <div class="seperate"></div>
             <form action="/delete-link/<%= link.id %>">
               <button>Delete</button>
             </form>
           </dialog>
-          <img class="dots" tabindex="0" id="link<%= link.id %>" onclick="toggleModal('link<%= link.id %>')"  src="/img/three-dots-svgrepo-com.svg" alt="action button">
+          <img class="dots" tabindex="0" onclick="toggleModal('link<%= link.id %>')"  src="/img/three-dots-svgrepo-com.svg" alt="action button">
         </div>
         <% if (link.expiresAt > new Date()) { %>
           <p>Expires <%= dayjs(link.expiresAt).fromNow() %></p>

@@ -43,18 +43,18 @@
                   <p>Uploaded: <%= e.createdAt.toLocaleDateString() %> • <%= e.createdAt.toLocaleTimeString() %></p>
               </dialog>
               <div class="card">
-                <dialog id="file<%= e.id %>">
+                <dialog class="controls" id="file<%= e.id %>">
                   <form action="/download/<%= e.id%>">
-                    <button onclick="this.style.display = 'none'" type="submit">Download</button>
+                    <button class="control-btn" onclick="this.style.display = 'none'" type="submit">Download</button>
                   </form>
                 </dialog>
                 <div class="card-img">
-                  <img id="<%= e.cloudinaryId %>" src="<%= e.url %>" alt="<%= e.name %>"
+                  <img src="<%= e.url %>" alt="<%= e.name %>"
                     onclick="toggleModal('<%= e.cloudinaryId %>')">
                 </div>
                 <div class="card-header">
                   <p id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></p>
-                  <img  id="file<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
+                  <img class="dots" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
                 </div>
               </div>
             <% } else { %>

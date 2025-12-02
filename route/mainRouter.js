@@ -2,6 +2,7 @@ const { Router } = require('express');
 const mainController = require('../controller/mainController');
 const folderController = require('../controller/folderController');
 const fileController = require('../controller/fileController');
+const linkController = require('../controller/linkContoller')
 const requireAuth = require('../middleware/auth');
 
 const main = Router();
@@ -12,21 +13,24 @@ main.get('/login', mainController.login);
 main.get('/sign-up', mainController.signUp);
 main.get('/log-out', mainController.logout);
 main.get('/recent', requireAuth, mainController.recent);
+main.get('/profile', requireAuth, mainController.profile)
 main.post('/sign-up', mainController.createUser);
 main.post('/login', mainController.loginUser);
 
 main.get('/folder/:id', requireAuth, folderController.getFolder);
-main.get('/share/:token', folderController.shareLink);
-main.get('/shared', requireAuth, folderController.shared);
-main.get('/shared-with-me', requireAuth, folderController.sharedWithMe);
-main.post('/share/:id', requireAuth, folderController.generateLink);
 main.post('/create-folder/:id', requireAuth, folderController.createSubfolder);
 main.post('/edit/folder/:id', requireAuth, folderController.edit);
-main.post('/delete/folder/:id', requireAuth, folderController.delete)
+main.post('/delete/folder/:id', requireAuth, folderController.delete);
 
 main.get('/download/:id', fileController.download);
 main.post('/upload/:id', requireAuth, fileController.upload);
-main.post('/edit/file/:id', requireAuth, fileController.edit)
-main.post('/delete/file/:id', requireAuth, fileController.delete)
+main.post('/edit/file/:id', requireAuth, fileController.edit);
+main.post('/delete/file/:id', requireAuth, fileController.delete);
+
+main.get('/share/:token', linkController.shareLink);
+main.get('/shared', requireAuth, linkController.shared);
+main.get('/shared-with-me', requireAuth, linkController.sharedWithMe);
+main.post('/share/:id', requireAuth, linkController.generateLink);
+main.post('/revoke/:id', requireAuth, linkController.revoke);
 
 module.exports = main;

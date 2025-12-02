@@ -130,3 +130,12 @@ exports.recent = async (req,res,next) => {
   }
 }
 
+
+exports.profile = async (req,res,next) => {
+  try {
+    const user = await prisma.user.findUnique({ where: { id: req.user.id }})
+    res.render('profile', { user })
+  } catch (error) {
+    
+  }
+}

@@ -86,7 +86,7 @@ exports.upload = [
   }
 }]
 
-exports.edit = validateEdit, async (req,res,next) => {
+exports.edit = [validateEdit, async (req,res,next) => {
   const { id } = req.params;
   const { name } = req.body;
   try {
@@ -102,7 +102,7 @@ exports.edit = validateEdit, async (req,res,next) => {
   } catch (error) {
     console.error(error)
   }
-}
+}]
 
 exports.download = async (req,res,next) => {
   const { id } = req.params;

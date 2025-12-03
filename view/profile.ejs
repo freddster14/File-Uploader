@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/profile.css">
   <link rel="stylesheet" href="/css/home.css">
   <title>Profile</title>
 </head>
@@ -18,16 +19,43 @@
         <p><%= user.email %></p>
       </div>
       <p>Account created: <%= user.createdAt.toLocaleDateString()%></p>
-
+      <div class="divider"></div>
       <h2>Stats</h2>
-      <p>Folders created: <%= count.folders %></p>
-      <p>Files uploaded: <%= count.files %></p>
-      <p>Links generated: <%= count.links %></p>
-      <p>Active links: <%= count.activeLinks %></p>
-      <p>Recent folder shared: <a href="/folder/<%= recentShared.folderId %>"><%= recentShared.folder.name %></a></p>
-      <p>Storage used: <%= storageTaken %></p>
-      <p>Time saved using Nuvio: <%= timeSaved %></p>
+      <div class="stats">
+        <div class="card">
+          <p class="number"><%= count.folders %></p>
+          <p>Folders created</p>
+        </div>
+        <div class="card">
+          <p class="number"><%= count.files %></p>
+          <p>Files uploaded</p>
+        </div>
+        <div class="card">
+          <p class="number"><%= count.links %></p>
+          <p>Links generated</p>
+        </div>
+        <div class="card">
+          <p class="number"><%= count.activeLinks %></p>
+          <p>Active links</p>
+        </div>
+        <div class="card">
+          <a href="/folder/<%= recentShared.folderId %>"><%= recentShared.folder.name %></a>
+          <p>Recent folder shared </p>
+        </div>
+        <div class="card">
+          <p class="number"><%= storageTaken %></p>
+          <p>Storage used</p>
+        </div>
+        <div class="card">
+          <p class="number"><%= timeSaved %></p>
+          <p>Time saved using Nuvio
+          <button onclick="toggleModal('saved')">?</button>
+          </p>
+          <dialog id="saved">each share link saves 30 seconds over manually uploading/sending</dialog>
+        </div>
+      </div>
     </div>
   </main>
+  <script src="/js/modalFunctions.js"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@ const { validateSignUp, validateLogin } = require('../middleware/validation');
 const formatErrors = require('../utils/errorFormatter');
 const breadcrumbing = require('../utils/breadCrumbs');
 const formatSize = require('../utils/fileSizeFormat');
+const formatSec = require('../utils/formatSec');
 
 
 exports.intro = (req, res) => {
@@ -117,7 +118,7 @@ exports.recent = async (req,res,next) => {
       orderBy: { createdAt: 'desc' }
     });
     const recentFiles = await prisma.file.findMany({
-      where: { authorId: req.user.id },
+      where: { folder: { authorId: req.user.id }},
       orderBy: { createdAt: 'desc' },
     });
     const recentItems = [...recentFolders, ...recentFiles]
@@ -136,9 +137,24 @@ exports.profile = async (req,res,next) => {
   try {
     const user = await prisma.user.findUnique({ where: { id: req.user.id }});
     const foldersCount = await prisma.folder.count({ where: {authorId: req.user.id }});
-    const files = await prisma.file.findMany({ where: { folder: { authorId: req.user.id } }});
     const filesCount = await prisma.file.count({ where: { folder: { authorId: req.user.id }}});
     const linksCount = await prisma.shareLink.count({ where: { folder: { authorId: req.user.id }}});
+    const recentShared = await prisma.shareLink.findFirst({
+      where: {
+        folder: { authorId: req.user.id },
+      },
+      select: {
+        folderId: true,
+        folder: {
+          select: {
+            name: true,
+          }
+        },
+      },
+      orderBy: {
+        createdAt: 'asc',
+      }
+    });
     const activeLinks = await prisma.shareLink.count({
       where: {
         folder: { authorId: req.user.id },
@@ -146,6 +162,15 @@ exports.profile = async (req,res,next) => {
         expiresAt: { gt: new Date() },
       },
     });
+    const userCreated = await prisma.folder.findFirst({
+      where: { parentId: null, authorId: req.user.id },
+      select: {
+        createdAt: true,
+      }
+    });
+    user.createdAt = userCreated.createdAt;
+    // each link saves 30 seconds
+    const timeSaved = formatSec(linksCount * 30);
     const count = { folders: foldersCount, files: filesCount, links: linksCount, activeLinks }
     //  total size of files
     const sumSize = await prisma.file.aggregate({
@@ -153,8 +178,8 @@ exports.profile = async (req,res,next) => {
       where: { folder: { authorId: req.user.id }},
     });
     const storageTaken = formatSize(sumSize._sum.size)
-
-    res.render('profile', { user, count, storageTaken })
+    
+    res.render('profile', { user, count, storageTaken, timeSaved, recentShared })
   } catch (error) {
     console.error(error);
     next(error)

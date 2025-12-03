@@ -118,6 +118,8 @@ input:hover {
   display: flex;
   align-items: center;
   gap: .3rem;
+  margin-top: -.6rem;
+  margin-left: -16px;
 }
 
 .breadcrumbs a {

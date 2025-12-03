@@ -4,10 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/form.css">
+  <link rel="stylesheet" href="/css/home.css">
   <title>Profile</title>
 </head>
 <body>
-  
+  <%- include('nav') %>
+  <main>
+    <%- include('sidebar') %>
+    <div class="body">
+      <h1>Profile</h1>
+      <div>
+        <p><%= user.name %></p>
+        <p><%= user.email %></p>
+      </div>
+      <p>Account created: <%= user.createdAt.toLocaleDateString()%></p>
+
+      <h2>Stats</h2>
+      <p>Folders created: <%= count.folders %></p>
+      <p>Files uploaded: <%= count.files %></p>
+      <p>Links generated: <%= count.links %></p>
+      <p>Active links: <%= count.activeLinks %></p>
+      <p>Recent folder shared: <a href="/folder/<%= recentShared.folderId %>"><%= recentShared.folder.name %></a></p>
+      <p>Storage used: <%= storageTaken %></p>
+      <p>Time saved using Nuvio: <%= timeSaved %></p>
+    </div>
+  </main>
 </body>
 </html>

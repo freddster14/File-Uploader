@@ -6,6 +6,7 @@ const { validationResult } = require('express-validator');
 const { validateSignUp, validateLogin } = require('../middleware/validation');
 const formatErrors = require('../utils/errorFormatter');
 const breadcrumbing = require('../utils/breadCrumbs');
+const formatSize = require('../utils/fileSizeFormat');
 
 
 exports.intro = (req, res) => {
@@ -133,9 +134,29 @@ exports.recent = async (req,res,next) => {
 
 exports.profile = async (req,res,next) => {
   try {
-    const user = await prisma.user.findUnique({ where: { id: req.user.id }})
-    res.render('profile', { user })
+    const user = await prisma.user.findUnique({ where: { id: req.user.id }});
+    const foldersCount = await prisma.folder.count({ where: {authorId: req.user.id }});
+    const files = await prisma.file.findMany({ where: { folder: { authorId: req.user.id } }});
+    const filesCount = await prisma.file.count({ where: { folder: { authorId: req.user.id }}});
+    const linksCount = await prisma.shareLink.count({ where: { folder: { authorId: req.user.id }}});
+    const activeLinks = await prisma.shareLink.count({
+      where: {
+        folder: { authorId: req.user.id },
+        revoked: false,
+        expiresAt: { gt: new Date() },
+      },
+    });
+    const count = { folders: foldersCount, files: filesCount, links: linksCount, activeLinks }
+    //  total size of files
+    const sumSize = await prisma.file.aggregate({
+      _sum: { size: true },
+      where: { folder: { authorId: req.user.id }},
+    });
+    const storageTaken = formatSize(sumSize._sum.size)
+
+    res.render('profile', { user, count, storageTaken })
   } catch (error) {
-    
+    console.error(error);
+    next(error)
   }
 }

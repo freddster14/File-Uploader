@@ -13,22 +13,23 @@ exports.upload = [
     });
   },
   async (req, res, next) => {
-  let id  = req.params.id;
-  // set id to user when home
-  try {
-    if (req.uploadError) throw req.uploadError;
-    let folder;
-    // get either root or subfolders
-    if (id === '-1') {
-      folder = await prisma.folder.findFirst({
-        where: {
-          authorId: id,
-          parent: null,
-        }
-      })
-    } else {
-      folder = await prisma.folder.findUnique({ where: { id: parseInt(id, 10) } });
-    }
+    let id  = req.params.id;
+    // set id to user when home
+    try {
+      if (!req.file) throw new Error('No file uploaded')
+      if (req.uploadError) throw req.uploadError;
+      let folder;
+      // get either root or subfolders
+      if (id === '-1') {
+        folder = await prisma.folder.findFirst({
+          where: {
+            authorId: id,
+            parent: null,
+          }
+        })
+      } else {
+        folder = await prisma.folder.findUnique({where: { id: parseInt(id, 10) } });
+      }
   
     //auth
     if (!folder || folder.authorId !== req.user.id) return res.status(403).send('Not authorized');
@@ -59,7 +60,6 @@ exports.upload = [
         mimeType: req.file.mimetype,
         cloudinaryId: result.public_id,
         folderId: folder.id,
-        authorId: req.user.id,
       }
     });
     res.redirect(`/folder/${folder.id}`)
@@ -75,6 +75,7 @@ exports.upload = [
     });
     if(folder) {
       return res.status(500).render('home', {
+        title: 'Home',
         folder,
         content: [...folder.subfolders, ...folder.files],
         breadcrumbs,

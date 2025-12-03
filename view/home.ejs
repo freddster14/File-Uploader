@@ -45,7 +45,7 @@
               <dialog class="dialog-form" id="edit<%= e.id %>">
                 <form action="/edit/file/<%= e.id %>" method="post">
                   <label for="name">Name</label>
-                  <input id="name" type="text" name="name" value="<%= e.name %>">
+                  <input id="name-<% e.id %>" type="text" name="name" value="<%= e.name %>">
                   <button class="button" type="submit" onclick="this.style.display = 'none'">Update</button>
                 </form>
               </dialog>

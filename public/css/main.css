@@ -115,6 +115,9 @@ input:hover {
 /** breadcrumbs **/
 
 .breadcrumbs {
+  padding: 1.6rem 2rem;
+  padding-bottom: 0;
+  font-weight: bold;
   display: flex;
   align-items: center;
   gap: .3rem;
@@ -126,7 +129,7 @@ input:hover {
   color: inherit;
   padding: .5rem 1rem;
   border-radius: .5rem;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 }
 
 .breadcrumbs a:hover, .breadcrumbs a:focus {

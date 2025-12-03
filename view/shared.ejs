@@ -4,33 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/form.css">
-  <title>Link</title>
+  <link rel="stylesheet" href="/css/dialog.css">
+  <link rel="stylesheet" href="/css/shared.css">
+  <title>Shared</title>
 </head>
 <body>
-  <main class="generated">
-    <h1>Generated Link!</h1>
-    <p>Expires in 3 days.</p>
-    <div>
-      <input type="text" id="shareUrl" value="<%= shareUrl %>" readonly>
-      <img src="/img/link-svgrepo-com.svg" id="copyBtn">
+  <%- include('nav')%>
+  <main class="shared">
+    <%- include('sidebar')%>
+    <div class="body">
+     <% if (sharedLinks.length > 0) { %>
+      <% sharedLinks.forEach(link => { %>
+      <div class="<%= link.expiresAt > new Date() && link.revoked === false ? 'active' : 'expired' %> card">
+        <div class="header">
+          <a href="/folder/<%= link.folder.id %>"><%= link.folder.name %></a>
+          <dialog class="controls" id="link<%= link.id %>">
+            <form method="post" action="/extend/<%= link.id %>">
+              <button class="control-btn"><%= link.expiresAt > new Date() ? 'Extend' : 'Renew' %></button>
+            </form>      
+            <% if (!link.revoked) { %>
+              <form method="post" action="/revoke/<%= link.id %>">
+                <button class="control-btn">Revoke</button>
+              </form>
+            <%} else { %>
+              <form method="post" action="/activate/<%= link.id %>">
+                <button class="control-btn">Activate</button>
+              </form>
+            <% } %>
+            <form method="post" action="/delete/<%= link.id %>">
+              <button class="control-btn">Delete</button>
+            </form>
+          </dialog>
+          <img class="dots" tabindex="0" onclick="toggleModal('link<%= link.id %>')"  src="/img/three-dots-svgrepo-com.svg" alt="action button">
+        </div>
+        <p>Status: <%= link.expiresAt < new Date() || link.revoked !== false ? 'not active' : 'active' %></p>
+        <% if (link.expiresAt > new Date()) { %>
+          <p style="color: inherit;">Expires <%= dayjs(link.expiresAt).fromNow() %></p>
+          <div>
+            <input type="text" id="shareUrl" value="<%= link.sharedUrl %>" readonly>
+            <% if (link.revoked) { %>
+              <form method="post" action="/activate/<%= link.id %>">
+                <button class="button">Activate</button>
+              </form>
+            <%} else { %>
+              <img tabindex="0" src="/img/link-svgrepo-com.svg" id="copyBtn">
+            <% } %>
+          </div>
+        <% } else { %>
+          <p style="color: #b3261e;">Expired</p>
+          <div>
+            <input type="text" value="Revoke to generate link ->" readonly>
+            <form method="post" action="/extend/<%= link.id %>">
+              <button style="width: fit-content;" class="button">Renew</button>
+            </form>
+          </div>
+        <% } %>
+      </div>
+      <% }) %>
+    <%} else { %>
+      <div class="empty-state">
+        <h2>No shared links yet</h2>
+        <p>Share folders with others by creating a link</p>
+        <a href="/" >Browse Folders</a>
+      </div>
+    <% } %>
     </div>
-    <a class="button" href="/folder/<%= folderId %>">Done</a>
   </main>
-<script>
-  const copyBtn = document.getElementById('copyBtn');
-  const shareUrl = document.getElementById('shareUrl');
+  <script>
+    const copyBtn = document.getElementById('copyBtn');
+    const shareUrl = document.getElementById('shareUrl');
 
-  copyBtn.addEventListener('click', (e) => {
-    navigator.clipboard.writeText(shareUrl.value)
-      .then(() => {
-        alert('Link copied to clipboard!')
-      })
-      .catch(err => {
-        console.error('Failed to copy: ', err);
-      });
-  })
-
-</script>
+    copyBtn.addEventListener('click', (e) => {
+      navigator.clipboard.writeText(shareUrl.value)
+        .then(() => {
+          alert('Link copied to clipboard!')
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+    })
+  </script>
+  <script src="/js/modalFunctions.js"></script>
 </body>
 </html>

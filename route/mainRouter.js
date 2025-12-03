@@ -31,6 +31,9 @@ main.get('/share/:token', linkController.shareLink);
 main.get('/shared', requireAuth, linkController.shared);
 main.get('/shared-with-me', requireAuth, linkController.sharedWithMe);
 main.post('/share/:id', requireAuth, linkController.generateLink);
+main.post('/activate/:id', requireAuth, linkController.activate)
+main.post('/extend/:id', requireAuth, linkController.extend);
 main.post('/revoke/:id', requireAuth, linkController.revoke);
+main.post('/delete/:id', requireAuth, linkController.delete)
 
 module.exports = main;

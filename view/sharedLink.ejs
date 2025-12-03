@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/form.css">
+  <title>Link</title>
+</head>
+<body>
+  <main class="generated">
+    <h1>Generated Link!</h1>
+    <p>Expires in 3 days.</p>
+    <div>
+      <input type="text" id="shareUrl" value="<%= shareUrl %>" readonly>
+      <img src="/img/link-svgrepo-com.svg" id="copyBtn">
+    </div>
+    <a class="button" href="/folder/<%= folderId %>">Done</a>
+  </main>
+<script>
+  const copyBtn = document.getElementById('copyBtn');
+  const shareUrl = document.getElementById('shareUrl');
+
+  copyBtn.addEventListener('click', (e) => {
+    navigator.clipboard.writeText(shareUrl.value)
+      .then(() => {
+        alert('Link copied to clipboard!')
+      })
+      .catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+  })
+
+</script>
+</body>
+</html>

@@ -14,7 +14,30 @@ exports.generateLink = async (req, res, next) => {
   });
   //shareable link
   const shareUrl = `${req.protocol}://${req.get('host')}/share/${token}`;
-  res.render('shared', { shareLink, shareUrl, folderId: shareLink.folderId })
+  res.render('sharedLink', { shareLink, shareUrl, folderId: shareLink.folderId })
+}
+
+exports.shared = async (req, res, next) => {
+  const sharedLinks = await prisma.shareLink.findMany({
+    where: {
+      folder: { authorId: req.user.id }
+    },
+    include: {
+      folder: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+  sharedLinks.forEach(link => {
+    link.sharedUrl = `${req.protocol}://${req.get('host')}/share/${link.token}`
+  })
+  res.render('shared', { sharedLinks })
 }
 
 exports.shareLink = async (req, res, next) => {
@@ -58,7 +81,7 @@ exports.shareLink = async (req, res, next) => {
       id = rootFolder.id
     }
     const breadcrumbs = await breadcrumbing(id, { token, limitId: rootFolder.parentId });
-    res.render('shareFolder', {
+    res.render('sharedFolder', {
       folder: current,
       content: [...current.subfolders, ...current.files],
       breadcrumbs,
@@ -70,32 +93,63 @@ exports.shareLink = async (req, res, next) => {
   }
 }
 
-exports.revoke = async (req,res,next) => {
-  
+exports.activate = async (req,res,next) => {
+  const { id } = req.params;
+  try {
+    await prisma.shareLink.update({
+      where: { id: parseInt(id, 10)},
+      data: {
+        revoked: false,
+      }
+    })
+    res.redirect('/shared');
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
 }
 
-exports.shared = async (req, res, next) => {
-  const sharedLinks = await prisma.shareLink.findMany({
-    where: {
-      folder: { authorId: req.user.id }
-    },
-    include: {
-      folder: {
-        select: {
-          id: true,
-          name: true,
-        }
-      },
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
-  sharedLinks.forEach(link => {
-    link.sharedUrl = `${req.protocol}://${req.get('host')}/share/${link.token}`
-  })
-  res.render('sharedView', { sharedLinks })
+exports.extend = async (req,res,next) => {
+  const { id } = req.params;
+  try {
+    await prisma.shareLink.update({
+      where: { id: parseInt(id, 10)},
+      data: { expiresAt: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), }
+    });
+    res.redirect('/shared');
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
 }
+
+exports.revoke = async (req,res,next) => {
+  const { id } = req.params;
+  try {
+    await prisma.shareLink.update({
+      where: { id: parseInt(id, 10) },
+      data: {
+        revoked: true,
+      },
+    });
+    res.redirect('/shared');
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+exports.delete = async (req,res,next) => {
+  const { id } = req.params;
+  try {
+    await prisma.shareLink.delete({ where: { id: parseInt(id, 10)}});
+    res.redirect('/shared');
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
 
 exports.sharedWithMe = async (req, res, next) => {
 

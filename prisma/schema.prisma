@@ -64,6 +64,17 @@ model ShareLink {
   revoked     Boolean   @default(false)
   folder      Folder    @relation(fields: [folderId], references: [id], onDelete: Cascade)
   folderId    Int
+  linkAccess  LinkAccess[]
 
   @@index([token])
+}
+
+model LinkAccess {
+  id            Int       @default(autoincrement())
+  shareLinkId   Int  
+  shareLink     ShareLink @relation(fields: [shareLinkId], references: [id], onDelete: Cascade)  
+  userId        Int
+  firstAccessedAt DateTime @default(now())
+
+  @@id([shareLinkId, userId])
 }

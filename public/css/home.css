@@ -109,6 +109,40 @@ main {
   padding-left: .4rem;
 }
 
+.info {
+  width: 25px;
+  transition: scale .2s ease-in-out;
+}
+
+.info:hover, .info:focus {
+  scale: 1.2;
+}
+
+.content-info {
+  padding: 1.5rem;
+}
+
+.content-info .card-header {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.icon {
+  width: 25px;
+  left: 0;
+  top: 13px;
+  translate: -50% -50%;
+  position: absolute;
+}
+
+.content-info h2, .content-info h3, .content-info p{
+  margin-top: 0;
+}
+
+.content-info h4 {
+  margin-bottom: 3px;
+}
+
 .name {
   color: inherit;
   cursor: pointer;

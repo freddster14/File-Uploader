@@ -55,6 +55,22 @@ exports.shareLink = async (req, res, next) => {
         files: true,
       }
     });
+    // add new user to linkAccess
+    if (req.user && rootFolder.authorId !== req.user.id) {
+      await prisma.linkAccess.upsert({
+        where: {
+          shareLinkId_userId: {
+            shareLinkId: shareLink.id,
+            userId: req.user.id,
+          }
+        },
+        create: {
+          shareLinkId: shareLink.id,
+          userId: req.user.id,
+        },
+        update: {},
+      });
+    }
     // get subfolders
     let current = rootFolder;
     let allowed = false;
@@ -85,7 +101,6 @@ exports.shareLink = async (req, res, next) => {
       folder: current,
       content: [...current.subfolders, ...current.files],
       breadcrumbs,
-      token,
     })
   } catch (error) {
     console.error(error);
@@ -152,5 +167,42 @@ exports.delete = async (req,res,next) => {
 
 
 exports.sharedWithMe = async (req, res, next) => {
-
+  const accessibleLinks = await prisma.linkAccess.findMany({
+    where: {
+      userId: req.user.id,
+      shareLink: {
+        revoked: false,
+        expiresAt: {
+          gt: new Date(),
+        }
+      },
+    },
+    include: {
+      shareLink: {
+        include: {
+          folder: {
+            select: {
+              author: {
+                select: {
+                  email:true
+                }
+              },
+              name: true,
+            }
+          },
+        }
+      },
+    }
+  })
+  console.log(accessibleLinks)
+  const flattenLinks = accessibleLinks.map(link => ({
+    ...link.shareLink.folder,
+    id: link.id,
+    createdAt: link.shareLink.createdAt,
+    token: link.shareLink.token,
+    firstAccessedAt:  link.firstAccessedAt,
+    expiresAt: link.shareLink.expiresAt,
+  }))
+  console.log(flattenLinks)
+  res.render('sharedFolder', { title: 'Shared-With-Me', content: flattenLinks, token: flattenLinks[0].token })
 }

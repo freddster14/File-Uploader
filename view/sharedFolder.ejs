@@ -31,6 +31,8 @@
             <% } %>
             <% } %>
         </div>
+      <% } else { %>
+        <h1><%= title %></h1>
       <% } %>
       <% if (content.length > 0) { %>
         <div class="content">
@@ -66,6 +68,30 @@
                   <a class="name" href="/share/<%=token%>/?folderId=<%= e.id %>">
                     <%= e.name %>
                   </a>
+                  <% if (title === 'Shared-With-Me') { %>
+                    <dialog class="content-info" id="info<%= e.id %>">
+                      <div class="card-header">
+                        <img class="icon" src="/img/folder-svgrepo-com-black.svg" alt="folder">
+                        <h2><%= e.name %></h2>
+                      </div>
+                      <h3>Folder details</h2>
+                      <div>
+                        <h4 style="font-weight: 500;">Owner</h4>
+                        <p><%= e.author.email %></p>
+                      </div><div>
+                        <h4 style="font-weight: 500;">Created</h4>
+                        <p>
+                          <%= e.createdAt.toLocaleDateString(undefined, { month: 'short' , day: 'numeric' , year: 'numeric' }) %>
+                        </p>
+                      </div><div>
+                        <h4 style="font-weight: 500;">First opened</h4>
+                        <p>
+                          <%= e.firstAccessedAt.toLocaleDateString(undefined, { month: 'short' , day: 'numeric' , year: 'numeric' }) %>
+                        </p>
+                      </div>
+                    </dialog>
+                    <img class="info" src="/img/info-circle-svgrepo-com.svg" onclick="toggleModal('info<%= e.id%>')" alt="info">
+                  <% } %>
                 </div>
               </div>
             <% } %>

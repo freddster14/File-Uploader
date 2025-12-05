@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/dialog.css">
   <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/info.css">
   <title>Read-Only</title>
 </head>
 <body>
@@ -69,28 +70,7 @@
                     <%= e.name %>
                   </a>
                   <% if (title === 'Shared-With-Me') { %>
-                    <dialog class="content-info" id="info<%= e.id %>">
-                      <div class="card-header">
-                        <img class="icon" src="/img/folder-svgrepo-com-black.svg" alt="folder">
-                        <h2><%= e.name %></h2>
-                      </div>
-                      <h3>Folder details</h2>
-                      <div>
-                        <h4 style="font-weight: 500;">Owner</h4>
-                        <p><%= e.author.email %></p>
-                      </div><div>
-                        <h4 style="font-weight: 500;">Created</h4>
-                        <p>
-                          <%= e.createdAt.toLocaleDateString(undefined, { month: 'short' , day: 'numeric' , year: 'numeric' }) %>
-                        </p>
-                      </div><div>
-                        <h4 style="font-weight: 500;">First opened</h4>
-                        <p>
-                          <%= e.firstAccessedAt.toLocaleDateString(undefined, { month: 'short' , day: 'numeric' , year: 'numeric' }) %>
-                        </p>
-                      </div>
-                    </dialog>
-                    <img class="info" src="/img/info-circle-svgrepo-com.svg" onclick="toggleModal('info<%= e.id%>')" alt="info">
+                    <img class="info" src="/img/info-circle-svgrepo-com.svg" onclick="showSideInfo(<%= JSON.stringify(e) %>)" alt="info">
                   <% } %>
                 </div>
               </div>
@@ -103,7 +83,9 @@
         </div>
       <% } %>
     </div>
+    <%- include('info') %>
   </main>
 <script src="/js/modalFunctions.js"></script>
+<script src="/js/sideInfo.js"></script>
 </body>
 </html>

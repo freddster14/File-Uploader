@@ -75,7 +75,7 @@ exports.shareLink = async (req, res, next) => {
     let current = rootFolder;
     let allowed = false;
     let id = folderId;
-    if (folderId) {
+    if (folderId && folderId !== rootFolder.id) {
       const folder = await prisma.folder.findUnique({
         where: { id: parseInt(folderId, 10) },
         include: {
@@ -197,12 +197,11 @@ exports.sharedWithMe = async (req, res, next) => {
   console.log(accessibleLinks)
   const flattenLinks = accessibleLinks.map(link => ({
     ...link.shareLink.folder,
-    id: link.id,
+    id: link.shareLink.folder.id,
     createdAt: link.shareLink.createdAt,
     token: link.shareLink.token,
     firstAccessedAt:  link.firstAccessedAt,
     expiresAt: link.shareLink.expiresAt,
   }))
-  console.log(flattenLinks)
-  res.render('sharedFolder', { title: 'Shared-With-Me', content: flattenLinks, token: flattenLinks[0].token })
+  res.render('sharedFolder', { title: 'Shared with me', content: flattenLinks, token: flattenLinks[0].token })
 }

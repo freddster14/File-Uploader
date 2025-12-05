@@ -13,10 +13,29 @@ body {
   box-sizing: border-box;
   color: #1F2937;
   height: 100vh;
-  max-width: 1500px;
+  max-width: 1800px;
   margin: 0 auto;
   font-size: 0.875rem;
   font-family: 'Inter', sans-serif;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--shadow-hover-color);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--main-color);
 }
 
 @keyframes spin {
@@ -123,6 +142,7 @@ input:hover {
   gap: .3rem;
   margin-top: -.6rem;
   margin-left: -16px;
+  margin-bottom: -7px;
 }
 
 .breadcrumbs a {

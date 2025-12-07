@@ -9,7 +9,7 @@
   grid-column: 3/4;
 }
 
-.with-sidebar {
+main .with-sidebar {
   grid-column: 2;
 }
 

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/dialog.css">
+  <link rel="stylesheet" href="/css/info.css">
   <link rel="stylesheet" href="/css/home.css">
   <title><%= title %></title>
 </head>
@@ -38,7 +39,10 @@
             <% if (e.mimeType) { %>
               <dialog class="content-info img-info" id="<%= e.cloudinaryId %>">
                 <img src="<%= e.url %>" alt="<%= e.name %>">
-                <h2><%= e.name %></h2>
+                <div class="header">
+                  <img class="icon" src="/img/file-zipper-svgrepo-com.svg" alt="file">
+                  <h2><%= e.name %></h2>
+                </div>
                 <div>
                   <h3>Size</h3>
                   <p>
@@ -93,6 +97,7 @@
                   <form action="/delete/folder/<%= e.id %>" method="post">
                     <button class="border-bottom control-btn" type="submit" onclick="this.style.display = 'none'">Delete</button>
                   </form>
+                  <button class="control-btn border-bottom" onclick="showSideInfo(<%= JSON.stringify(e) %>)">Info</button>
                   <button class="control-btn" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
                 </dialog>
                 <a class="card-folder" href="/folder/<%= e.id %>">
@@ -115,7 +120,9 @@
         <h1>Sign up or log in to get started</h1>
       <% } %>
       </div>
+    <%- include('info') %>
   </main>
 <script src="/js/modalFunctions.js"></script>
+<script src="/js/sideInfo.js"></script>
 </body>
 </html>

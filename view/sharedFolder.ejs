@@ -62,14 +62,29 @@
               </div>
             <% } else { %>
               <div class="card">
-                <a class="card-folder" href="/share/<%=token%>/?folderId=<%= e.id %>">
+              <%  
+                const isSharedPage = title === 'Shared with me'; 
+                const isActive = !e.revoked && new Date(e.expiresAt)> new Date();
+                const isGrey = isSharedPage && !isActive;
+                const folderHref = isActive ? `/share/${token}/?folderId=${e.id}` : null;
+              %>
+                <a class="card-folder <%= isGrey ? 'grey-out' : '' %>"
+                  <% if (folderHref) { %> href="<%= folderHref %>" <% } %>
+`               >
                   <img src="/img/folder-svgrepo-com.svg" alt="folder">
+                  <% if (!isActive && isSharedPage) { %>
+                    <p style="margin: 0; color: white; margin-top: -11px;">not active</p>
+                  <% } %>
                 </a>
                 <div class="card-header">
-                  <a class="name" href="/share/<%=token%>/?folderId=<%= e.id %>">
+                  <a class="name <%= isGrey ? 'disabled' : '' %>" 
+                  <% if (folderHref) { %> href="<%= folderHref %>" <% } %>
+                  >
                     <%= e.name %>
                   </a>
+                  <% if (isSharedPage) { %>
                     <img class="info" src="/img/info-circle-svgrepo-com.svg" onclick="showSideInfo(<%= JSON.stringify(e) %>)" alt="info">
+                  <% } %>
                 </div>
               </div>
             <% } %>

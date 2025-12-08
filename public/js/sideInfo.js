@@ -4,25 +4,27 @@ function showSideInfo(content) {
   const name = document.querySelector('.name-info')
   const owner = document.querySelector('.owner');
   const createdAt = document.querySelector('.created-at');
+  const status = document.querySelector('.status');
   const firstAccessedAt = document.querySelector('.first-accessed-at');
   const expiresAt = document.querySelector('.expires-at');
-
+  const expiredTitle = document.querySelector('.expire-title');
 
   if ('sharedLinks' in content) {
     name.textContent = content.name;
     owner.textContent = content.author.email;
-    createdAt.textContent = new Date(content.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
+    createdAt.textContent = new Date(content.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+
     if(content.sharedLinks) {
-      console.log(content.sharedLinks)
-      const status = document.querySelector('.status');
       document.querySelector('.active').style.display = 'block';
-      status.textContent = 'active'
       document.querySelector('.opened').textContent = `${content.sharedLinks.linkAccess.length} user(s)`
+
       if(new Date(content.sharedLinks.expiresAt) < new Date()) {
-        document.querySelector('.expire-title').textContent = 'Expired';
+        expiredTitle.textContent = 'Expired';
         status.textContent = 'expired'
       }
+
       if (content.sharedLinks.revoked) status.textContent = 'revoked';
+
       expiresAt.textContent = new Date(content.sharedLinks.expiresAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
     } else {
       document.querySelector('.not-active').style.display = 'flex';
@@ -31,9 +33,14 @@ function showSideInfo(content) {
   } else {
     name.textContent = content.name;
     owner.textContent = content.author.email;
-    createdAt.textContent = new Date(content.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
-    firstAccessedAt.textContent = new Date(content.firstAccessedAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
-    expiresAt.textContent = new Date(content.expiresAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
+    createdAt.textContent = new Date(content.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+    firstAccessedAt.textContent = new Date(content.firstAccessedAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+    expiresAt.textContent = new Date(content.expiresAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+    if (new Date(content.expiresAt) < new Date()) {
+      expiredTitle.textContent = 'Expired';
+      status.textContent = 'expired'
+    }
+    if (content.revoked) status.textContent = 'revoked';
   }
  
   

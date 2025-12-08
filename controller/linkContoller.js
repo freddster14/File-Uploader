@@ -71,7 +71,7 @@ exports.shareLink = async (req, res, next) => {
         update: {},
       });
     }
-    // get subfolders
+    // go up tree to check access
     let current = rootFolder;
     let allowed = false;
     let id = folderId;
@@ -171,12 +171,6 @@ exports.sharedWithMe = async (req, res, next) => {
     const accessibleLinks = await prisma.linkAccess.findMany({
       where: {
         userId: req.user.id,
-        shareLink: {
-          revoked: false,
-          expiresAt: {
-            gt: new Date(),
-          }
-        },
       },
       include: {
         shareLink: {
@@ -196,15 +190,16 @@ exports.sharedWithMe = async (req, res, next) => {
       }
     })
     if(accessibleLinks.length === 0) return res.render('sharedFolder', { title: 'Shared with me', content: accessibleLinks })
-    console.log(accessibleLinks)
     const flattenLinks = accessibleLinks.map(link => ({
       ...link.shareLink.folder,
-      id: link.shareLink.folder.id,
+      revoked: link.shareLink.revoked,
+      id: link.shareLink.folderId,
       createdAt: link.shareLink.createdAt,
       token: link.shareLink.token,
       firstAccessedAt: link.firstAccessedAt,
       expiresAt: link.shareLink.expiresAt,
     }))
+    console.log(flattenLinks)
     res.render('sharedFolder', { title: 'Shared with me', content: flattenLinks, token: flattenLinks[0].token })
   } catch (error) {
     console.error(error)

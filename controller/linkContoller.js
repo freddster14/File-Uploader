@@ -168,7 +168,6 @@ exports.delete = async (req,res,next) => {
 
 exports.sharedWithMe = async (req, res, next) => {
   try {
-    console.log(req.user.id)
     const accessibleLinks = await prisma.linkAccess.findMany({
       where: {
         userId: req.user.id,
@@ -196,6 +195,7 @@ exports.sharedWithMe = async (req, res, next) => {
         },
       }
     })
+    if(accessibleLinks.length === 0) return res.render('sharedFolder', { title: 'Shared with me', content: accessibleLinks })
     console.log(accessibleLinks)
     const flattenLinks = accessibleLinks.map(link => ({
       ...link.shareLink.folder,

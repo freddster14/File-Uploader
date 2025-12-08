@@ -4,7 +4,7 @@
   --main-color: #2563EB;
   --hover-color: #E2E8F0;
   --shadow-color: #E2E8F0;
-  --shadow-hover-color: #C6CCD3;
+  --shadow-hover-color: rgba(31, 66, 121, 0.3);
 }
 
 body {
@@ -49,7 +49,9 @@ body {
     rotate: -30deg;
   }
 
-  7.5% { rotate: 390deg }
+  7.5% {
+    rotate: 390deg
+  }
 
   10% {
     scale: 1;
@@ -62,24 +64,39 @@ body {
   }
 }
 
-.button {
-  background-color: var(--main-color);
-  color: #F3F4F6;
-  padding: 10px;
+.button, .button-second {
+  padding: 0.875rem 1.75rem;
+  border-radius: 8px;
   border: none;
-  box-shadow: 0px 0px 8px 5px var(--shadow-color);
-  border-radius: 1rem;
+  font-size: 14px;
   margin-top: 1rem;
   font-weight: bold;
-  transition: all .3s ease-in-out;
+  transition: all .2s;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.button:hover {
-  box-shadow: 0px 0px 8px 8px var(--shadow-hover-color);
+.button {
+  background-color: var(--main-color);
+  color: #F3F4F6;
 }
+
+.button-second {
+  border: 2px solid var(--main-color);
+  background-color: white;
+  color: var(--main-color);
+}
+
+.button:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px var(--shadow-hover-color);
+}
+
+.button-second:hover {
+  background: #f0f7ff;}
+
 
 a {
   color: var(--main-color);
@@ -126,7 +143,7 @@ input:hover {
 .empty-state {
   font-size: 1.1rem;
   position: absolute;
-  left: calc(50% + 95px );
+  left: calc(50% + 95px);
   top: 40%;
   translate: -50% -50%;
 }
@@ -152,7 +169,8 @@ input:hover {
   font-size: 1.75rem;
 }
 
-.breadcrumbs a:hover, .breadcrumbs a:focus {
+.breadcrumbs a:hover,
+.breadcrumbs a:focus {
   text-decoration: none;
   background-color: var(--hover-color);
 }

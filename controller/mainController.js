@@ -17,7 +17,6 @@ exports.intro = (req, res) => {
 
 
 exports.home = async (req, res, next) => {
-  if (!req.user) return res.redirect('/');
   try {
     const root = await prisma.folder.findFirst({
       where: { 
@@ -124,6 +123,7 @@ exports.recent = async (req,res,next) => {
       where: { authorId: req.user.id },
       select: {
         id: true,
+        authorId: true,
         name: true,
         createdAt: true,
         parentId: true,
@@ -136,9 +136,7 @@ exports.recent = async (req,res,next) => {
     });
     const recentItems = [...recentFolders, ...recentFiles]
       .sort((a, b) => b.createdAt - a.createdAt);
-    // remove root
-    if(recentItems[recentItems.length - 1].parentId === null) recentItems.pop();
-    res.render('home', { title:'Recent', folder: {id : req.user.id }, content: recentItems })
+    res.render('home', { title:'Recent', folder: recentItems.pop() , content: recentItems })
   } catch (error) {
     console.error(error)
     next(error);

@@ -39,16 +39,15 @@ h1 img:hover {
   width: 35px;
 }
 
-.button {
+.button, .button-second {
   margin: 0;
   padding: .5rem 1.2rem;
   font-family: 'Inter', sans-serif;
 }
 
-.button:hover {
-  text-decoration: none;
+.top-nav .button:hover {
+  transform: none;
 }
-
 /** sidebar **/
 
 .sidebar {
@@ -74,12 +73,12 @@ h1 img:hover {
   border: none;
   background-color: var(--main-color);
   border-radius: .7rem;
-  transition: all .2s ease-in-out;
-  box-shadow: 0px 0px 8px 5px var(--shadow-color);
+  transition: all .2s;
 }
 
 .new:hover {
-  box-shadow: 0px 0px 8px 7px var(--shadow-hover-color);
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 12px var(--shadow-hover-color);
 }
 
 .new img {

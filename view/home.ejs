@@ -45,9 +45,7 @@
                 </div>
                 <div>
                   <h3>Size</h3>
-                  <p>
-                    <%= e.formattedSize %>
-                  </p>
+                  <p><%= e.formattedSize %></p>
                 </div>
                 <div>
                   <h3>Uploaded</h3>
@@ -111,13 +109,11 @@
             <% } %>
           <% }) %>
       </div>
-      <% } else if(locals.currentUser) { %>
-        <div class="empty-state">
-          <h2>No folder or files</h2>
-          <p>Use the "New" button</p>
-        </div>
       <% } else { %>
-        <h1>Sign up or log in to get started</h1>
+        <div class="empty-state">
+          <h2>Nothing here yet</h2>
+          <p>Use the "New" button to get started</p>
+        </div>
       <% } %>
       </div>
     <%- include('info') %>

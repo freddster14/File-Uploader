@@ -1,24 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/intro.css">
-  <title>Nuvio</title>
+  <title>Nuvio - Secure Cloud Storage & File Sharing</title>
 </head>
+
 <body>
-  <%- include('nav') %>
-  <main>
-  <header>
-    <h1>Secure storage and file sharing you can trust</h1>
-    <p>Quickly share and upload files with any device with a browser.</p>
-    <a class="button" href="/sign-up">Get started
-      <img class="arrow" src="/img/arrow-right-alt-svgrepo-com.svg" alt="open login">
-    </a>
-  </header>
-  <img src="" alt="user interface">
-  <h2>Clean and easy to navigate interface to quickly locate shared files and uploads.</h2>
-  </main>
+    <main class="intro">
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to Nuvio</h1>
+          <p class="tagline">Your files. Secure. Always accessible.</p>
+          <p class="subtitle">Store, organize, and share your files from anywhere with an easy-to-use interface.</p>
+          <div class="cta-buttons">
+            <a class="btn-primary" href="/sign-up">
+              Get Started
+              <img class="arrow" src="/img/arrow-right-alt-svgrepo-com.svg" alt="">
+            </a>
+            <a class="btn-secondary" href="/login">Log In</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="/img/dashboard-preview.png" alt="Nuvio dashboard interface" class="preview-img">
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="features">
+        <h2>Everything you need in one place</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📁</div>
+            <h3>Organize</h3>
+            <p>Create folders and subfolders to keep your files structured and easy to find.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">☁️</div>
+            <h3>Store Securely</h3>
+            <p>Upload files safely to the cloud with reliable storage you can trust.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🔗</div>
+            <h3>Share Easily</h3>
+            <p>Generate secure share links with expiration dates for controlled access.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Access Anywhere</h3>
+            <p>Use any device with a browser to access your files on the go.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Stay Private</h3>
+            <p>Your files are protected with secure authentication and encryption.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Fast & Simple</h3>
+            <p>Clean interface designed for quick uploads and easy navigation.</p>
+          </div>
+        </div>
+      </section>
+      <section class="how-it-works">
+        <h2>Get started in minutes</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Create Account</h3>
+            <p>Sign up for free in seconds</p>
+          </div>
+          <img class="step-arrow" src="/img/right-arrow-backup-2-svgrepo-com.svg" alt="arrow right">
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Upload Files</h3>
+            <p>Drag and drop or browse files</p>
+          </div>
+
+          <img class="step-arrow" src="/img/right-arrow-backup-2-svgrepo-com.svg" alt="arrow right">
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Share & Organize</h3>
+            <p>Create folders and share links</p>
+          </div>
+        </div>
+      </section>
+      <section class="cta-section">
+        <div class="cta-content">
+          <h2>Ready to get organized?</h2>
+          <p>Join Nuvio today and take control of your files.</p>
+          <a class="btn-primary btn-large" href="/sign-up">
+            Start for Free
+            <img class="arrow" src="/img/arrow-right-alt-svgrepo-com.svg" alt="">
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="intro-footer">
+      <p>&copy; 2025 Nuvio. Built with ❤️ for secure file sharing.</p>
+    </footer>
 </body>
+
 </html>

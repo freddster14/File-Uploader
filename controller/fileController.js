@@ -23,7 +23,7 @@ exports.upload = [
       if (id === '-1') {
         folder = await prisma.folder.findFirst({
           where: {
-            authorId: id,
+            authorId: req.user.id,
             parent: null,
           }
         })

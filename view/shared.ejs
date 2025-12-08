@@ -20,15 +20,15 @@
           <a href="/folder/<%= link.folder.id %>"><%= link.folder.name %></a>
           <dialog class="controls" id="link<%= link.id %>">
             <form method="post" action="/extend/<%= link.id %>">
-              <button class="control-btn"><%= link.expiresAt > new Date() ? 'Extend' : 'Renew' %></button>
+              <button class="control-btn border-bottom"><%= link.expiresAt > new Date() ? 'Extend' : 'Renew' %></button>
             </form>      
             <% if (!link.revoked) { %>
               <form method="post" action="/revoke/<%= link.id %>">
-                <button class="control-btn">Revoke</button>
+                <button class="control-btn border-bottom">Revoke</button>
               </form>
             <%} else { %>
               <form method="post" action="/activate/<%= link.id %>">
-                <button class="control-btn">Activate</button>
+                <button class="control-btn border-bottom">Activate</button>
               </form>
             <% } %>
             <form method="post" action="/delete/<%= link.id %>">
@@ -65,7 +65,7 @@
       <div class="empty-state">
         <h2>No shared links yet</h2>
         <p>Share folders with others by creating a link</p>
-        <a href="/" >Browse Folders</a>
+        <a href="/home" >Browse Folders</a>
       </div>
     <% } %>
     </div>

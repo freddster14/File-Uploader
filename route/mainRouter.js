@@ -8,7 +8,7 @@ const requireAuth = require('../middleware/auth');
 const main = Router();
 
 main.get('/', mainController.intro)
-main.get('/home', mainController.home);
+main.get('/home', requireAuth, mainController.home);
 main.get('/login', mainController.login);
 main.get('/sign-up', mainController.signUp);
 main.get('/log-out', mainController.logout);

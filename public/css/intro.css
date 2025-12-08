@@ -15,7 +15,7 @@ main {
   gap: 3rem;
   align-items: center;
   padding: 4rem 2rem;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
   min-height: 80vh;
 }
@@ -91,12 +91,10 @@ main {
 
 .preview-img {
   width: 100%;
-  max-width: 500px;
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
-/* Features Section */
 .features {
   background: rgb(238, 238, 238);
   padding: 5rem 2rem;
@@ -132,13 +130,12 @@ main {
 }
 
 .feature-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  width: 4rem;
 }
 
 .feature-card h3 {
   font-size: 1.25rem;
-  margin-bottom: 0.75rem;
+  margin: 0.75rem 0;
   color: #1a1a1a;
 }
 

@@ -1,3 +1,4 @@
+const { title } = require('process');
 const prisma = require('../prisma/client');
 const breadcrumbing = require('../utils/breadCrumbs');
 const crypto = require('crypto')
@@ -98,9 +99,11 @@ exports.shareLink = async (req, res, next) => {
     }
     const breadcrumbs = await breadcrumbing(id, { token, limitId: rootFolder.parentId });
     res.render('sharedFolder', {
+      title: 'Shared',
       folder: current,
       content: [...current.subfolders, ...current.files],
       breadcrumbs,
+      token,
     })
   } catch (error) {
     console.error(error);
@@ -199,8 +202,7 @@ exports.sharedWithMe = async (req, res, next) => {
       firstAccessedAt: link.firstAccessedAt,
       expiresAt: link.shareLink.expiresAt,
     }))
-    console.log(flattenLinks)
-    res.render('sharedFolder', { title: 'Shared with me', content: flattenLinks, token: flattenLinks[0].token })
+    res.render('sharedFolder', { title: 'Shared with me', content: flattenLinks })
   } catch (error) {
     console.error(error)
     next(error)

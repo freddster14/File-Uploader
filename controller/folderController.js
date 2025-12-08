@@ -76,7 +76,6 @@ exports.delete = async (req, res, next) => {
   const { id } = req.params;
   try {
     const folder = await prisma.folder.delete({ where: { id: parseInt(id, 10) } });
-    console.log(folder)
     if (folder.parentId) return res.redirect(`/folder/${folder.parentId}`);
     res.redirect('/')
   } catch (error) {

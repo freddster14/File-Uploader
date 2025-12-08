@@ -62,12 +62,19 @@
               </div>
             <% } else { %>
               <div class="card">
-              <%  
-                const isSharedPage = title === 'Shared with me'; 
-                const isActive = !e.revoked && new Date(e.expiresAt)> new Date();
+              <% 
+                const isSharedPage = title === 'Shared with me';
+                const isActive = !e.revoked && new Date(e.expiresAt) > new Date();
                 const isGrey = isSharedPage && !isActive;
-                const folderHref = isActive ? `/share/${token}/?folderId=${e.id}` : null;
-              %>
+                let folderHref = null;
+              
+                if (isSharedPage && isActive) {
+                folderHref = `/share/${e.token}/?folderId=${e.id}`;
+                } else if (!isSharedPage) {
+                folderHref = `/share/${token}/?folderId=${e.id}`;
+                }
+                %>
+
                 <a class="card-folder <%= isGrey ? 'grey-out' : '' %>"
                   <% if (folderHref) { %> href="<%= folderHref %>" <% } %>
 `               >
@@ -93,8 +100,10 @@
       <% } else { %>
         <div class="empty-state">
           <h2>No shared content to view</h2>
-          <p>When someone shares a folder with you, it will appear here</p>
-          <a href="/home">Browse Your Folders</a>
+          <% if (title === 'Shared with me') { %>
+            <p>When someone shares a folder with you, it will appear here</p>
+            <a href="/home">Browse Your Folders</a>
+          <% } %>
         </div>
       <% } %>
     </div>

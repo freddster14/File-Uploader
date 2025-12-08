@@ -46,7 +46,7 @@ h1 img:hover {
 }
 
 .top-nav .button:hover {
-  transform: none;
+  transform: translateY(-1px);
 }
 /** sidebar **/
 

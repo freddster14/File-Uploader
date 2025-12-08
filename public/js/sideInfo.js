@@ -5,17 +5,24 @@ function showSideInfo(content) {
   const owner = document.querySelector('.owner');
   const createdAt = document.querySelector('.created-at');
   const status = document.querySelector('.status');
+  const expiredTitle = document.querySelector('.expire-title');
   const firstAccessedAt = document.querySelector('.first-accessed-at');
   const expiresAt = document.querySelector('.expires-at');
-  const expiredTitle = document.querySelector('.expire-title');
-
+  
+  expiredTitle.textContent = 'Expires';
+  status.textContent = 'active';
+  // user's folders
   if ('sharedLinks' in content) {
+    const notActive = document.querySelector('.not-active');
+    const active = document.querySelector('.active');
+    notActive.style.display = 'none';
+    active.style.display = 'none';
     name.textContent = content.name;
     owner.textContent = content.author.email;
     createdAt.textContent = new Date(content.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 
     if(content.sharedLinks) {
-      document.querySelector('.active').style.display = 'block';
+      active.style.display = 'block';
       document.querySelector('.opened').textContent = `${content.sharedLinks.linkAccess.length} user(s)`
 
       if(new Date(content.sharedLinks.expiresAt) < new Date()) {
@@ -27,10 +34,11 @@ function showSideInfo(content) {
 
       expiresAt.textContent = new Date(content.sharedLinks.expiresAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
     } else {
-      document.querySelector('.not-active').style.display = 'flex';
+      notActive.style.display = 'flex';
       document.forms.generate.action = `/share/${content.id}`
     }
   } else {
+    // Share with me
     name.textContent = content.name;
     owner.textContent = content.author.email;
     createdAt.textContent = new Date(content.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });

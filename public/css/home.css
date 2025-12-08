@@ -92,6 +92,7 @@ main {
   display: flex;
   gap: 1rem;
   width: 95%;
+  height: 25px;
   justify-content: space-between;
   align-items: center;
   padding-left: .4rem;

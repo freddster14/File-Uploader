@@ -14,44 +14,46 @@
     <%- include('sidebar') %>
     <div class="body">
       <h1>Profile</h1>
-      <div>
-        <p><%= user.name %></p>
-        <p><%= user.email %></p>
-      </div>
-      <p>Account created: <%= user.createdAt.toLocaleDateString()%></p>
-      <div class="divider"></div>
-      <h2>Stats</h2>
-      <div class="stats">
-        <div class="card">
-          <p class="number"><%= count.folders %></p>
-          <p>Folders created</p>
+      <div class="content">
+        <div>
+          <p><%= user.name %></p>
+          <p><%= user.email %></p>
         </div>
-        <div class="card">
-          <p class="number"><%= count.files %></p>
-          <p>Files uploaded</p>
-        </div>
-        <div class="card">
-          <p class="number"><%= count.links %></p>
-          <p>Links generated</p>
-        </div>
-        <div class="card">
-          <p class="number"><%= count.activeLinks %></p>
-          <p>Active links</p>
-        </div>
-        <div class="card">
-          <a href="/folder/<%= recentShared.folderId %>"><%= recentShared.folder.name %></a>
-          <p>Recent folder shared </p>
-        </div>
-        <div class="card">
-          <p class="number"><%= storageTaken %></p>
-          <p>Storage used</p>
-        </div>
-        <div class="card">
-          <p class="number"><%= timeSaved %></p>
-          <p>Time saved using Nuvio
-          <button onclick="toggleModal('saved')">?</button>
-          </p>
-          <dialog id="saved">each share link saves 30 seconds over manually uploading/sending</dialog>
+        <p>Account created: <%= user.createdAt.toLocaleDateString()%></p>
+        <div class="divider"></div>
+        <h2>Stats</h2>
+        <div class="stats">
+          <div class="card">
+            <p class="number"><%= count.folders %></p>
+            <p>Folders created</p>
+          </div>
+          <div class="card">
+            <p class="number"><%= count.files %></p>
+            <p>Files uploaded</p>
+          </div>
+          <div class="card">
+            <p class="number"><%= count.links %></p>
+            <p>Links generated</p>
+          </div>
+          <div class="card">
+            <p class="number"><%= count.activeLinks %></p>
+            <p>Active links</p>
+          </div>
+          <div class="card">
+            <a href="/folder/<%= recentShared.folderId %>"><%= recentShared.folder.name %></a>
+            <p>Recent folder shared </p>
+          </div>
+          <div class="card">
+            <p class="number"><%= storageTaken %></p>
+            <p>Storage used</p>
+          </div>
+          <div class="card">
+            <p class="number"><%= timeSaved %></p>
+            <p>Time saved using Nuvio
+            <button onclick="toggleModal('saved')">?</button>
+            </p>
+            <dialog id="saved">each share link saves 30 seconds over manually uploading/sending</dialog>
+          </div>
         </div>
       </div>
     </div>

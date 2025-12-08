@@ -15,7 +15,7 @@ dialog img {
 .controls, dialog#new {
   position: absolute;
   padding: .2rem;
-  left: calc(100% - 75px);
+  left: calc(100% - 100px);
   bottom: 0;
 }
 

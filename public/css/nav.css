@@ -77,7 +77,6 @@ h1 img:hover {
 }
 
 .new:hover {
-  transform: translateY(-2px);
   box-shadow: 0px 4px 12px var(--shadow-hover-color);
 }
 

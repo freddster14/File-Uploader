@@ -69,9 +69,7 @@
                   <a class="name" href="/share/<%=token%>/?folderId=<%= e.id %>">
                     <%= e.name %>
                   </a>
-                  <% if (title === 'Shared with me') { %>
                     <img class="info" src="/img/info-circle-svgrepo-com.svg" onclick="showSideInfo(<%= JSON.stringify(e) %>)" alt="info">
-                  <% } %>
                 </div>
               </div>
             <% } %>
@@ -79,7 +77,7 @@
         </div>
       <% } else { %>
         <div class="empty-state">
-          <h2>No shared content yet</h2>
+          <h2>No shared content to view</h2>
           <p>When someone shares a folder with you, it will appear here</p>
           <a href="/home">Browse Your Folders</a>
         </div>

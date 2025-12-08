@@ -44,15 +44,43 @@ main .with-sidebar {
   background-color: var(--hover-color);
 }
 
-.details, .access {
+.details, .access, .shared {
   padding: .4rem 1rem;
+}
+
+.shared .not-active,
+.shared .active {
+  display: none;
+}
+
+.shared .active {
+  margin: 0;
+  gap: 0;
+}
+
+
+
+.not-active form {
+  width: auto;
+  display: block;
+}
+
+.not-active button {
+  color: var(--main-color);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.not-active button:hover, .not-active button:focus {
+  text-decoration: underline;
 }
 
 .details h3 {
   margin-top: 0;
 }
 
-.details div, .access div {
+.details div, .access div, .shared div{
   display: flex;
   margin: 1rem .2rem;
   flex-direction: column;

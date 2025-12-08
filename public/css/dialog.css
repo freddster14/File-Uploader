@@ -40,6 +40,11 @@ dialog#new button {
   background-color: var(--hover-color);
 }
 
+
+.border-bottom {
+  border-bottom: 1px solid var(--hover-color);
+}
+
 .dialog-form {
   position: fixed;
   left: 50%;

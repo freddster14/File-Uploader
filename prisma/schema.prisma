@@ -39,7 +39,7 @@ model Folder {
   parent      Folder?   @relation("Subfolders", fields: [parentId], references: [id], onDelete: Cascade)
   parentId    Int?
   subfolders  Folder[]  @relation("Subfolders")
-  sharedLinks ShareLink[]
+  sharedLinks ShareLink?
 }
 
 model File {
@@ -63,7 +63,7 @@ model ShareLink {
   createdAt   DateTime  @default(now())
   revoked     Boolean   @default(false)
   folder      Folder    @relation(fields: [folderId], references: [id], onDelete: Cascade)
-  folderId    Int
+  folderId    Int       @unique
   linkAccess  LinkAccess[]
 
   @@index([token])

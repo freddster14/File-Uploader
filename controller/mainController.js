@@ -25,9 +25,22 @@ exports.home = async (req, res, next) => {
         parentId: null,
       },
       include: {
-        subfolders: true,
+        subfolders: {
+          include: {
+            sharedLinks: {
+              include: {
+                linkAccess: true,
+              }
+            },
+            author: {
+              select: {
+                email: true,
+              },
+            },
+          }
+        },
         files: true,
-      },
+      }
     });
     const breadcrumbs = await breadcrumbing(root.id);
     res.render('home', {

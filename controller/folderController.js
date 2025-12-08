@@ -9,7 +9,20 @@ exports.getFolder = async (req, res, next) => {
         id: parseInt(id, 10),
       },
       include: {
-        subfolders: true,
+        subfolders: {
+          include: {
+            sharedLinks: {
+              include: {
+                linkAccess: true,
+              }
+            },
+            author: {
+              select: {
+                email: true,
+              },
+            },
+          }
+        },
         files: true,
       }
     });
@@ -25,7 +38,6 @@ exports.getFolder = async (req, res, next) => {
 exports.createSubfolder = async (req, res, next) => {
   const { name } = req.body;
   const parentId = parseInt(req.params.id, 10);
-  console.log(name)
   try {
     await prisma.folder.create({
       data: {

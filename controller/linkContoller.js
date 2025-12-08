@@ -167,41 +167,48 @@ exports.delete = async (req,res,next) => {
 
 
 exports.sharedWithMe = async (req, res, next) => {
-  const accessibleLinks = await prisma.linkAccess.findMany({
-    where: {
-      userId: req.user.id,
-      shareLink: {
-        revoked: false,
-        expiresAt: {
-          gt: new Date(),
-        }
+  try {
+    console.log(req.user.id)
+    const accessibleLinks = await prisma.linkAccess.findMany({
+      where: {
+        userId: req.user.id,
+        shareLink: {
+          revoked: false,
+          expiresAt: {
+            gt: new Date(),
+          }
+        },
       },
-    },
-    include: {
-      shareLink: {
-        include: {
-          folder: {
-            select: {
-              author: {
-                select: {
-                  email:true
-                }
-              },
-              name: true,
-            }
-          },
-        }
-      },
-    }
-  })
-  console.log(accessibleLinks)
-  const flattenLinks = accessibleLinks.map(link => ({
-    ...link.shareLink.folder,
-    id: link.shareLink.folder.id,
-    createdAt: link.shareLink.createdAt,
-    token: link.shareLink.token,
-    firstAccessedAt:  link.firstAccessedAt,
-    expiresAt: link.shareLink.expiresAt,
-  }))
-  res.render('sharedFolder', { title: 'Shared with me', content: flattenLinks, token: flattenLinks[0].token })
+      include: {
+        shareLink: {
+          include: {
+            folder: {
+              select: {
+                author: {
+                  select: {
+                    email: true
+                  }
+                },
+                name: true,
+              }
+            },
+          }
+        },
+      }
+    })
+    console.log(accessibleLinks)
+    const flattenLinks = accessibleLinks.map(link => ({
+      ...link.shareLink.folder,
+      id: link.shareLink.folder.id,
+      createdAt: link.shareLink.createdAt,
+      token: link.shareLink.token,
+      firstAccessedAt: link.firstAccessedAt,
+      expiresAt: link.shareLink.expiresAt,
+    }))
+    res.render('sharedFolder', { title: 'Shared with me', content: flattenLinks, token: flattenLinks[0].token })
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+ 
 }

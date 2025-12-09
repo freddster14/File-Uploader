@@ -77,17 +77,18 @@
               </div>
             <% } else { %>
               <div class="card">
-              <% 
-                const isSharedPage = title === 'Shared with me';
-                const isActive = !e.revoked && new Date(e.expiresAt) > new Date();
-                const isGrey = isSharedPage && !isActive;
-                let folderHref = null;
-              
-                if (isSharedPage && isActive) {
-                folderHref = `/share/${e.token}/?folderId=${e.id}`;
-                } else if (!isSharedPage) {
-                folderHref = `/share/${token}/?folderId=${e.id}`;
-                }
+                
+                <% 
+                  const isSharedPage = title === 'Shared with me';
+                  const isActive = !e.revoked && new Date(e.expiresAt) > new Date();
+                  const isGrey = isSharedPage && !isActive;
+                  let folderHref = null;
+                
+                  if (isSharedPage && isActive) {
+                  folderHref = `/share/${e.token}/?folderId=${e.id}`;
+                  } else if (!isSharedPage) {
+                  folderHref = `/share/${token}/?folderId=${e.id}`;
+                  };
                 %>
 
                 <a class="card-folder <%= isGrey ? 'grey-out' : '' %>"
@@ -95,17 +96,25 @@
 `               >
                   <img src="/img/folder-svgrepo-com.svg" alt="folder">
                   <% if (!isActive && isSharedPage) { %>
-                    <p style="margin: 0; color: white; margin-top: -11px;">not active</p>
+                    <p style="margin: 0; color: white; position: absolute; top: 69%; transform: translateY(-50%);">not active</p>
                   <% } %>
                 </a>
+                <dialog class="controls" id="folder<%= e.id %>">
+                  <form method="post" action="/remove/<%=  e.linkId %>">
+                    <button class="control-btn border-bottom">Remove</button>
+                  </form>
+                
+                  <button class="control-btn" onclick="showSideInfo(<%= JSON.stringify(e) %>)">Info</button>
+                </dialog>
                 <div class="card-header">
-                  <a class="name <%= isGrey ? 'disabled' : '' %>" 
+                  <a class="name truncate <%= isGrey ? 'disabled' : '' %>" 
                   <% if (folderHref) { %> href="<%= folderHref %>" <% } %>
                   >
                     <%= e.name %>
                   </a>
                   <% if (isSharedPage) { %>
-                    <img class="info" src="/img/info-circle-svgrepo-com.svg" onclick="showSideInfo(<%= JSON.stringify(e) %>)" alt="info">
+                    
+                    <img class="dots" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
                   <% } %>
                 </div>
               </div>

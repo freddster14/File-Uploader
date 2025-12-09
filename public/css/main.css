@@ -95,8 +95,14 @@ body {
 }
 
 .button-second:hover {
-  background: #f0f7ff;}
+  background: #f0f7ff;
+}
 
+.truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 a {
   color: var(--main-color);

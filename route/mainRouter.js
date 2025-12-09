@@ -34,6 +34,7 @@ main.post('/share/:id', requireAuth, linkController.generateLink);
 main.post('/activate/:id', requireAuth, linkController.activate)
 main.post('/extend/:id', requireAuth, linkController.extend);
 main.post('/revoke/:id', requireAuth, linkController.revoke);
-main.post('/delete/:id', requireAuth, linkController.delete)
+main.post('/delete/:id', requireAuth, linkController.delete);
+main.post('/remove/:id', requireAuth, linkController.remove);
 
 module.exports = main;

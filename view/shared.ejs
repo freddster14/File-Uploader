@@ -41,7 +41,7 @@
         <% if (link.expiresAt > new Date()) { %>
           <p style="color: inherit;">Expires <%= dayjs(link.expiresAt).fromNow() %></p>
           <div>
-            <input type="text" id="shareUrl" value="<%= link.sharedUrl %>" readonly>
+            <input class="truncate" type="text" id="shareUrl" value="<%= link.sharedUrl %>" readonly>
             <% if (link.revoked) { %>
               <form method="post" action="/activate/<%= link.id %>">
                 <button class="button">Activate</button>

@@ -38,13 +38,8 @@ main {
 
 .card a {
   font-size: 1.5rem;
-  color: inherit;
-}
 
-.card a:focus, .card a:hover {
-  text-decoration: none;
 }
-
 .card p { margin: 0; }
 
 .expired p { color: #b3261e; }

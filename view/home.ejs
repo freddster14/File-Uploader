@@ -22,7 +22,7 @@
       <% if (locals.breadcrumbs) { %>
         <div class="breadcrumbs">
           <% for(let i=breadcrumbs.length - 1; i> -1; i--) { %>
-            <a href="<%=  breadcrumbs[i].link %>">
+            <a class="truncate" href="<%=  breadcrumbs[i].link %>">
               <%= breadcrumbs[i].name %>
             </a>
             <% if(i !== 0) { %>
@@ -41,7 +41,7 @@
                 <img src="<%= e.url %>" alt="<%= e.name %>">
                 <div class="header">
                   <img class="icon" src="/img/file-zipper-svgrepo-com.svg" alt="file">
-                  <h2><%= e.name %></h2>
+                  <h2 style="max-width: 360px;" class="truncate"><%= e.name %></h2>
                 </div>
                 <div>
                   <h3>Size</h3>
@@ -75,19 +75,19 @@
                   <img onclick="toggleModal('<%= e.cloudinaryId %>')" src="<%= e.url %>" alt="<%= e.name %>">
                 </div>
                 <div class="card-header">
-                  <p tabindex="0" class="name" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></p>
+                  <p tabindex="0" class="name truncate" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></p>
                   <img class="dots" tabindex="0" id="file<%= e.id %>" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
                 </div>
               </div>
             <% } else { %>
+              <dialog class="dialog-form" id="edit<%= e.id %>">
+                <form action="/edit/folder/<%= e.id %>" method="post">
+                  <label for="name">Name</label>
+                  <input id="name" type="text" name="name" value="<%= e.name %>">
+                  <button class="button" type="submit" onclick="this.style.display = 'none'">Update</button>
+                </form>
+              </dialog>
               <div tabindex="0" class="card" style="cursor: pointer;">
-                <dialog class="dialog-form" id="edit<%= e.id %>">
-                  <form action="/edit/folder/<%= e.id %>" method="post">
-                    <label for="name">Name</label>
-                    <input id="name" type="text" name="name" value="<%= e.name %>">
-                    <button class="button" type="submit" onclick="this.style.display = 'none'">Update</button>
-                  </form>
-                </dialog>
                 <dialog class="controls" id="folder<%= e.id %>">
                   <form action="/share/<%= e.id %>" method="post">
                     <button class="border-bottom control-btn" type="submit">Share</button>

@@ -1,4 +1,3 @@
-const { title } = require('process');
 const prisma = require('../prisma/client');
 const breadcrumbing = require('../utils/breadCrumbs');
 const crypto = require('crypto')
@@ -197,6 +196,7 @@ exports.sharedWithMe = async (req, res, next) => {
       ...link.shareLink.folder,
       revoked: link.shareLink.revoked,
       id: link.shareLink.folderId,
+      linkId: link.shareLink.id,
       createdAt: link.shareLink.createdAt,
       token: link.shareLink.token,
       firstAccessedAt: link.firstAccessedAt,
@@ -207,5 +207,22 @@ exports.sharedWithMe = async (req, res, next) => {
     console.error(error)
     next(error)
   }
- 
+};
+
+exports.remove = async (req,res,next) => {
+  const { id } = req.params;
+  try {
+    await prisma.linkAccess.delete({
+      where: {
+        shareLinkId_userId: {
+          shareLinkId: parseInt(id),
+          userId: req.user.id,
+        },
+      },
+    });
+    res.redirect('/shared-with-me');
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
 }

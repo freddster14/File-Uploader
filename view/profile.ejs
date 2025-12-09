@@ -17,9 +17,8 @@
       <div class="content">
         <div>
           <p><%= user.name %></p>
-          <p><%= user.email %></p>
+          <p><%= user.email %></p><p>Account created: <%= user.createdAt.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) %></p>
         </div>
-        <p>Account created: <%= user.createdAt.toLocaleDateString()%></p>
         <div class="divider"></div>
         <h2>Stats</h2>
         <div class="stats">

@@ -3,7 +3,9 @@
   flex-direction: column;
   gap: 0;
   height: auto;
+  padding-top: .5rem;
 }
+
 
 .body h2 {
   font-size: 1.75rem;

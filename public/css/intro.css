@@ -201,7 +201,6 @@ main {
   display: none;
 }
 
-/* CTA Section */
 .cta-section {
   background: linear-gradient(135deg, #4285f4 0%, var(--main-color) 100%);
   border-radius: .5rem;
@@ -237,7 +236,6 @@ main {
   transform: translateY(-2px);
 }
 
-/* Footer */
 .intro-footer {
   background: #1a1a1a;
   text-align: center;
@@ -248,7 +246,6 @@ main {
   color: white;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .hero {
     grid-template-columns: 1fr;

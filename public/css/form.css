@@ -86,3 +86,34 @@ p img {
 .generated a:hover {
   text-decoration: none;
 }
+
+@media (max-width: 1000px) {
+
+  main {
+    width: clamp(250px, 70vw, 1000px);
+    gap: .8rem;
+  }
+
+  .content {
+    flex-direction: column;
+  }
+
+
+  header img {
+    width: 30px;
+  }
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+  .content-header {
+    width: 100%;
+  }
+
+  form {
+    width: 100%;
+  }
+}

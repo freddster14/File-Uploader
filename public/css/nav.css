@@ -6,15 +6,22 @@
   align-items: center;
 }
 
-.top-nav div {
-  display: flex;
-  gap: 1.2rem;
-}
-
-h1 {
+.logo-title, .button-nav {
   display: flex;
   align-items: center;
   gap: .4rem;
+}
+
+.top-nav .sidebar-nav {
+  width: 20px;
+  display: none;
+}
+
+.top-nav .new {
+  display: none;
+}
+
+h1 {
   margin: 0;
 }
 
@@ -29,7 +36,7 @@ h1 img:hover {
   animation-name: spin;
 }
 
-.top-nav a {
+.profile-logout {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,6 +102,7 @@ h1 img:hover {
   color: inherit;
   display: flex;
   padding: .7rem;
+  align-items: center;
   border-radius: .5rem;
   gap: .75rem;
   transition: all .1s ease-in-out;
@@ -107,4 +115,102 @@ h1 img:hover {
 
 .sidebar-links img {
   width: 20px;
+}
+
+@media (max-width: 1000px) {
+
+  h1 {
+    display: none;
+  }
+  
+  .logo-title {
+    display: none;
+  }
+
+  .sidebar .new {
+    display: none;
+  }
+
+  .profile-logout {
+    display: none;
+  }
+
+  .sidebar {
+    font-size: .9rem;
+    width: 60vw;
+    max-width: none;
+    background-color: white;
+    min-height: 100vh;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    padding: .9rem;
+    transform: translateX(-100%);
+    transition: transform .2s;
+  }
+
+  .active::after {
+    content: "";
+    position: absolute;
+    width: 34vw;
+    left: 100%;
+    background-color: rgba(0, 0, 0, 0.301);
+    height: 100vh;
+    top: 0;
+    padding: 1rem;
+  }
+
+  .active {
+    display: flex;
+    transform: translateX(0);
+  }
+ 
+
+  .top-nav .sidebar-nav {
+    display: block;
+  }
+
+  .sidebar-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: -5px;
+    width: 100%;
+  }
+
+  .sidebar-nav-header button {
+    background-color: transparent;
+    font-size: 2.3rem;
+    border: none;
+  }
+
+  .sidebar-nav-header a {
+    display: flex;
+    margin-top: 4px;
+    align-items: flex-end;
+    flex-direction: column;
+  }
+
+  .sidebar-nav-header img {
+    width: 35px;
+  }
+
+
+
+  .top-nav .new {
+    display: flex;
+    padding: .3rem .8rem .3rem .3rem;
+    gap: .3rem;
+  }
+  .new img {
+    width: 20px;
+  }
+
+  .sidebar-links img {
+    width: 24px;
+  }
+  .button-second {
+    margin-left: .7rem;
+  }
 }

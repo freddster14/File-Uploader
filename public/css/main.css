@@ -187,3 +187,20 @@ input:hover {
 
 
 /* max screeen width 1000px */
+
+@media (max-width: 1000px) {
+  body {
+    font-size: .75rem;
+  }
+
+  .breadcrumbs a {
+    font-size: 1.5rem;
+    padding: .4rem .7rem;
+  }
+
+  input {
+    font-size: .8rem;
+    padding: .4rem;
+    padding-left: .3rem;
+  }
+}

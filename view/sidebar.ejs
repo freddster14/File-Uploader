@@ -1,6 +1,6 @@
 <nav class="sidebar">
   <% if ( locals.folder && locals.currentUser && folder.authorId===currentUser.id) { %>
-    <div>
+    <div class="new">
       <dialog id="folder">
         <form action="/create-folder/<%= folder.id %>" method="post">
           <label for="name">Name</label>
@@ -27,7 +27,20 @@
         New
       </button>
     </div>
+    
   <% } %>
+  <div class="sidebar-nav-header">
+    <button onclick="toggleSidebar(false)">&times;</button>
+    <% if(locals.currentUser) { %>
+      <a href="/profile">
+        <img src="/img/circled-user-svgrepo-com.svg" alt="user">
+        <p class="truncate"><%= currentUser.email %></p>
+      </a>
+    <% } else { %>
+      <h1>Nuivo</h1>
+    <% } %>
+   
+  </div>
   <div class="sidebar-links">
     <a href="/home">
       <img src="/img/home-alt-svgrepo-com.svg">
@@ -46,4 +59,7 @@
       Shared
     </a>
   </div>
+    <% if (locals.currentUser) { %>
+      <a   class="button-second" href="/log-out">Log Out</a>
+    <% } %> 
 </nav>

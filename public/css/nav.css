@@ -40,6 +40,12 @@ h1 img:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: .5rem;
+}
+
+.profile-logout a {
+  display: flex;
+  align-items: center;
 }
 
 .top-nav img {
@@ -83,6 +89,10 @@ h1 img:hover {
   transition: all .2s;
 }
 
+#new {
+  padding: 0;
+}
+
 .new:hover {
   box-shadow: 0px 4px 12px var(--shadow-hover-color);
 }
@@ -117,9 +127,17 @@ h1 img:hover {
   width: 20px;
 }
 
+.sidebar-nav-header {
+  display: none;
+}
+
+.log-out-side {
+  display: none;
+}
+
 @media (max-width: 1000px) {
 
-  h1 {
+  .top-nav h1 {
     display: none;
   }
   
@@ -165,7 +183,6 @@ h1 img:hover {
     display: flex;
     transform: translateX(0);
   }
- 
 
   .top-nav .sidebar-nav {
     display: block;
@@ -196,15 +213,14 @@ h1 img:hover {
     width: 35px;
   }
 
-
-
   .top-nav .new {
     display: flex;
-    padding: .3rem .8rem .3rem .3rem;
+    padding: .55rem 1.2rem .55rem .4em;
     gap: .3rem;
+    border-radius: .5rem;
   }
   .new img {
-    width: 20px;
+    width: 16px;
   }
 
   .sidebar-links img {
@@ -212,5 +228,9 @@ h1 img:hover {
   }
   .button-second {
     margin-left: .7rem;
+  }
+
+  .log-out-side {
+    display: block;
   }
 }

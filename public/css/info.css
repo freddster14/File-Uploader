@@ -95,3 +95,13 @@ main .with-sidebar {
 .side-info p, .side-info h4 {
   margin: 0;
 }
+
+@media (max-width: 1000px) {
+  main .with-sidebar {
+    grid-column: 1/2;
+  }
+
+  .side-info {
+    grid-column: 2;
+  }
+}

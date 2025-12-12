@@ -179,3 +179,19 @@ main {
 .dots:focus {
   background-color: var(--shadow-hover-color);
 }
+
+@media (max-width: 1000px) {
+
+  main {
+    padding-left: 1rem;
+    grid-template-columns: 1fr 250px;
+  }
+
+  .body {
+    grid-column: 1/-1;
+  }
+
+  .content {
+    
+  }
+}

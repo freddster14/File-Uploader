@@ -13,34 +13,36 @@
         </a>
         <a class="button-second" href="/log-out">Log Out</a>
       </div>
-      <div class="new">
-      <dialog id="folder">
-        <form action="/create-folder/<%= folder.id %>" method="post">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" placeholder="New Folder">
-          <button class="button" type="submit" onclick="this.style.display = 'none'">Create</button>
-        </form>
-      </dialog>
-      <dialog id="file">
-        <form action="/upload/<%= folder.id || -1 %>" method="post" enctype="multipart/form-data">
-          <label for="fileUpload">Select File</label>
-          <p>img, pdf, or txt file</p>
-          <p>up to 5MB</p>
-          <img style="width: 75px;" id="preview" src="" alt="">
-          <input type="file" accept="image/*, .pdf, .txt" id="uploadFile" onchange="previewImg(this)" name="uploadFile">
-          <button class="button" type="submit" onclick="this.style.display = 'none'">Upload File</button>
-        </form>
-      </dialog>
-      <dialog id="new">
-        <button onclick="toggleModal('folder')">Create Folder</button>
-        <button onclick="toggleModal('file')">Add File</button>
-      </dialog>
-      <button class="new" id="new" onclick="toggleModal('new')">
-        <img src="/img/plus-large-svgrepo-com.svg">
-        New
-      </button>
-      </div>
-      <% } else { %>
+      <% if ( locals.folder && locals.currentUser && folder.authorId===currentUser.id) { %>
+        <div class="new">
+          <dialog id="folder">
+            <form action="/create-folder/<%= folder.id %>" method="post">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="New Folder">
+              <button class="button" type="submit" onclick="this.style.display = 'none'">Create</button>
+            </form>
+          </dialog>
+          <dialog id="file">
+            <form action="/upload/<%= folder.id || -1 %>" method="post" enctype="multipart/form-data">
+              <label for="fileUpload">Select File</label>
+              <p>img, pdf, or txt file</p>
+              <p>up to 5MB</p>
+              <img style="width: 75px;" id="preview" src="" alt="">
+              <input type="file" accept="image/*, .pdf, .txt" id="uploadFile" onchange="previewImg(this)" name="uploadFile">
+              <button class="button" type="submit" onclick="this.style.display = 'none'">Upload File</button>
+            </form>
+          </dialog>
+          <dialog id="new">
+            <button onclick="toggleModal('folder')">Create Folder</button>
+            <button onclick="toggleModal('file')">Add File</button>
+          </dialog>
+          <button class="new" id="new" onclick="toggleModal('new')">
+            <img src="/img/plus-large-svgrepo-com.svg">
+            New
+          </button>
+        </div>
+      <% } %>
+    <% } else { %>
         <a class="button" href="/sign-up">Sign Up</a>
         <a class="button-second" href="/login">Login</a>
     <% } %>

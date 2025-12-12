@@ -73,3 +73,11 @@ form { width: auto; }
   top: 55%;
   translate: -50% -50%;
 }
+
+@media (max-width: 1000px) {
+  main {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+    margin-right: 0;
+  }
+}

@@ -13,54 +13,57 @@
   <main class="shared">
     <%- include('sidebar')%>
     <div class="body">
+      <h1><%= title %></h1>
      <% if (sharedLinks.length > 0) { %>
-      <% sharedLinks.forEach(link => { %>
-      <div class="<%= link.expiresAt > new Date() && link.revoked === false ? 'active' : 'expired' %> card">
-        <div class="header">
-          <a href="/folder/<%= link.folder.id %>"><%= link.folder.name %></a>
-          <dialog class="controls" id="link<%= link.id %>">
-            <form method="post" action="/extend/<%= link.id %>">
-              <button class="control-btn border-bottom"><%= link.expiresAt > new Date() ? 'Extend' : 'Renew' %></button>
-            </form>      
-            <% if (!link.revoked) { %>
-              <form method="post" action="/revoke/<%= link.id %>">
-                <button class="control-btn border-bottom">Revoke</button>
+      <div class="content">
+        <% sharedLinks.forEach(link => { %>
+        <div class="<%= link.expiresAt > new Date() && link.revoked === false ? 'active-border' : 'expired' %> card">
+          <div class="header">
+            <a href="/folder/<%= link.folder.id %>"><%= link.folder.name %></a>
+            <dialog class="controls" id="link<%= link.id %>">
+              <form method="post" action="/extend/<%= link.id %>">
+                <button class="control-btn border-bottom"><%= link.expiresAt > new Date() ? 'Extend' : 'Renew' %></button>
               </form>
-            <%} else { %>
-              <form method="post" action="/activate/<%= link.id %>">
-                <button class="control-btn border-bottom">Activate</button>
+              <% if (!link.revoked) { %>
+                <form method="post" action="/revoke/<%= link.id %>">
+                  <button class="control-btn border-bottom">Revoke</button>
+                </form>
+              <%} else { %>
+                <form method="post" action="/activate/<%= link.id %>">
+                  <button class="control-btn border-bottom">Activate</button>
+                </form>
+              <% } %>
+              <form method="post" action="/delete/<%= link.id %>">
+                <button class="control-btn">Delete</button>
               </form>
-            <% } %>
-            <form method="post" action="/delete/<%= link.id %>">
-              <button class="control-btn">Delete</button>
-            </form>
-          </dialog>
-          <img class="dots" tabindex="0" onclick="toggleModal('link<%= link.id %>')"  src="/img/three-dots-svgrepo-com.svg" alt="action button">
+            </dialog>
+            <img class="dots" tabindex="0" onclick="toggleModal('link<%= link.id %>')"  src="/img/three-dots-svgrepo-com.svg" alt="action button">
+          </div>
+          <p>Status: <%= link.expiresAt < new Date() || link.revoked !== false ? 'not active' : 'active' %></p>
+          <% if (link.expiresAt > new Date()) { %>
+            <p style="color: inherit;">Expires <%= dayjs(link.expiresAt).fromNow() %></p>
+            <div>
+              <input class="truncate" type="text" id="shareUrl" value="<%= link.sharedUrl %>" readonly>
+              <% if (link.revoked) { %>
+                <form method="post" action="/activate/<%= link.id %>">
+                  <button class="button">Activate</button>
+                </form>
+              <%} else { %>
+                <img tabindex="0" src="/img/link-svgrepo-com.svg" id="copyBtn">
+              <% } %>
+            </div>
+          <% } else { %>
+            <p style="color: #b3261e;">Expired</p>
+            <div>
+              <input type="text" value="Revoke to generate link ->" readonly>
+              <form method="post" action="/extend/<%= link.id %>">
+                <button style="width: fit-content;" class="button">Renew</button>
+              </form>
+            </div>
+          <% } %>
         </div>
-        <p>Status: <%= link.expiresAt < new Date() || link.revoked !== false ? 'not active' : 'active' %></p>
-        <% if (link.expiresAt > new Date()) { %>
-          <p style="color: inherit;">Expires <%= dayjs(link.expiresAt).fromNow() %></p>
-          <div>
-            <input class="truncate" type="text" id="shareUrl" value="<%= link.sharedUrl %>" readonly>
-            <% if (link.revoked) { %>
-              <form method="post" action="/activate/<%= link.id %>">
-                <button class="button">Activate</button>
-              </form>
-            <%} else { %>
-              <img tabindex="0" src="/img/link-svgrepo-com.svg" id="copyBtn">
-            <% } %>
-          </div>
-        <% } else { %>
-          <p style="color: #b3261e;">Expired</p>
-          <div>
-            <input type="text" value="Revoke to generate link ->" readonly>
-            <form method="post" action="/extend/<%= link.id %>">
-              <button style="width: fit-content;" class="button">Renew</button>
-            </form>
-          </div>
-        <% } %>
+        <% }) %>
       </div>
-      <% }) %>
     <%} else { %>
       <div class="empty-state">
         <h2>No shared links yet</h2>

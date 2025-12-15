@@ -37,7 +37,7 @@ exports.shared = async (req, res, next) => {
   sharedLinks.forEach(link => {
     link.sharedUrl = `${req.protocol}://${req.get('host')}/share/${link.token}`
   })
-  res.render('shared', { sharedLinks })
+  res.render('shared', { title: 'Shared', sharedLinks })
 }
 
 exports.shareLink = async (req, res, next) => {
@@ -98,7 +98,7 @@ exports.shareLink = async (req, res, next) => {
     }
     const breadcrumbs = await breadcrumbing(id, { token, limitId: rootFolder.parentId });
     res.render('sharedFolder', {
-      title: 'Shared',
+      title: 'Shared with me',
       folder: current,
       content: [...current.subfolders, ...current.files],
       breadcrumbs,

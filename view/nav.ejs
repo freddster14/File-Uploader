@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="/css/nav.css">
 <nav class="top-nav">
   <div class="logo-title">
+    <img onclick="toggleSidebar(true)" class="sidebar-nav" src="/img/nav-icon-a-svgrepo-com.svg" alt="nav">
     <img src="/img/icons8-google-drive.svg">
     <h1>Nuivo</h1>
   </div>
-  <img onclick="toggleSidebar(true)" class="sidebar-nav" src="/img/nav-icon-a-svgrepo-com.svg" alt="nav">
   <div class="button-nav">
     <% if (locals.currentUser) { %>
       <div class="profile-logout">

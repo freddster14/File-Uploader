@@ -8,11 +8,24 @@ main {
 
 .body {
   box-shadow: 0px 0px 5px 3px var(--shadow-color);
-  padding: 2rem;
   border-radius: 1rem;
+  overflow: hidden;
+  height: calc(100vh - 150px);
+}
+
+.body h1 {
+  padding: 1.6rem 2rem;
+  padding-bottom: 0;
+}
+
+.content {
   display: flex;
+  padding: 1.6rem 1.8rem 1.6em 2rem;
   flex-direction: column;
   gap: 1.5rem;
+  height: 85%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .card {
@@ -24,7 +37,7 @@ main {
   gap: .5rem;
 }
 
-.active {
+.active-border {
   border-left: 3px solid var(--main-color);
 }
 
@@ -77,11 +90,15 @@ form { width: auto; }
 @media (max-width: 1000px) {
   main {
     grid-template-columns: 1fr;
-    padding: 0 1rem;
+    padding: .5rem 1rem;
     margin-right: 0;
   }
 
-  .body {
-    padding: 1rem;
+  .body h1 {
+    padding: 1rem 1.6rem;
+    padding-bottom: 0;
+  }
+  .content {
+    padding: .8rem;
   }
 }

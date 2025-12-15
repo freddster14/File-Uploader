@@ -105,3 +105,16 @@ main .with-sidebar {
     grid-column: 2;
   }
 }
+
+@media (max-width: 600px) {
+
+  .side-info {
+    position: fixed;
+    margin-top: .5rem;
+    height: 80%;
+    background-color: white;
+    left: calc(100% - 120px);
+    top: 50%;
+    translate: -50% -50%;
+  }
+}

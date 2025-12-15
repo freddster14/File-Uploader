@@ -183,15 +183,34 @@ main {
 @media (max-width: 1000px) {
 
   main {
-    padding-left: 1rem;
-    grid-template-columns: 1fr 250px;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    grid-template-columns: 1fr;
   }
 
   .body {
     grid-column: 1/-1;
   }
 
+  .body h1 {
+    padding: 1rem 1.6rem;
+    padding-bottom: 0;
+  }
+
   .content {
-    
+    gap: .7rem;
+    padding: .8rem;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  }
+
+  .card {
+    padding: .5rem;
+  }
+
+  .content-info {
+    left: 0;
+  }
+  .card-img, .card-folder {
+    margin-bottom: .3rem;
   }
 }

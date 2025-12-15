@@ -181,6 +181,7 @@ h1 img:hover {
 
   .active {
     display: flex;
+    border-left: none;
     transform: translateX(0);
   }
 

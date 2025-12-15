@@ -193,6 +193,15 @@ input:hover {
     font-size: .75rem;
   }
 
+
+
+  .breadcrumbs {
+    padding: 1rem 1.6rem;
+    padding-bottom: 0;
+    padding-right: 0;
+    gap: .15rem;
+  }
+
   .breadcrumbs a {
     font-size: 1.5rem;
     padding: .4rem .7rem;
@@ -202,5 +211,9 @@ input:hover {
     font-size: .8rem;
     padding: .4rem;
     padding-left: .3rem;
+  }
+
+  .empty-state {
+    left: 50%;
   }
 }

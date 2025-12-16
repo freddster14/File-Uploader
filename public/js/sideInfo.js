@@ -14,7 +14,7 @@ function showSideInfo(content) {
   // user's folders
   if ('sharedLinks' in content) {
     const notActive = document.querySelector('.not-active');
-    const active = document.querySelector('.active');
+    const active = document.querySelector('.active-info');
     notActive.style.display = 'none';
     active.style.display = 'none';
     name.textContent = content.name;

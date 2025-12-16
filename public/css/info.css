@@ -49,11 +49,11 @@ main .with-sidebar {
 }
 
 .shared .not-active,
-.shared .active {
+.shared .active-info {
   display: none;
 }
 
-.shared .active {
+.shared .active-info {
   margin: 0;
   gap: 0;
 }
@@ -111,10 +111,24 @@ main .with-sidebar {
   .side-info {
     position: fixed;
     margin-top: .5rem;
-    height: 80%;
+    height: auto;
+    box-shadow: 0px 0px 5px 3px var(--shadow-hover-color);
     background-color: white;
-    left: calc(100% - 120px);
-    top: 50%;
-    translate: -50% -50%;
+    width: 91vw;
+    left: 50%;
+    bottom: 0;
+    margin-bottom: 10px;
+    translate: -50%;
+    gap: .5rem;
   }
+
+  .header h2 {
+    font-size: 1.5rem;
+  }
+
+  .side-info h3 {
+    margin-top: 0;
+    font-size: 1rem;
+  }
+  
 }

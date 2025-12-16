@@ -1,6 +1,7 @@
 .body .content {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   gap: 0;
   height: auto;
   padding-top: .5rem;
@@ -18,6 +19,9 @@
 
 .stats {
   display: grid;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: .4rem;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
@@ -55,4 +59,31 @@ dialog {
   z-index: 1;
   border-radius: .5rem;
   box-shadow: 0px 0px 10px 7px rgba(0, 0, 0, 0.479);
+}
+
+@media (max-width: 1000px) {
+  .body .content {
+    padding: .5rem 1.6rem;
+    height: 86%;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: .7rem;
+    height: 100%;
+  }
+
+  .stats .card {
+    padding: .6rem;
+  }
+
+  .number, .card a {
+    margin: .3rem;
+    font-size: 1rem;
+  }
+
+  .card button {
+    font-size: .7rem;
+    height: 17px;
+  }
 }

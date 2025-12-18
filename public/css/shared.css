@@ -6,6 +6,10 @@ main {
   height: calc(100vh - 115px);
 }
 
+dialog {
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.479);
+}
+
 .body {
   box-shadow: 0px 0px 5px 3px var(--shadow-color);
   border-radius: 1rem;
@@ -83,7 +87,7 @@ form { width: auto; }
 
 .controls {
   left: 95%;
-  top: 55%;
+  top: 100%;
   translate: -50% -50%;
 }
 
@@ -99,6 +103,6 @@ form { width: auto; }
     padding-bottom: 0;
   }
   .content {
-    padding: .8rem;
+    padding: .9rem;
   }
 }

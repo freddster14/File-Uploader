@@ -14,7 +14,7 @@
         <a class="button-second" href="/log-out">Log Out</a>
       </div>
       <% if ( locals.folder && locals.currentUser && folder.authorId===currentUser.id) { %>
-        <div class="new">
+        <div class="new-nav">
           <dialog id="folder">
             <form action="/create-folder/<%= folder.id %>" method="post">
               <label for="name">Name</label>
@@ -32,11 +32,11 @@
               <button class="button" type="submit" onclick="this.style.display = 'none'">Upload File</button>
             </form>
           </dialog>
-          <dialog id="new">
-            <button onclick="toggleModal('folder')">Create Folder</button>
-            <button onclick="toggleModal('file')">Add File</button>
+          <dialog id="new-nav">
+            <button class="control-btn border-bottom" onclick="toggleModal('folder')">Create Folder</button>
+            <button class="control-btn" onclick="toggleModal('file')">Add File</button>
           </dialog>
-          <button class="new" id="new" onclick="toggleModal('new')">
+          <button class="new" id="new-nav" onclick="toggleModal('new-nav')">
             <img src="/img/plus-large-svgrepo-com.svg">
             New
           </button>

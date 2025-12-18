@@ -1,10 +1,13 @@
 
 dialog {
   border: none;
-  z-index: 1;
+  z-index: 10000;
+  position: fixed;
+  inset: 0;
   border-radius: .5rem;
   box-shadow: 0px 0px 10px 7px rgba(0, 0, 0, 0.479);
   color: inherit;
+  margin: 0;
 }
 
 dialog img {
@@ -12,7 +15,7 @@ dialog img {
   border-radius: .3rem;
 }
 
-.controls, dialog#new {
+.controls, dialog#new, dialog#new-nav {
   position: absolute;
   padding: .2rem;
   left: calc(100% - 83px);
@@ -23,7 +26,7 @@ dialog img {
 .controls form,
 .controls button,
 dialog#new button,
-dialog form {
+dialog form, #new-nav  button{
   width: 100%;
 }
 
@@ -36,14 +39,17 @@ dialog#new button {
 }
 
 .controls button:hover,
-.controls button:focus,
-#new>button:hover, #new>button:focus {
+#new>button:hover, #new-nav button:hover {
   background-color: var(--hover-color);
 }
 
+.controls button:focus,  #new>button:focus, #new-nav button:focus{
+  outline: 1px solid rgba(0, 0, 0, 0.562);
+}
 
-.border-bottom {
+.border-bottom, dialog#new  .border-bottom {
   border-bottom: 1px solid var(--hover-color);
+  margin-bottom: 2px;
 }
 
 .dialog-form {
@@ -81,11 +87,22 @@ dialog#file input {
   margin-top: .5rem;
 }
 
+dialog#new-nav {
+  top: 10%;
+  translate: -100% 40%;
+  margin: 0;
+  width: max-content;
+}
+
 @media (max-width: 1000px) {
 
   dialog img {
     max-width: 400px;
     width: 85vw;
-
   }
+
+  
+  
+
+
 }

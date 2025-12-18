@@ -1,6 +1,6 @@
 let currentlyOpening = null;
 
-function toggleModal(id, event) {
+function toggleModal(id) {
   const dialog = document.getElementById(id);
   if(dialog.open) {
     dialog.close();
@@ -28,4 +28,16 @@ function previewImg(e) {
 
   const preview = document.getElementById("preview");
   preview.src = URL.createObjectURL(file);
+}
+
+function openControls(e, id, px = 0) {
+  const dialog = document.getElementById(id);
+  const rect = e.getBoundingClientRect();
+
+  dialog.style.top = `${rect.bottom - (px + 75)}px`;
+  dialog.style.left = `${rect.right - dialog.offsetWidth - 75}px`;
+
+  dialog.show();
+  currentlyOpening = dialog;
+
 }

@@ -72,7 +72,7 @@
                 </div>
                 <div class="card-header">
                   <p id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></p>
-                  <img class="dots" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('file<%= e.id %>')" style="width: 25px; height: 25px;">
+                  <img class="dots" src="/img/three-dots-svgrepo-com.svg" onclick="openControls(this, 'file<%= e.id %>')" style="width: 25px; height: 25px;">
                 </div>
               </div>
             <% } else { %>
@@ -114,7 +114,7 @@
                   </a>
                   <% if (isSharedPage) { %>
                     
-                    <img class="dots" src="/img/three-dots-svgrepo-com.svg" onclick="toggleModal('folder<%= e.id %>')" style="width: 25px; height: 25px;">
+                    <img class="dots" src="/img/three-dots-svgrepo-com.svg" onclick="openControls(this, 'folder<%= e.id %>')" style="width: 25px; height: 25px;">
                   <% } %>
                 </div>
               </div>

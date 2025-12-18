@@ -4,16 +4,24 @@
   overflow: hidden;
   gap: 0;
   height: auto;
-  padding-top: .5rem;
+  padding: .5rem 0;
+}
+
+.content div {
+  padding: 0 2.3em;
 }
 
 
 .body h2 {
   font-size: 1.75rem;
+  padding-left: 2rem;
+  margin-bottom: 0;
 }
 
 .divider {
   margin-top: 21px;
+  width: 68vw;
+  align-self: center;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
@@ -21,7 +29,7 @@
   display: grid;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: .4rem;
+  padding: .5rem;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
@@ -32,6 +40,11 @@
   position: relative;
   align-items: flex-start;
   aspect-ratio: auto;
+}
+
+.content .stats {
+  padding: 2rem;
+  padding-top: 1.5rem;
 }
 
 .card p, .card a {
@@ -63,8 +76,12 @@ dialog {
 
 @media (max-width: 1000px) {
   .body .content {
-    padding: .5rem 1.6rem;
     height: 86%;
+  }
+
+  .content .stats {
+    padding: 1.2rem;
+    padding-right: .7rem;
   }
 
   .stats {
@@ -75,6 +92,9 @@ dialog {
 
   .stats .card {
     padding: .6rem;
+  }
+  .divider {
+    width: 78%;
   }
 
   .number, .card a {

@@ -193,7 +193,10 @@ input:hover {
     font-size: .75rem;
   }
 
-
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
 
   .breadcrumbs {
     padding: 1rem 1.6rem;

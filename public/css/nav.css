@@ -91,10 +91,6 @@ h1 img:hover {
   transition: all .2s;
 }
 
-#new {
-  padding: 0;
-}
-
 .new:hover {
   box-shadow: 0px 4px 12px var(--shadow-hover-color);
 }
@@ -142,8 +138,6 @@ h1 img:hover {
   .top-nav img {
     width: 24px;
   }
-  
-  
 
   .sidebar .new {
     display: none;

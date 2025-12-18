@@ -1,6 +1,6 @@
 <nav class="sidebar">
   <% if ( locals.folder && locals.currentUser && folder.authorId===currentUser.id) { %>
-    <div class="new">
+    <div class="new-container">
       <dialog id="folder">
         <form action="/create-folder/<%= folder.id %>" method="post">
           <label for="name">Name</label>
@@ -19,7 +19,7 @@
         </form>
       </dialog>
       <dialog id="new">
-        <button  onclick="toggleModal('folder')">Create Folder</button>
+        <button class="border-bottom"  onclick="toggleModal('folder')">Create Folder</button>
         <button onclick="toggleModal('file')">Add File</button>
       </dialog>
       <button class="new" id="new" onclick="toggleModal('new')">

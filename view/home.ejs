@@ -38,10 +38,15 @@
           <% content.forEach(e => { %>
             <% if (e.mimeType) { %>
               <dialog class="content-info img-info" id="<%= e.cloudinaryId %>">
+                <% if(e.mimeType === 'application/pdf') { %>
+                <iframe src="<%= e.url %>" class="pdf-view">
+                </iframe>
+                <% } else { %>
                 <img src="<%= e.url %>" alt="<%= e.name %>">
+                <% } %>
                 <div class="header">
                   <img class="icon" src="/img/file-zipper-svgrepo-com.svg" alt="file">
-                  <h2 style="max-width: 360px;" class="truncate"><%= e.name %></h2>
+                  <h2 class="truncate"><%= e.name %></h2>
                 </div>
                 <div>
                   <h3>Size</h3>
@@ -71,8 +76,13 @@
                   </form>
                   <button class="control-btn" onclick="toggleModal('edit<%= e.id %>')">Edit</button>
                 </dialog>
-                <div tabindex="0"  class="card-img">
-                  <img onclick="toggleModal('<%= e.cloudinaryId %>')" src="<%= e.url %>" alt="<%= e.name %>">
+                <div tabindex="0" style="overflow: hidden;"  class="card-img">
+                  <% if(e.mimeType === 'application/pdf') { %>
+                    <iframe class="preview" src="<%= e.url %>" onclick="toggleModal('<%= e.cloudinaryId %>')" width="100%" height="100%">
+                    </iframe>
+                  <% } else { %>
+                    <img src="<%= e.url %>" onclick="toggleModal('<%= e.cloudinaryId %>')" alt="<%= e.name %>">
+                  <% } %>                
                 </div>
                 <div class="card-header">
                   <p tabindex="0" class="name truncate" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></p>

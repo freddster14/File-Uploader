@@ -40,7 +40,12 @@
           <% content.forEach(e => { %>
             <% if (e.mimeType) { %>
               <dialog class="content-info img-info" id="<%= e.cloudinaryId %>">
-                <img src="<%= e.url %>" alt="<%= e.name %>">
+                <% if(e.mimeType==='application/pdf' ) { %>
+                  <iframe src="<%= e.url %>" class="pdf-view">
+                  </iframe>
+                <% } else { %>
+                  <img src="<%= e.url %>" alt="<%= e.name %>">
+                <% } %>
                 <div class="header">
                   <img class="icon" src="/img/file-zipper-svgrepo-com.svg" alt="file">
                   <h2>
@@ -67,8 +72,12 @@
                   </form>
                 </dialog>
                 <div class="card-img">
-                  <img src="<%= e.url %>" alt="<%= e.name %>"
-                    onclick="toggleModal('<%= e.cloudinaryId %>')">
+                  <% if(e.mimeType==='application/pdf' ) { %>
+                    <iframe class="preview" src="<%= e.url %>" onclick="toggleModal('<%= e.cloudinaryId %>')" width="100%" height="100%">
+                    </iframe>
+                  <% } else { %>
+                    <img src="<%= e.url %>" onclick="toggleModal('<%= e.cloudinaryId %>')" alt="<%= e.name %>">
+                  <% } %>
                 </div>
                 <div class="card-header">
                   <p id="<%= e.cloudinaryId %>" onclick="toggleModal('<%= e.cloudinaryId %>')"><%= e.name %></p>

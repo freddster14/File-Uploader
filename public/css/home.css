@@ -89,6 +89,11 @@ main {
   cursor: pointer;
 }
 
+.pdf-view {
+  width: 70vw;
+  height: 50vh;
+}
+
 .card-header {
   display: flex;
   gap: 1rem;
@@ -98,8 +103,6 @@ main {
   align-items: center;
   padding-left: .4rem;
 }
-
-
 
 .card-header p {
   margin: 0;
@@ -119,8 +122,8 @@ main {
   border: 1px solid black;
   box-shadow: none;
   top: 45%;
-  left: calc(50% - 150px);
-  translate: 0% -50%;
+  left: 50%;
+  translate: -50% -50%;
   box-shadow: 0px 0px 10px 7px rgba(0, 0, 0, 0.479);
 }
 
@@ -128,6 +131,10 @@ main {
   flex-direction: row;
   padding: 1rem 0;
   margin: 0;
+}
+
+.content-info h2 {
+  max-width: 360px;
 }
 
 .content-info div {
@@ -160,6 +167,8 @@ main {
 .content-info h2, .content-info h3, .content-info h4, .content-info p{
   margin: 0;
 }
+
+
 
 .name {
   color: inherit;
@@ -212,7 +221,17 @@ main {
     left: 50%;
     translate: -50% -50%;
   }
+
+  .content-info h2 {
+    max-width: 300px;
+  }
+
   .card-img, .card-folder {
     margin-bottom: .3rem;
+  }
+
+  .pdf-view {
+    width: 85vw;
+    height: 40vh;
   }
 }

@@ -35,11 +35,13 @@ exports.upload = [
     if (!folder || folder.authorId !== req.user.id) return res.status(403).send('Not authorized');
     // upload to cloudinary
     const fileName = req.file.originalname.replace(/\.[^/.]+$/, '');
+    let resourceType = 'raw';
+    if(req.file.mimetype.startsWith('image/')) resourceType = 'image';
     const result = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: `user_${req.user.id}/folder_${folder.id}`,
-          resource_type: 'auto',
+          resource_type: resourceType,
           public_id: `${Date.now()}_${fileName}`
         },
         (error, result) => {

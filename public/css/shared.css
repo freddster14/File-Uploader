@@ -1,9 +1,10 @@
 main {
   display: grid;
   column-gap: 1rem;
-  margin-right: 1vw;
   grid-template-columns: 200px 1fr;
   height: calc(100vh - 115px);
+  padding-right: 1rem;
+  padding-top: .5rem;
 }
 
 dialog {

@@ -40,8 +40,15 @@
             <p>Active links</p>
           </div>
           <div class="card">
-            <a href="/folder/<%= recentShared.folderId %>"><%= recentShared.folder.name %></a>
+            <% if(recentShared) { %>
+              <a href="/folder/<%= recentShared.folderId %>">
+                <%= recentShared.folder.name %>
+              </a>
+            <% } else { %>
+              <a   rel="noopener noreferrer">No</a>
+            <% } %>
             <p>Recent folder shared </p>
+
           </div>
           <div class="card">
             <p class="number"><%= storageTaken %></p>

@@ -185,9 +185,6 @@ input:hover {
   height: 14px;
 }
 
-
-/* max screeen width 1000px */
-
 @media (max-width: 1000px) {
   body {
     font-size: .75rem;

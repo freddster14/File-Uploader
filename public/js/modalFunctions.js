@@ -41,3 +41,17 @@ function openControls(e, id, px = 0) {
   currentlyOpening = dialog;
 
 }
+
+function previewText(id, url) {
+  const dialog = document.getElementById(id);
+  console.log(dialog.childNodes)
+  fetch(url)
+    .then(res => res.text())
+    .then(text => {
+      dialog.childNodes[1].textContent = text;
+      dialog.show();
+    })
+    .catch(err => {
+      dialog.childNodes[1].textContent = 'Error loading file';
+    })
+}
